@@ -18,7 +18,7 @@ public class Walls extends JPanel {
     
     ArrayList<Coordinates> coordinatesArray = new ArrayList<>();
     Coordinates firstCoordinate = new Coordinates(0,528,448,16);
-    static double sizeOfPacman=10;
+    static double sizeOfPacman=14;
     static double sizeOfWalls=16;
     
 
@@ -133,7 +133,8 @@ public class Walls extends JPanel {
         
         coordinatesArray.add(new Coordinates(160,240,16,64)); //Ghost home
         coordinatesArray.add(new Coordinates(160,304,16,16));//Ghost home
-        coordinatesArray.add(new Coordinates(176,240,32,16));//Ghost home
+        coordinatesArray.add(new Coordinates(176,240,16,16));//Ghost home
+        coordinatesArray.add(new Coordinates(192,240,16,16));//Ghost home
         coordinatesArray.add(new Coordinates(240,240,32,16));//Ghost home
         coordinatesArray.add(new Coordinates(272,240,16,64));//Ghost home
         coordinatesArray.add(new Coordinates(272,304,16,16));//Ghost home
