@@ -15,7 +15,8 @@ import java.awt.geom.*;
 public class Pacman extends JPanel implements ActionListener, KeyListener{
     
     Timer t = new Timer(10, this);
-    double x=160,y=400,velx=0,vely=0;
+    double x=219,y=419,velx=0,vely=0,preVelX=0,preVelY=0;
+    double sizeOfPacman=10;
     int code;
     Walls walls = new Walls();
     
@@ -34,26 +35,97 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
     }
     
     public void actionPerformed(ActionEvent e){
-        if(walls.isOccupiedByWallMovingLeft(x,y)&&code==KeyEvent.VK_LEFT){
+     
+        //Left checkers
+        if(walls.isOccupiedByWallMovingLeft(x,y)&&!walls.isOccupiedByWallMovingUp(x,y)&&preVelY==-1&&code==KeyEvent.VK_LEFT){
+                vely=-1;
+                velx=0;
+            }
+        
+        else if(walls.isOccupiedByWallMovingLeft(x,y)&&!walls.isOccupiedByWallMovingDown(x,y)&&preVelY==1&&code==KeyEvent.VK_LEFT){
+            vely=1;
+            velx=0;
+        }
+        
+        else if(walls.isOccupiedByWallMovingLeft(x,y)){
             velx=0;
             x=x+1;
         }
         
-        if(walls.isOccupiedByWallMovingRight(x,y)&&code==KeyEvent.VK_RIGHT){
+        else if(!walls.isOccupiedByWallMovingLeft(x,y)&&code==KeyEvent.VK_LEFT){
+            velx=-1;
+            vely=0;
+        }
+        
+        
+        //Right checkers
+        if(walls.isOccupiedByWallMovingRight(x,y)&&!walls.isOccupiedByWallMovingUp(x,y)&&preVelY==-1&&code==KeyEvent.VK_RIGHT){
+            vely=-1;
+            velx=0;
+        }
+        
+        else if(walls.isOccupiedByWallMovingRight(x,y)&&!walls.isOccupiedByWallMovingDown(x,y)&&preVelY==1&&code==KeyEvent.VK_RIGHT){
+            vely=1;
+            velx=0;
+        }
+        
+        else if(walls.isOccupiedByWallMovingRight(x,y)){
             velx=0;
             x=x-1;
         }
         
-        if(walls.isOccupiedByWallMovingUp(x,y)&&code==KeyEvent.VK_UP){
+        else if(!walls.isOccupiedByWallMovingRight(x,y)&&code==KeyEvent.VK_RIGHT){
+            velx=1;
+            vely=0;
+        }
+        
+        
+        
+        //Up checkers
+        if(walls.isOccupiedByWallMovingUp(x,y)&&!walls.isOccupiedByWallMovingLeft(x,y)&&preVelX==-1&&code==KeyEvent.VK_UP){
+            vely=0;
+            velx=-1;
+        }
+        
+        else if(walls.isOccupiedByWallMovingUp(x,y)&&!walls.isOccupiedByWallMovingRight(x,y)&&preVelX==1&&code==KeyEvent.VK_UP){
+            vely=0;
+            velx=1;
+        }
+        
+        else if(walls.isOccupiedByWallMovingUp(x,y)){
             vely=0;
             y=y+1;
         }
         
-        if(walls.isOccupiedByWallMovingDown(x,y)&&code==KeyEvent.VK_DOWN){
+        else if(!walls.isOccupiedByWallMovingUp(x,y)&&code==KeyEvent.VK_UP){
+            vely=-1;
+            velx=0;
+        }
+        
+        
+        //Down checkers
+        if(walls.isOccupiedByWallMovingDown(x,y)&&!walls.isOccupiedByWallMovingLeft(x,y)&&preVelX==-1&&code==KeyEvent.VK_DOWN){
+            vely=0;
+            velx=-1;
+        }
+        
+        else if(walls.isOccupiedByWallMovingDown(x,y)&&!walls.isOccupiedByWallMovingRight(x,y)&&preVelX==1&&code==KeyEvent.VK_DOWN){
+            vely=0;
+            velx=1;
+        }
+        
+        else if(walls.isOccupiedByWallMovingDown(x,y)){
             vely=0;
             y=y-1;
         }
         
+        else if(!walls.isOccupiedByWallMovingDown(x,y)&&code==KeyEvent.VK_DOWN){
+            vely=1;
+            velx=0;
+        }
+        
+         
+         
         if(x==-10){
             x=447;
         }
@@ -90,6 +162,8 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
     
     public void keyPressed(KeyEvent e){
         code = e.getKeyCode();
+        preVelX=velx;
+        preVelY=vely;
         if(code==KeyEvent.VK_UP){
             up();
         }
@@ -110,9 +184,10 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
     
     
     public void keyTyped(KeyEvent e){}
-    public void keyReleased(KeyEvent e){
+    public void keyReleased(KeyEvent e){}
     
-    
+    public double getSizeOfPacman(){
+        return sizeOfPacman;
     }
     
 }
