@@ -15,11 +15,12 @@ import java.awt.geom.*;
 public class Pacman extends JPanel implements ActionListener, KeyListener{
     
     Timer t = new Timer(10, this);
+    MazeDimensions mazeDimensions = new MazeDimensions();
     double x=219,y=417,velx=0,vely=0,preVelX=0,preVelY=0;
-    double sizeOfPacman=14;
+    double sizeOfPacman=mazeDimensions.getSizeOfPacman();
     int code, prevCode;
     int keyStrokeRemember=0;
-    Walls walls = new Walls();
+    WallCollisionChecker walls = new WallCollisionChecker();
     
     public Pacman(){
         t.start();
