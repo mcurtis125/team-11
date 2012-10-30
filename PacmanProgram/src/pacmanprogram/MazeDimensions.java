@@ -10,7 +10,7 @@ package pacmanprogram;
  */
 public class MazeDimensions {
     
-    double sizeOfPacman=14;
+    double sizeOfPacman=15;
     double sizeOfWalls=16;
     
     public MazeDimensions(){

@@ -23,14 +23,15 @@ import javax.swing.Timer;
 public class Ghosts extends JPanel implements ActionListener{
     
     Timer t = new Timer(10, this);
+    MazeDimensions mazeDimensions = new MazeDimensions();
     java.util.Timer everySecond = new java.util.Timer();
     double blinkyXPosition=96,blinkyYPosition=512,pinkyXPosition=0, pinkyYPosition=0, inkyXposition=0, inkyYPosition=0,
             clydeXPosition=0,clydeYPosition=0;
-    double blinkyVelX=1,blinkyVelY=0,pinkyVelX=0,pinkyVelY=1,inkyVelX=-1,inkyVelY=0,clydeVelX=1,clydeVelY=0;
-    double blinkyPreVelX=1,blinkyPreVelY=0;
-    double sizeOfCharacters=14;
+    double blinkyVelX=0,blinkyVelY=0,pinkyVelX=0,pinkyVelY=0,inkyVelX=0,inkyVelY=0,clydeVelX=0,clydeVelY=0;
+    double blinkyPreVelX=0,blinkyPreVelY=0;
+    double sizeOfCharacters=mazeDimensions.getSizeOfPacman();
     
-    int code=1, doRandNum=1;
+    int code=1, doRandNum=1, hitWall;
     int keyStrokeRemember=0;
     WallCollisionChecker walls = new WallCollisionChecker();
     Random randNum = new Random();
@@ -54,6 +55,7 @@ public class Ghosts extends JPanel implements ActionListener{
     }
         
     public void actionPerformed(ActionEvent e){
+        
         
         
         if(keyStrokeRemember==1){
@@ -194,14 +196,14 @@ public class Ghosts extends JPanel implements ActionListener{
         
         
        
-        
-       
-        
-        
         blinkyPreVelX=blinkyVelX;
         blinkyPreVelY=blinkyVelY;
         blinkyXPosition+=blinkyVelX;
         blinkyYPosition+=blinkyVelY;
+       
+        
+        
+       
         
         if(doRandNum==1){
             if(code==200){
@@ -209,9 +211,7 @@ public class Ghosts extends JPanel implements ActionListener{
             }
             else if(code<200){
             code++;
-            }
-           
-            
+            }    
         }
         
          if(code<50&&code>=1){

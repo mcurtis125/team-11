@@ -16,10 +16,11 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
     
     Timer t = new Timer(10, this);
     MazeDimensions mazeDimensions = new MazeDimensions();
-    double x=219,y=417,velx=0,vely=0,preVelX=0,preVelY=0;
+    double x=219,y=417,velx=0,vely=0,preVelX=0,preVelY=0, prePreVelX=0, prePreVelY=0;
     double sizeOfPacman=mazeDimensions.getSizeOfPacman();
-    int code, prevCode;
+    int code;
     int keyStrokeRemember=0;
+    boolean tightSpace=false;
     WallCollisionChecker walls = new WallCollisionChecker();
     
     public Pacman(){
@@ -168,66 +169,111 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
         
         
          
-         
+        x+=velx;
+        y+=vely;
         
         
         repaint();
-        x+=velx;
-        y+=vely;
+       
     }
     
-    public void up(){
-        vely=-1;
+    public void up(int scaler){
+        vely=-1*scaler;
         velx=0;
     }
     
-    public void down(){
-        vely=1;
+    public void down(int scaler){
+        vely=1*scaler;
         velx=0;
     }
     
-    public void left(){
+    public void left(int scaler){
         vely=0;
-        velx=-1;
+        velx=-1*scaler;
     }
     
-    public void right(){
+    public void right(int scaler){
         vely=0;
-        velx=1;
+        velx=1*scaler;
     }
     
     
     public void keyPressed(KeyEvent e){
-        prevCode=code;
         code = e.getKeyCode();
         
         if(code==KeyEvent.VK_UP){
-            if(walls.isOccupiedByWallMovingUp(x,y)||walls.isOccupiedByWallMovingUp(x,y-1)){
+            if(walls.isOccupiedByWallMovingDown(x,y)||walls.isOccupiedByWallMovingDown(x,y+1)){
                 preVelX=velx;
+                keyStrokeRemember=0;
+                tightSpace=true;
             }
-            up(); 
+            
+            else if(walls.isOccupiedByWallMovingUp(x,y)||walls.isOccupiedByWallMovingUp(x,y-1)){
+               if(tightSpace==true){
+                    tightSpace=false;
+                }
+                else{
+                preVelX=velx;
+                }
+            } 
+            up(1); 
             
         }
             
         if(code==KeyEvent.VK_DOWN){
-            if(walls.isOccupiedByWallMovingDown(x,y)||walls.isOccupiedByWallMovingDown(x,y+1)){
+            if(walls.isOccupiedByWallMovingUp(x,y)||walls.isOccupiedByWallMovingUp(x,y-1)){
                 preVelX=velx;
+                keyStrokeRemember=0;
+                tightSpace=true;
+            }
+            
+            else if(walls.isOccupiedByWallMovingDown(x,y)||walls.isOccupiedByWallMovingDown(x,y+1)){
+                if(tightSpace==true){
+                    tightSpace=false;
+                }
+                else{
+                preVelX=velx;
+                }
             } 
-            down();
+            down(1);
         }
             
         if(code==KeyEvent.VK_LEFT){
-            if(walls.isOccupiedByWallMovingLeft(x,y)||walls.isOccupiedByWallMovingLeft(x-1,y)){
-                preVelY=vely;
-            }  
-            left();
-        }
-        
-        if(code==KeyEvent.VK_RIGHT){
+            
             if(walls.isOccupiedByWallMovingRight(x,y)||walls.isOccupiedByWallMovingRight(x+1,y)){
                 preVelY=vely;
+                keyStrokeRemember=0;
+                tightSpace=true;
             }
-            right();
+            
+            else if(walls.isOccupiedByWallMovingLeft(x,y)||walls.isOccupiedByWallMovingLeft(x-1,y)){
+                if(tightSpace==true){
+                    tightSpace=false;
+                }
+                else{
+                preVelY=vely;
+                }
+            }  
+            left(1);
+        }
+        
+        
+        if(code==KeyEvent.VK_RIGHT){
+            if(walls.isOccupiedByWallMovingLeft(x,y)||walls.isOccupiedByWallMovingLeft(x-1,y)){
+               preVelY=vely;
+               keyStrokeRemember=0;
+               tightSpace=true; 
+            }
+            
+            else if(walls.isOccupiedByWallMovingRight(x,y)||walls.isOccupiedByWallMovingRight(x+1,y)){
+                if(tightSpace==true){
+                    tightSpace=false;
+                }
+                else{
+                preVelY=vely;
+                }
+            } 
+            right(1);
         }
         
     }
