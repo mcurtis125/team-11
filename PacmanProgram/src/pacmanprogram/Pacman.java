@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.util.HashMap;
 
 /**
  *
@@ -19,9 +20,11 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
     double x=219,y=417,velx=0,vely=0,preVelX=0,preVelY=0, prePreVelX=0, prePreVelY=0;
     double sizeOfPacman=mazeDimensions.getSizeOfPacman();
     int code;
-    int keyStrokeRemember=0;
+    double keyStrokeRemember=0;
     boolean tightSpace=false;
     WallCollisionChecker walls = new WallCollisionChecker();
+    ValidVelocityChecker velChecker = new ValidVelocityChecker();
+    HashMap<ValidVelocityChecker.typeVel,Double> validVelocityMap = new HashMap<>();
     
     public Pacman(){
         t.start();
@@ -38,137 +41,18 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
     }
     
     public void actionPerformed(ActionEvent e){
-     
-        if(x==-10){
-            vely=0;
-            x=447;
-        }
+    
+        validVelocityMap=velChecker.velocityCheck(x, y, velx, vely, preVelX, preVelY, keyStrokeRemember, code);
         
-        if(x==448){
-            vely=0;
-            x=-9;
-        }
-        
-        //Left checkers
-        if(keyStrokeRemember==1){
-            if(!walls.isOccupiedByWallMovingLeft(x,y)&&code==KeyEvent.VK_LEFT){
-            velx=-1;
-            vely=0;
-            preVelX=0;
-            preVelY=0;
-            keyStrokeRemember=0;
-            }
-            
-            else if(!walls.isOccupiedByWallMovingRight(x,y)&&code==KeyEvent.VK_RIGHT){
-            velx=1;
-            vely=0;
-            preVelX=0;
-            preVelY=0;
-            keyStrokeRemember=0;
-            }
-            
-            else if(!walls.isOccupiedByWallMovingUp(x,y)&&code==KeyEvent.VK_UP){
-            vely=-1;
-            velx=0;
-            preVelX=0;
-            preVelY=0;
-            keyStrokeRemember=0;
-            }
-            
-            else if(!walls.isOccupiedByWallMovingDown(x,y)&&code==KeyEvent.VK_DOWN){
-            vely=1;
-            velx=0;
-            preVelX=0;
-            preVelY=0;
-            keyStrokeRemember=0;
-            }  
-            
-        }
-        if(walls.isOccupiedByWallMovingLeft(x,y)&&!walls.isOccupiedByWallMovingUp(x,y)&&
-                                preVelY==-1&&code==KeyEvent.VK_LEFT){
-                vely=-1;
-                velx=0;
-                keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingLeft(x,y)&&!walls.isOccupiedByWallMovingDown(x,y)&&
-                                preVelY==1&&code==KeyEvent.VK_LEFT){
-                vely=1;
-                velx=0;
-                keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingLeft(x,y)){
-            velx=0;
-            x=x+1;
-        }
+        keyStrokeRemember=validVelocityMap.get(ValidVelocityChecker.typeVel.keyStrokeRemember);
+        preVelX=validVelocityMap.get(ValidVelocityChecker.typeVel.preVelX);
+        preVelY=validVelocityMap.get(ValidVelocityChecker.typeVel.preVelY);
+        velx=validVelocityMap.get(ValidVelocityChecker.typeVel.xVelocity);
+        vely=validVelocityMap.get(ValidVelocityChecker.typeVel.yVelocity);
+        x=validVelocityMap.get(ValidVelocityChecker.typeVel.xCoordinate);
+        y=validVelocityMap.get(ValidVelocityChecker.typeVel.yCoordinate);
         
         
-        
-        
-        //Right checkers
-        if(walls.isOccupiedByWallMovingRight(x,y)&&!walls.isOccupiedByWallMovingUp(x,y)&&preVelY==-1&&code==KeyEvent.VK_RIGHT){
-            vely=-1;
-            velx=0;
-            keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingRight(x,y)&&!walls.isOccupiedByWallMovingDown(x,y)&&preVelY==1&&code==KeyEvent.VK_RIGHT){
-            vely=1;
-            velx=0;
-            keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingRight(x,y)){
-            velx=0;
-            x=x-1;
-        }
-        
-        
-        
-        
-        
-        //Up checkers
-        if(walls.isOccupiedByWallMovingUp(x,y)&&!walls.isOccupiedByWallMovingLeft(x,y)&&preVelX==-1&&code==KeyEvent.VK_UP){
-            vely=0;
-            velx=-1;
-            keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingUp(x,y)&&!walls.isOccupiedByWallMovingRight(x,y)&&preVelX==1&&code==KeyEvent.VK_UP){
-            vely=0;
-            velx=1;
-            keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingUp(x,y)){
-            vely=0;
-            y=y+1;
-        }
-        
-        
-        
-        
-        //Down checkers
-        if(walls.isOccupiedByWallMovingDown(x,y)&&!walls.isOccupiedByWallMovingLeft(x,y)&&preVelX==-1&&code==KeyEvent.VK_DOWN){
-            vely=0;
-            velx=-1;
-            keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingDown(x,y)&&!walls.isOccupiedByWallMovingRight(x,y)&&preVelX==1&&code==KeyEvent.VK_DOWN){
-            vely=0;
-            velx=1;
-            keyStrokeRemember=1;
-        }
-        
-        else if(walls.isOccupiedByWallMovingDown(x,y)){
-            vely=0;
-            y=y-1;
-        }
-        
-        
-         
         x+=velx;
         y+=vely;
         
@@ -176,6 +60,8 @@ public class Pacman extends JPanel implements ActionListener, KeyListener{
         repaint();
        
     }
+    
+    
     
     public void up(int scaler){
         vely=-1*scaler;
