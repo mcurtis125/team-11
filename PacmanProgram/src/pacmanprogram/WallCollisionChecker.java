@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class WallCollisionChecker {
     
-    ArrayList<Coordinates> coordinatesArray = new ArrayList<>();
+    ArrayList<Coordinates> coordinatesArray = new ArrayList<Coordinates>();
     WallCoordinates wallCoordinates = new WallCoordinates();
     MazeDimensions mazeDimensions = new MazeDimensions();
     double sizeOfPacman, sizeOfWalls;
@@ -20,8 +20,8 @@ public class WallCollisionChecker {
     
     public WallCollisionChecker(){
         coordinatesArray=wallCoordinates.getWallCoordinatesArray();
-        sizeOfPacman=mazeDimensions.getSizeOfPacman();
-        sizeOfWalls=mazeDimensions.getSizeOfWalls();
+        sizeOfPacman=mazeDimensions.sizeOfPacman;
+        sizeOfWalls=mazeDimensions.sizeOfWalls;
     }
     
     

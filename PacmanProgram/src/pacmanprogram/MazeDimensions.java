@@ -10,19 +10,13 @@ package pacmanprogram;
  */
 public class MazeDimensions {
     
-    double sizeOfPacman=15;
-    double sizeOfWalls=16;
+    static final double sizeOfPacman=15;
+    static final double sizeOfWalls=16;
+    static final double MAZE_WIDTH = 448;
+    static final double MAZE_HEIGHT = 576;
     
     public MazeDimensions(){
         
-    }
-    
-    public double getSizeOfPacman(){
-        return sizeOfPacman;
-    }
-    
-    public double getSizeOfWalls(){
-        return sizeOfWalls;
     }
     
 }

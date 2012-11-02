@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class WallCoordinates {
     
-    ArrayList<Coordinates> coordinatesArray = new ArrayList<>();
+    ArrayList<Coordinates> coordinatesArray = new ArrayList<Coordinates>();
     
     
     public WallCoordinates(){

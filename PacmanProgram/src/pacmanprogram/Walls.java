@@ -13,10 +13,11 @@ import java.util.ArrayList;
  *
  * @author Kevin
  */
-public class Walls extends JPanel {
+public class Walls{
     
+
     
-    ArrayList<Coordinates> coordinatesArray = new ArrayList<>();
+    ArrayList<Coordinates> coordinatesArray = new ArrayList<Coordinates>();
     WallCoordinates wallCoordinates = new WallCoordinates();
     
 
@@ -25,8 +26,7 @@ public class Walls extends JPanel {
     }
    
     
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
+    public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLUE);
      

@@ -24,7 +24,7 @@ public class ValidVelocityChecker {
     public HashMap<typeVel,Double> velocityCheck(double xCoordinate, double yCoordinate, double xVelocity, double yVelocity, double preVelX, double preVelY, double keyStrokeRemember, int keyCode){
     
 
-    HashMap<typeVel, Double> validVelocityMap = new HashMap<>();
+    HashMap<typeVel, Double> validVelocityMap = new HashMap<typeVel, Double>();
     
         //Tunnel checkers
         if(xCoordinate==-10){
