@@ -23,9 +23,7 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
     Ghost pinky = new Ghost();
     Ghost inky = new Ghost();
     Ghost clyde = new Ghost();
-    Dots dots = new Dots();
-    Energizers energizers = new Energizers();
-    Level level = new Level(/*pacman, blinky, inky, pinky, clyde, dots, energizers*/);
+    Level level = new Level(pacman, blinky, inky, pinky, clyde);
     
     public Maze(){
         t.start();
@@ -42,15 +40,18 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         pinky.draw(g);
         inky.draw(g);
         clyde.draw(g);
-        dots.draw(g);
-        energizers.draw(g);
         level.drawBonus(g);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        pacman.refresh(ae);
         walls.refresh(ae);
+        pacman.refresh(ae);
+        blinky.refresh(ae);
+        pinky.refresh(ae);
+        inky.refresh(ae);
+        clyde.refresh(ae);
+        level.refresh(ae);
         repaint();
     }
 

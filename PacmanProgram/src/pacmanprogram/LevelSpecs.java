@@ -31,14 +31,14 @@ class LevelSpecs {
     public LevelSpecs(){
         bonusSymbols.add(0,new BonusSymbols(Name.cherry));
         bonusSymbols.add(new BonusSymbols(Name.strawberry));
-        bonusSymbols.add(new BonusSymbols(Name.peach));
-        bonusSymbols.add(new BonusSymbols(Name.peach));
+        bonusSymbols.add(new BonusSymbols(Name.orange));
+        bonusSymbols.add(new BonusSymbols(Name.orange));
         bonusSymbols.add(new BonusSymbols(Name.apple));
         bonusSymbols.add(new BonusSymbols(Name.apple));
-        bonusSymbols.add(new BonusSymbols(Name.grape));
-        bonusSymbols.add(new BonusSymbols(Name.grape));
-        bonusSymbols.add(new BonusSymbols(Name.galaxian));
-        bonusSymbols.add(new BonusSymbols(Name.galaxian));
+        bonusSymbols.add(new BonusSymbols(Name.melon));
+        bonusSymbols.add(new BonusSymbols(Name.melon));
+        bonusSymbols.add(new BonusSymbols(Name.tulip));
+        bonusSymbols.add(new BonusSymbols(Name.tulip));
         bonusSymbols.add(new BonusSymbols(Name.bell));
         bonusSymbols.add(new BonusSymbols(Name.bell));
         bonusSymbols.add(new BonusSymbols(Name.key));

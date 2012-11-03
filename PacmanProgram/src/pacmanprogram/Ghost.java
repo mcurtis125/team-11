@@ -18,72 +18,57 @@ import java.awt.event.KeyEvent;
  */
 public class Ghost {
     
-    PacmanControl pacControl = new PacmanControl();
-    public enum Dir{up, down, left, right}; 
+    GhostControl ghostControl = new GhostControl(this);
+//    public enum Dir{up, down, left, right}; 
     private static final double[] DIMENSIONS = {15,15};
     private static final double MAX_SPEED = 15;
     private double[] position = new double[2];
-    private double[] centerPoint = new double[2];
-//    Tiles currentTile;
-    private Pacman.Dir direction = Pacman.Dir.right;
-    private int lives = 3;
+    Tiles currentTile;
     
     //private Tile currentTile;
     //private Tile targetTile;
    
     private double normSpeed;
-    private double dotSpeed;
+    private double tunnelSpeed;
     private double frightSpeed;
-    private double frightDotSpeed;
     
-    public Ghost(/*Tiles tilesdouble normRatio, double dotRatio, double frightRatio, double frightDotRatio */){
-       /* this.normSpeed = MAX_SPEED*normRatio;
-        this.dotSpeed = MAX_SPEED*dotRatio;
-        this.frightSpeed = MAX_SPEED*frightRatio;
-        this.frightDotSpeed = MAX_SPEED*frightDotRatio;*/
-        pacControl.getPosition(position);
-        centerPoint[0] = position[0]+DIMENSIONS[0]/2;
-        centerPoint[1] = position[1]+DIMENSIONS[1]/2;
-//        currentTile = tiles.getTileOccupied(centerPoint);
+    public Ghost(){
+        
+//        ghostControl.getPosition(position);
     }
     
     public void draw(Graphics g){
        
     }
-    
-   public void setPosition(double[] pos){
-       position[0] = pos[0];
-       position[1] = pos[1];
-   }
-    
-   public void setDirection(String direction){
-       if(direction.equals("up")){
-           this.direction = Pacman.Dir.up;
-       }
-       else if(direction.equals("down")){
-           this.direction = Pacman.Dir.down;
-       }
-       else if(direction.equals("left")){
-           this.direction = Pacman.Dir.left;
-       }
-       else if(direction.equals("right")){
-           this.direction = Pacman.Dir.right;
-       }
-   }
    
-   private void setCenterPoint(){
-       centerPoint[0] = position[0]+DIMENSIONS[0]/2;
-       centerPoint[1] = position[1]+DIMENSIONS[1]/2;
+   public void setSpeeds(double norm, double tunnel, double fright){
+       this.normSpeed = MAX_SPEED*norm;
+       this.tunnelSpeed = MAX_SPEED*tunnel;
+       this.frightSpeed = MAX_SPEED*fright;
    }
-   
-   public void controlPacman(KeyEvent ke){
-       pacControl.control(ke);
-   }
-  
+           
+//   public void setDirection(String direction){
+//       if(direction.equals("up")){
+//           this.direction = Pacman.Dir.up;
+//       }
+//       else if(direction.equals("down")){
+//           this.direction = Pacman.Dir.down;
+//       }
+//       else if(direction.equals("left")){
+//           this.direction = Pacman.Dir.left;
+//       }
+//       else if(direction.equals("right")){
+//           this.direction = Pacman.Dir.right;
+//       }
+//   }
+//   
+//   private void setCenterPoint(){
+//       centerPoint[0] = position[0]+DIMENSIONS[0]/2;
+//       centerPoint[1] = position[1]+DIMENSIONS[1]/2;
+//   }
+//   
    public void refresh(ActionEvent e){ 
-       pacControl.refresh(e);
-       pacControl.getPosition(position);
-       setCenterPoint();
+       ghostControl.refresh(e);
  //      currentTile = tiles.getTileOccupied(centerPoint);
    }
     
