@@ -45,12 +45,12 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         dots.draw(g);
         energizers.draw(g);
         level.drawBonus(g);
-        //walls.draw(g);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         pacman.refresh(ae);
+        walls.refresh(ae);
         repaint();
     }
 

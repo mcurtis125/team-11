@@ -13,12 +13,12 @@ import java.util.Timer;
  * @author stavy92
  */
 class Level {
-    
+    LevelSpecs levelSpecs = new LevelSpecs();
     private int currentLevel = 1;
     private int dotsEaten = 0;
     private int dotsRemaining = 244;
 //    private Timer lastDotTimer = new Timer();
-    private double timerLimit;
+//    private double timerLimit;
     private double pacSpeedRatio;
     private double pacDotSpeedRatio;
     private double pacFrightSpeedRatio;
@@ -49,10 +49,15 @@ class Level {
 //        this.pinky = pinky;
 //        this.dots = dots;
 //        this.energizers = energizers;
-    }
-    
-    public void setSpecifications(){
-        
+        this.pacSpeedRatio = levelSpecs.getPacSpeedRatio(currentLevel);
+        this.pacDotSpeedRatio = levelSpecs.getPacDotSpeedRatio(currentLevel);
+        this.pacFrightSpeedRatio = levelSpecs.getPacFrightSpeedRatio(currentLevel);
+        this.pacFrightDotSpeedRatio = levelSpecs.getPacFrightDotSpeedRatio(currentLevel);
+        this.ghostSpeedRatio = levelSpecs.getGhostSpeedRatio(currentLevel);
+        this.ghostFrightSpeedRatio = levelSpecs.getGhostFrightSpeedRatio(currentLevel);
+        this.ghostTunSpeedRatio = levelSpecs.getGhostTunSpeedRatio(currentLevel);
+        this.frightTime = levelSpecs.getFrightTime(currentLevel);
+        this.flashNumber = levelSpecs.getFlashNumber(currentLevel);    
     }
     
     public void changeLevel(){

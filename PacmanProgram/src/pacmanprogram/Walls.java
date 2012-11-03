@@ -51,4 +51,8 @@ public class Walls{
 
         	}
         }
+    
+        public void refresh(ActionEvent ae){
+            
+        }
     }

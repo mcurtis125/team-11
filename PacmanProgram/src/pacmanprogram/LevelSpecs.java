@@ -86,13 +86,13 @@ class LevelSpecs {
         }
         return ghostTunSpeedRatios[level-1];
     }
-    public double getFrightTime(int level){
+    public int getFrightTime(int level){
         if(level>21){
             return frightTimes[20];
         }
         return frightTimes[level-1];
     }
-    public double getFlashNumber(int level){
+    public int getFlashNumber(int level){
         if(level>21){
             return flashNumbers[20];
         }
