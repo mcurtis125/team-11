@@ -17,9 +17,8 @@ import javax.swing.*;
  */
 public class Maze extends JPanel implements ActionListener, KeyListener {
     Timer t = new Timer(10, this);
-    Tiles tiles = new Tiles();
     Walls walls = new Walls();
-    Pacman pacman = new Pacman(tiles);
+    Pacman pacman = new Pacman();
     Ghost blinky = new Ghost();
     Ghost pinky = new Ghost();
     Ghost inky = new Ghost();
@@ -37,8 +36,7 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        tiles.drawLegalSpace(g);
-        tiles.drawdeadSpace(g);
+        walls.draw(g);
         pacman.draw(g);
         blinky.draw(g);
         pinky.draw(g);

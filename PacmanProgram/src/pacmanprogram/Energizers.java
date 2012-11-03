@@ -13,6 +13,7 @@ import java.awt.Graphics;
 class Energizers {
 
     public void draw(Graphics g) {
+        
     }
     
 }

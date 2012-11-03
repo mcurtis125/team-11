@@ -22,20 +22,17 @@ public class Pacman{
     private static final double MAX_SPEED = 15;
     private double[] position = new double[2];
     private double[] centerPoint = new double[2];
-    Tile currentTile;
-    Tiles tiles;
     private Dir direction = Dir.right;
     private int lives = 3;
     
-    //private Tile currentTile;
-    //private Tile targetTile;
+    //private Tiles currentTile;
    
     private double normSpeed;
     private double dotSpeed;
     private double frightSpeed;
     private double frightDotSpeed;
     
-    public Pacman(Tiles tiles/*double normRatio, double dotRatio, double frightRatio, double frightDotRatio */){
+    public Pacman(/*double normRatio, double dotRatio, double frightRatio, double frightDotRatio */){
        /* this.normSpeed = MAX_SPEED*normRatio;
         this.dotSpeed = MAX_SPEED*dotRatio;
         this.frightSpeed = MAX_SPEED*frightRatio;
@@ -43,7 +40,6 @@ public class Pacman{
         pacControl.getPosition(position);
         centerPoint[0] = position[0]+DIMENSIONS[0]/2;
         centerPoint[1] = position[1]+DIMENSIONS[1]/2;
-        this.tiles = tiles; 
   //      currentTile = tiles.getTileOccupied(centerPoint);
     }
     

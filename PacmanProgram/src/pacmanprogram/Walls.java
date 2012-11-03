@@ -17,7 +17,7 @@ public class Walls{
     
 
     
-    ArrayList<Coordinates> coordinatesArray = new ArrayList<Coordinates>();
+    ArrayList<Tiles> coordinatesArray = new ArrayList<Tiles>();
     WallCoordinates wallCoordinates = new WallCoordinates();
     
 
@@ -28,16 +28,27 @@ public class Walls{
     
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLUE);
+        //g2.setColor(Color.BLUE);
      
         int loopCounter;
         
         for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        	if (coordinatesArray.get(loopCounter).getType()==0){
+        	g2.setColor(Color.BLUE );
             g2.fill(new Rectangle.Double(coordinatesArray.get(loopCounter).getXCoordinate(),
                     coordinatesArray.get(loopCounter).getYCoordinate(),coordinatesArray.get(loopCounter).getWidth(),
-                    coordinatesArray.get(loopCounter).getHeight()));
+                    coordinatesArray.get(loopCounter).getHeight()));}
+        	else if (coordinatesArray.get(loopCounter).getType()==2){
+        		g2.setColor(Color.LIGHT_GRAY );
+        		g2.fill(new Ellipse2D.Double(coordinatesArray.get(loopCounter).getXCoordinate(),
+                        coordinatesArray.get(loopCounter).getYCoordinate(),coordinatesArray.get(loopCounter).getWidth(),
+                        coordinatesArray.get(loopCounter).getHeight()));}
+        	else if (coordinatesArray.get(loopCounter).getType()==3){
+        		g2.setColor(Color.LIGHT_GRAY );
+        		g2.fill(new Ellipse2D.Double(coordinatesArray.get(loopCounter).getXCoordinate(),
+                        coordinatesArray.get(loopCounter).getYCoordinate(),coordinatesArray.get(loopCounter).getWidth(),
+                        coordinatesArray.get(loopCounter).getHeight()));}
+
+        	}
         }
     }
-    
-    
-}

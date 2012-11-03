@@ -24,8 +24,7 @@ public class Ghost {
     private static final double MAX_SPEED = 15;
     private double[] position = new double[2];
     private double[] centerPoint = new double[2];
-    Tile currentTile;
-    Tiles tiles;
+//    Tiles currentTile;
     private Pacman.Dir direction = Pacman.Dir.right;
     private int lives = 3;
     
@@ -45,7 +44,6 @@ public class Ghost {
         pacControl.getPosition(position);
         centerPoint[0] = position[0]+DIMENSIONS[0]/2;
         centerPoint[1] = position[1]+DIMENSIONS[1]/2;
-        this.tiles = tiles; 
 //        currentTile = tiles.getTileOccupied(centerPoint);
     }
     

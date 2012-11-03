@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 public class PacmanControl  {
     
-    private double x=219,y=417,velx=0,vely=0,preVelX=0,preVelY=0, prePreVelX=0, prePreVelY=0;
+    private double x=219,y=433,velx=0,vely=0,preVelX=0,preVelY=0, prePreVelX=0, prePreVelY=0;
     private double sizeOfPacman=MazeDimensions.sizeOfPacman;
     int code;
     double keyStrokeRemember=0;
