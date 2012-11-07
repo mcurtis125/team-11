@@ -21,8 +21,8 @@ public class PacmanControl  {
     double keyStrokeRemember=0;
     boolean tightSpace=false;
     WallCollisionChecker walls = new WallCollisionChecker();
-    ValidVelocityChecker velChecker = new ValidVelocityChecker();
-    HashMap<ValidVelocityChecker.typeVel,Double> validVelocityMap = new HashMap<ValidVelocityChecker.typeVel,Double>();
+    newVelocityChecker velChecker = new newVelocityChecker();
+    HashMap<newVelocityChecker.typeVel,Double> validVelocityMap = new HashMap<newVelocityChecker.typeVel,Double>();
     
     public PacmanControl(){
         
@@ -31,13 +31,13 @@ public class PacmanControl  {
     public void refresh(ActionEvent e){
         validVelocityMap=velChecker.velocityCheck(x, y, velx, vely, preVelX, preVelY, keyStrokeRemember, code);
         
-        keyStrokeRemember=validVelocityMap.get(ValidVelocityChecker.typeVel.keyStrokeRemember);
-        preVelX=validVelocityMap.get(ValidVelocityChecker.typeVel.preVelX);
-        preVelY=validVelocityMap.get(ValidVelocityChecker.typeVel.preVelY);
-        velx=validVelocityMap.get(ValidVelocityChecker.typeVel.xVelocity);
-        vely=validVelocityMap.get(ValidVelocityChecker.typeVel.yVelocity);
-        x=validVelocityMap.get(ValidVelocityChecker.typeVel.xCoordinate);
-        y=validVelocityMap.get(ValidVelocityChecker.typeVel.yCoordinate);
+        keyStrokeRemember=validVelocityMap.get(newVelocityChecker.typeVel.keyStrokeRemember);
+        preVelX=validVelocityMap.get(newVelocityChecker.typeVel.preVelX);
+        preVelY=validVelocityMap.get(newVelocityChecker.typeVel.preVelY);
+        velx=validVelocityMap.get(newVelocityChecker.typeVel.xVelocity);
+        vely=validVelocityMap.get(newVelocityChecker.typeVel.yVelocity);
+        x=validVelocityMap.get(newVelocityChecker.typeVel.xCoordinate);
+        y=validVelocityMap.get(newVelocityChecker.typeVel.yCoordinate);
         
         
         x+=velx;
