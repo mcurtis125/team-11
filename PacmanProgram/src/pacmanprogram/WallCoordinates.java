@@ -61,8 +61,8 @@ public class WallCoordinates {
         		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 			
     		}; 
     		
-    		int a; //27
-    		int b; //21
+    		int a;
+    		int b;
     		for (a=1;a<37;a++){
     	  		for (b=0;b<28;b++){
     	  			if (map0[b+28*(a-1)]==2){
@@ -72,10 +72,8 @@ public class WallCoordinates {
     	  			coordinatesArray.add(new Tiles(16*b,16*a,14,14,map0[b+28*(a-1)]));}
     	  			else
     	  			{coordinatesArray.add(new Tiles(16*b,16*a,16,16,map0[b+28*(a-1)]));}
-    	  		};
-    		};
-        //Bottom, top, and left edges of maze
-         // coordinatesArray.add(0, new Coordinates(0,528,448,16)); //bottom wall
+    	  		}
+    		}
     }
     
     
