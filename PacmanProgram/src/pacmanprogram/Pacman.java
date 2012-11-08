@@ -57,7 +57,8 @@ public class Pacman{
        pacControl.refresh(e);
        pacControl.getPosition(position);
        currentTileIndex = walls.getIndex(position[0], position[1]);
-       walls.changeType(currentTileIndex, 1);
+       walls.changeType(currentTileIndex,2,1);
+       walls.changeType(currentTileIndex,3,1);
        
     }
     

@@ -114,9 +114,13 @@ public class Walls{
         return col+28*row;
     }
     
-    public void changeType(int index, int type){
-        map[index]=type;
-        tiles.get(index).setType(type);
+    public void changeType(int index, int originalType, int type){
+        if(map[index]==originalType){
+            map[index]=type;
+            tiles.get(index).setType(type);
+        }
+
+
     } 
     
     public int[] getMap(){

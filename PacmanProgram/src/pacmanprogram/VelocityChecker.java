@@ -73,14 +73,14 @@ public class VelocityChecker {
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         
         
-        if(xCoordinate==-10){
+        if(xCoordinate==-12){
             validVelocityMap.put(typeVel.yVelocity,0.0);
-            validVelocityMap.put(typeVel.xCoordinate,447.0);
+            validVelocityMap.put(typeVel.xCoordinate,444.0);
         }
         
-        if(xCoordinate==448){
+        if(xCoordinate==444){
             validVelocityMap.put(typeVel.yVelocity,0.0);
-            validVelocityMap.put(typeVel.xCoordinate,-9.0);
+            validVelocityMap.put(typeVel.xCoordinate,-12.0);
         }
         
         return validVelocityMap;
