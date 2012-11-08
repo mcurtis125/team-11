@@ -26,22 +26,22 @@ class LevelSpecs {
     private double[] elroy2DotsLeft = {10,15,20,20,20,25,25,25,30,30,30,40,40,40,50,50,50,50,60,60,60};
     private double[] elroy1SpeedRatios = {0.8,0.9,0.9,0.9,1};
     private double[] elroy2SpeedRatios = {0.85,0.95,0.95,0.95,1.05};
-    ArrayList<BonusSymbols> bonusSymbols = new ArrayList<BonusSymbols>();
+    ArrayList<Name> bonusSymbols = new ArrayList<Name>();
     
     public LevelSpecs(){
-        bonusSymbols.add(0,new BonusSymbols(Name.cherry));
-        bonusSymbols.add(new BonusSymbols(Name.strawberry));
-        bonusSymbols.add(new BonusSymbols(Name.orange));
-        bonusSymbols.add(new BonusSymbols(Name.orange));
-        bonusSymbols.add(new BonusSymbols(Name.apple));
-        bonusSymbols.add(new BonusSymbols(Name.apple));
-        bonusSymbols.add(new BonusSymbols(Name.melon));
-        bonusSymbols.add(new BonusSymbols(Name.melon));
-        bonusSymbols.add(new BonusSymbols(Name.tulip));
-        bonusSymbols.add(new BonusSymbols(Name.tulip));
-        bonusSymbols.add(new BonusSymbols(Name.bell));
-        bonusSymbols.add(new BonusSymbols(Name.bell));
-        bonusSymbols.add(new BonusSymbols(Name.key));
+        bonusSymbols.add(Name.cherry);
+        bonusSymbols.add(Name.strawberry);
+        bonusSymbols.add(Name.orange);
+        bonusSymbols.add(Name.orange);
+        bonusSymbols.add(Name.apple);
+        bonusSymbols.add(Name.apple);
+        bonusSymbols.add(Name.melon);
+        bonusSymbols.add(Name.melon);
+        bonusSymbols.add(Name.tulip);
+        bonusSymbols.add(Name.tulip);
+        bonusSymbols.add(Name.bell);
+        bonusSymbols.add(Name.bell);
+        bonusSymbols.add(Name.key);
     }
     
     public double getPacSpeedRatio(int level){
@@ -128,7 +128,7 @@ class LevelSpecs {
         }
         return elroy2SpeedRatios[level-1];
     }
-    public BonusSymbols getBonusSymbol(int level){
+    public Name getBonusSymbol(int level){
         if(level>13){
             return bonusSymbols.get(12);
         }

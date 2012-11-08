@@ -16,14 +16,14 @@ import javax.swing.*;
  * @author stavy92
  */
 public class Maze extends JPanel implements ActionListener, KeyListener {
-    Timer t = new Timer(10, this);
+    Timer t = new Timer(15, this);
     Walls walls = new Walls();
-    Pacman pacman = new Pacman();
+    Pacman pacman = new Pacman(walls);
     Ghost blinky = new Ghost();
     Ghost pinky = new Ghost();
     Ghost inky = new Ghost();
     Ghost clyde = new Ghost();
-    Level level = new Level(pacman, blinky, inky, pinky, clyde);
+    Level level = new Level(pacman, blinky, inky, pinky, clyde, walls);
     
     public Maze(){
         t.start();
@@ -45,7 +45,6 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        walls.refresh(ae);
         pacman.refresh(ae);
         blinky.refresh(ae);
         pinky.refresh(ae);

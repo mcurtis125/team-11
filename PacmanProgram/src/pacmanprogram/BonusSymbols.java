@@ -7,6 +7,7 @@ package pacmanprogram;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
 import java.awt.geom.Ellipse2D;
 
 /**
@@ -15,16 +16,18 @@ import java.awt.geom.Ellipse2D;
  */
 class BonusSymbols {
 
-    
+    Pacman pacman;
     public enum Name{cherry,strawberry,orange,apple,melon,tulip,bell,key};
     private Name name;
     private int points;
     Color color = Color.BLACK;
     static final double[] APPEAR_TIME_DOTS_EATEN = {70,170};
     private boolean isEaten = false;
+    private boolean wasDrawn = false;
     
     public BonusSymbols(Name name){
         this.name = name;
+        this.pacman = pacman;
         switch (name){
             case cherry:
                 points = 100;
@@ -69,12 +72,15 @@ class BonusSymbols {
         else{
             Graphics2D bonus = (Graphics2D) g;
             bonus.setColor(color);
-            bonus.fill(new Ellipse2D.Double(221,340,8,8));
+            bonus.fill(new Ellipse2D.Double(221,324,8,8));
         }
+        wasDrawn = true;
     }
     
-    public void isEaten(boolean isEaten){
-        this.isEaten = isEaten;
+    public void erase(ActionEvent ae){
+        if(wasDrawn){
+             isEaten = true;
+        }
     }
     
 }

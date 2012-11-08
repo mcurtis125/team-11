@@ -42,4 +42,8 @@ public class Tiles {
         return type;
     }
     
+    public void setType(int type){
+        this.type = type;
+    }
+    
 }

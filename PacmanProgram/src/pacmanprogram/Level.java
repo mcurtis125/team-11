@@ -31,22 +31,25 @@ class Level {
     private int flashNumber;
     
     
-    Pacman pacman = new Pacman();
-    Ghost blinky = new Ghost();
-    Ghost pinky = new Ghost();
-    Ghost inky = new Ghost();
-    Ghost clyde = new Ghost();
-    BonusSymbols bonus1 = levelSpecs.getBonusSymbol(currentLevel);
-    BonusSymbols bonus2 = levelSpecs.getBonusSymbol(currentLevel);
+    Pacman pacman;
+    Ghost blinky;
+    Ghost pinky;
+    Ghost inky;
+    Ghost clyde;
+    Walls walls;
+    BonusSymbols bonus1;
+    BonusSymbols bonus2;
     
     
-    
-    public Level(Pacman pacman, Ghost blinky, Ghost inky, Ghost pinky, Ghost clyde) {
+    public Level(Pacman pacman, Ghost blinky, Ghost inky, Ghost pinky, Ghost clyde, Walls walls) {
         this.pacman = pacman;
         this.blinky = blinky;
         this.inky = inky;
         this.pinky = pinky;
         this.clyde = clyde;
+        this.walls = walls;
+        bonus1 = new BonusSymbols(levelSpecs.getBonusSymbol(currentLevel));
+        bonus2 = new BonusSymbols(levelSpecs.getBonusSymbol(currentLevel));
         updateSpecifications(); 
         assignSpeeds();
     }
@@ -78,12 +81,14 @@ class Level {
     }
     
     public void drawBonus(Graphics g) {
-//        if(dotsEaten>=BonusSymbols.APPEAR_TIME_DOTS_EATEN[0]){
-            bonus1.show(g);
-//        }
-//        else if(dotsEaten>=BonusSymbols.APPEAR_TIME_DOTS_EATEN[1]){
+        if(dotsEaten>=BonusSymbols.APPEAR_TIME_DOTS_EATEN[1]){
             bonus2.show(g);
-//        }
+            //start appear timer
+        }
+        else if(dotsEaten>=BonusSymbols.APPEAR_TIME_DOTS_EATEN[0]){
+            bonus1.show(g);
+            //start appear timer
+        }
     }
     
     private void resetTimer(){
@@ -91,7 +96,20 @@ class Level {
     }
 
     void refresh(ActionEvent ae) {
-        //update dotsEaten and dotsRemaining
+        int[] map = walls.getMap();
+        int dotCounter = 0;
+        int i;
+        for(i=0; i<map.length; i++){
+            if(map[i] > 1){
+                dotCounter++;
+            }
+        }
+        dotsRemaining = dotCounter;
+        dotsEaten = 244-dotsRemaining;
+        if(pacman.getCurrentTileIndex()==573){
+            bonus1.erase(ae);
+            bonus2.erase(ae);
+        }
     }
     
    

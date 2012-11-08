@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class WallCollisionChecker {
     
     ArrayList<Tiles> coordinatesArray = new ArrayList<Tiles>();
-    WallCoordinates wallCoordinates = new WallCoordinates();
+    Walls wallCoordinates = new Walls();
     MazeDimensions mazeDimensions = new MazeDimensions();
     double sizeOfPacman, sizeOfWalls;
     
     
     public WallCollisionChecker(){
-        coordinatesArray=wallCoordinates.getWallCoordinatesArray();
+        coordinatesArray=wallCoordinates.getWallCoords();
         sizeOfPacman=mazeDimensions.sizeOfPacman;
         sizeOfWalls=mazeDimensions.sizeOfWalls;
     }
