@@ -21,6 +21,7 @@ public class Pacman{
 //    public enum Dir{up, down, left, right}; 
     private static final double[] DIMENSIONS = {15,15};
     private static final double MAX_SPEED = 15;
+    public static final double SIZE = 15;
     private double[] position = new double[2];
     private int currentTileIndex;
 //    private Dir direction = Dir.right;

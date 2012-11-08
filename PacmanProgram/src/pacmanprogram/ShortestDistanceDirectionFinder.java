@@ -86,24 +86,24 @@ public class ShortestDistanceDirectionFinder {
     
     public double getUpTile(double ghostYCoordinate){
         
-        return ghostYCoordinate - MazeDimensions.sizeOfPacman;
+        return ghostYCoordinate - Pacman.SIZE;
 
     }
     
     public double getDownTile(double ghostYCoordinate){
         
-        return ghostYCoordinate + MazeDimensions.sizeOfPacman;
+        return ghostYCoordinate + Pacman.SIZE;
         
     }
     
     public double getLeftTile(double ghostXCoordinate){
         
-        return ghostXCoordinate - MazeDimensions.sizeOfPacman;
+        return ghostXCoordinate - Pacman.SIZE;
     }
     
     public double getRightTile(double ghostXCoordinate){
         
-        return ghostXCoordinate + MazeDimensions.sizeOfPacman;
+        return ghostXCoordinate + Pacman.SIZE;
     }
     
     

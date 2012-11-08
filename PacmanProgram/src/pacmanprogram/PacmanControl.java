@@ -15,17 +15,25 @@ import java.util.HashMap;
  */
 public class PacmanControl  {
     
-    private double x=219,y=417,velx=0,vely=0,preVelX=0,preVelY=0, prePreVelX=0, prePreVelY=0;
-    private double sizeOfPacman=MazeDimensions.sizeOfPacman;
+    private double x,y,velx,vely,preVelX,preVelY, prePreVelX, prePreVelY;
+    private static final double sizeOfPacman=Pacman.SIZE;
     int code;
-    double keyStrokeRemember=0;
+    double keyStrokeRemember;
     boolean tightSpace=false;
     WallCollisionChecker walls = new WallCollisionChecker();
     newVelocityChecker velChecker = new newVelocityChecker();
     HashMap<newVelocityChecker.typeVel,Double> validVelocityMap = new HashMap<newVelocityChecker.typeVel,Double>();
     
     public PacmanControl(){
-        
+        x=217;
+        y=417;
+        velx=0;
+        vely=0;
+        preVelX=0;
+        preVelY=0;
+        prePreVelX=0;
+        prePreVelY=0;
+        keyStrokeRemember=0;
     }
     
     public void refresh(ActionEvent e){

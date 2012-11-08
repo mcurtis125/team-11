@@ -5,6 +5,7 @@
 package pacmanprogram;
 
 import java.awt.event.ActionEvent;
+import pacmanprogram.Ghost.Name;
 
 /**
  *
@@ -12,9 +13,31 @@ import java.awt.event.ActionEvent;
  */
 class GhostControl {
     private double x,y;
+    Ghost ghost;
+    Name name;
     
     public GhostControl(Ghost ghost){
-        
+        this.ghost = ghost;
+        this.name = ghost.getName();
+        switch(name){
+            case Blinky:
+                x=217;
+                y=224;
+                break;
+            case Pinky:
+                x=217;
+                y=272;
+                break;
+            case Inky:
+                x=184;
+                y=272;
+                break;
+            case Clyde:
+                x=248;
+                y=272;
+                break;    
+           
+        }
     }
 
     void refresh(ActionEvent e) {
@@ -26,5 +49,15 @@ class GhostControl {
         pos[1] = y;
     }
     
+    public void frightened(){
+        
+    }
     
+    public void scatter(){
+        
+    }
+    
+    public void chase(){
+        
+    }
 }

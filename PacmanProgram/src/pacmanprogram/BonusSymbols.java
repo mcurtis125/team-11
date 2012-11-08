@@ -16,7 +16,6 @@ import java.awt.geom.Ellipse2D;
  */
 class BonusSymbols {
 
-    Pacman pacman;
     public enum Name{cherry,strawberry,orange,apple,melon,tulip,bell,key};
     private Name name;
     private int points;
@@ -27,7 +26,6 @@ class BonusSymbols {
     
     public BonusSymbols(Name name){
         this.name = name;
-        this.pacman = pacman;
         switch (name){
             case cherry:
                 points = 100;

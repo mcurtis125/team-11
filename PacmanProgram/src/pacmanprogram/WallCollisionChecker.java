@@ -14,14 +14,13 @@ public class WallCollisionChecker {
     
     ArrayList<Tiles> coordinatesArray = new ArrayList<Tiles>();
     Walls wallCoordinates = new Walls();
-    MazeDimensions mazeDimensions = new MazeDimensions();
     double sizeOfPacman, sizeOfWalls;
     
     
     public WallCollisionChecker(){
         coordinatesArray=wallCoordinates.getWallCoords();
-        sizeOfPacman=mazeDimensions.sizeOfPacman;
-        sizeOfWalls=mazeDimensions.sizeOfWalls;
+        sizeOfPacman=Pacman.SIZE;
+        sizeOfWalls=16;
     }
     
     
