@@ -61,23 +61,23 @@ class Level {
     }
     
     private void updateSpecifications(){
-        this.pacSpeedRatio = levelSpecs.getPacSpeedRatio(currentLevel);
-        this.pacDotSpeedRatio = levelSpecs.getPacDotSpeedRatio(currentLevel);
-        this.pacFrightSpeedRatio = levelSpecs.getPacFrightSpeedRatio(currentLevel);
-        this.pacFrightDotSpeedRatio = levelSpecs.getPacFrightDotSpeedRatio(currentLevel);
-        this.ghostSpeedRatio = levelSpecs.getGhostSpeedRatio(currentLevel);
-        this.ghostFrightSpeedRatio = levelSpecs.getGhostFrightSpeedRatio(currentLevel);
-        this.ghostTunSpeedRatio = levelSpecs.getGhostTunSpeedRatio(currentLevel);
-        this.frightTime = levelSpecs.getFrightTime(currentLevel);
-        this.flashNumber = levelSpecs.getFlashNumber(currentLevel);    
+        pacSpeedRatio = levelSpecs.getPacSpeedRatio(currentLevel);
+        pacDotSpeedRatio = levelSpecs.getPacDotSpeedRatio(currentLevel);
+        pacFrightSpeedRatio = levelSpecs.getPacFrightSpeedRatio(currentLevel);
+        pacFrightDotSpeedRatio = levelSpecs.getPacFrightDotSpeedRatio(currentLevel);
+        ghostSpeedRatio = levelSpecs.getGhostSpeedRatio(currentLevel);
+        ghostFrightSpeedRatio = levelSpecs.getGhostFrightSpeedRatio(currentLevel);
+        ghostTunSpeedRatio = levelSpecs.getGhostTunSpeedRatio(currentLevel);
+        frightTime = levelSpecs.getFrightTime(currentLevel);
+        flashNumber = levelSpecs.getFlashNumber(currentLevel);  
     }
 
     private void assignSpeeds() {
-        this.pacman.setSpeeds(this.pacSpeedRatio, this.pacDotSpeedRatio, this.pacFrightSpeedRatio, this.pacFrightDotSpeedRatio);
-        this.blinky.setSpeeds(this.ghostSpeedRatio, this.ghostTunSpeedRatio, this.ghostFrightSpeedRatio);
-        this.pinky.setSpeeds(this.ghostSpeedRatio, this.ghostTunSpeedRatio, this.ghostFrightSpeedRatio);
-        this.inky.setSpeeds(this.ghostSpeedRatio, this.ghostTunSpeedRatio, this.ghostFrightSpeedRatio);
-        this.clyde.setSpeeds(this.ghostSpeedRatio, this.ghostTunSpeedRatio, this.ghostFrightSpeedRatio);
+        pacman.assignSpeeds(pacSpeedRatio, pacDotSpeedRatio, pacFrightSpeedRatio, pacFrightDotSpeedRatio);
+        blinky.assignSpeeds(ghostSpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
+        pinky.assignSpeeds(ghostSpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
+        inky.assignSpeeds(ghostSpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
+        clyde.assignSpeeds(ghostSpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
     }
     
     public void drawBonus(Graphics g) {
@@ -110,7 +110,23 @@ class Level {
             bonus1.erase(ae);
             bonus2.erase(ae);
         }
+        //start fright mode when pacman eats energizers
+        if(pacman.getCurrentTileIndex()==169||pacman.getCurrentTileIndex()==194||pacman.getCurrentTileIndex()==729||pacman.getCurrentTileIndex()==754){
+            if(true /*if energizers have not been eaten*/){
+                frightMode();
+            }
+        }
+
     }
+    
+    private void frightMode(){       
+        blinky.setMode(3);
+        inky.setMode(3);
+        pinky.setMode(3);
+        clyde.setMode(3);
+        pacman.setMode(3);
+    }
+
     
    
     

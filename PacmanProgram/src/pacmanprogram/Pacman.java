@@ -17,29 +17,24 @@ public class Pacman{
     PacmanControl pacControl = new PacmanControl();
     Walls walls;
     private static final double[] DIMENSIONS = {15,15};
-    private static final double MAX_SPEED = 15;
+    private static final double MAX_SPEED = 1;
     public static final double SIZE = 15;
     private double[] position = new double[2];
     private int currentTileIndex;
     private int lives = 3;
-    
+    private int mode;
    
+    private double speed;
     private double normSpeed;
     private double dotSpeed;
     private double frightSpeed;
     private double frightDotSpeed;
     
     public Pacman(Walls walls){
-       /* this.normSpeed = MAX_SPEED*normRatio;
-        this.dotSpeed = MAX_SPEED*dotRatio;
-        this.frightSpeed = MAX_SPEED*frightRatio;
-        this.frightDotSpeed = MAX_SPEED*frightDotRatio;*/
         this.walls = walls;
+        mode = 2;
         pacControl.getPosition(position);
         currentTileIndex = walls.getIndex(position[0], position[1]);
-//        centerPoint[0] = position[0]+DIMENSIONS[0]/2;
-//        centerPoint[1] = position[1]+DIMENSIONS[1]/2;
-  //      currentTile = tiles.getTileOccupied(centerPoint);
     }
     
     public void draw(Graphics g){
@@ -52,20 +47,20 @@ public class Pacman{
        pacControl.refresh(e);
        pacControl.getPosition(position);
        currentTileIndex = walls.getIndex(position[0], position[1]);
+       setMode(mode);
        walls.changeType(currentTileIndex,2,1);
-       walls.changeType(currentTileIndex,3,1);
-       
+       walls.changeType(currentTileIndex,3,1); 
     }
     
     public void reset(){
         pacControl.reset();
     }
     
-    public void setSpeeds(double norm, double dot, double fright, double frightDot){
-        this.normSpeed = MAX_SPEED*norm;
-        this.dotSpeed = MAX_SPEED*dot;
-        this.frightSpeed = MAX_SPEED*fright;
-        this.frightDotSpeed = MAX_SPEED*frightDot;
+    public void assignSpeeds(double norm, double dot, double fright, double frightDot){
+        normSpeed = MAX_SPEED*norm;
+        dotSpeed = MAX_SPEED*dot;
+        frightSpeed = MAX_SPEED*fright;
+        frightDotSpeed = MAX_SPEED*frightDot;
     }
     
 
@@ -76,5 +71,30 @@ public class Pacman{
     public int getCurrentTileIndex(){
         return currentTileIndex;
     }  
+    
+    public void setMode(int mode){
+        this.mode = mode;
+        setSpeed();
+    }
+
+    private void setSpeed() {
+        if(mode==1||mode==2){
+            if(walls.getType(getCurrentTileIndex())==2 || walls.getType(getCurrentTileIndex())==3){
+                speed = dotSpeed;
+            }
+            else{
+                speed = normSpeed;
+            }
+        }
+        else if(mode==3){
+            if(walls.getType(getCurrentTileIndex())==2 || walls.getType(getCurrentTileIndex())==3){
+                speed = frightDotSpeed;
+            }
+            else{
+                speed = frightSpeed;    
+            }
+        }
+        pacControl.setPacmanSpeed(speed);
+    }
 
 }

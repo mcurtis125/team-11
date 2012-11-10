@@ -28,12 +28,10 @@ class GhostControl {
     public GhostControl(Ghost ghost){
         this.name=ghost.getName();
         reset();
-        
     }
 
     public void refresh(ActionEvent e) {
         checkTunnel();
-        chase();
     }
     
     public void reset(){
@@ -75,10 +73,25 @@ class GhostControl {
         vel[1]=vely;
     }
     
+    public void setMode(int mode) {
+        if(mode==1){
+            scatter();
+        }
+        else if(mode==2){
+            chase();
+        }
+        else if(mode==3){
+            frightened();
+        }
+    }
+    
+    public void setGhostSpeed(double ghostSpeed){
+        this.ghostSpeed=ghostSpeed;
+    }
+    
     public void frightened(){
         direction=nextDirection.chooseNextRandomTile(x, y, velx, vely);
         move(direction);
-        
     }
     
     public void scatter(){
@@ -184,5 +197,6 @@ class GhostControl {
         ghost.setColor(Color.GREEN);
         ghost.fill(new Rectangle.Double(targetTile[0],targetTile[1],16,16));
     }
-   
+
+    
 }
