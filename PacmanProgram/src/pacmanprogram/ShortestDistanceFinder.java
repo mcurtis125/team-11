@@ -153,66 +153,21 @@ public class ShortestDistanceFinder {
     
     public int chooseNextRandomTile(double ghostXCoordinate, double ghostYCoordinate, double velx, double vely){
         
-        int randomNum=0;
-        int loopCounter;
+        int randomNum;
         HashMap<directionCheck,Boolean> movementArray = new HashMap<directionCheck,Boolean>();
         movementArray=isIntersection(ghostXCoordinate,ghostYCoordinate);
         
         if(movementArray.get(directionCheck.isIntersection)){
             Random randomGenerator = new Random(System.currentTimeMillis());
             randomNum = randomGenerator.nextInt(4)+1;
-        
-            for(loopCounter=0;loopCounter<4;loopCounter++){
-                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely!=ghostSpeed){
-                    return 1;
-                }
-       
-                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx!=ghostSpeed){
-                    return 2;
-                }        
-        
-                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely!=-ghostSpeed){
-                    return 3;
-                }
-        
-                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx!=-ghostSpeed){
-                    return 4;
-                }
-            
-                if(randomNum==4){
-                    randomNum=1;
-                }
-                else{
-                    randomNum++;
-                }
-            }
-        
         }
         
         else{
             randomNum=1;
-            for(loopCounter=0;loopCounter<4;loopCounter++){
-                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely!=ghostSpeed){
-                    return 1;
-                }
-       
-                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx!=ghostSpeed){
-                    return 2;
-                }        
-        
-                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely!=-ghostSpeed){
-                    return 3;
-                }
-        
-                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx!=-ghostSpeed){
-                    return 4;
-                }
-                    randomNum++;
-                }
         }
         
-        return 0;
-        
+        return chooseNextRandomTileHelper(movementArray,randomNum,velx,vely);
+   
     }
     
     
@@ -257,6 +212,38 @@ public class ShortestDistanceFinder {
         
         return movementArray;
         
+    }
+    
+    
+    public int chooseNextRandomTileHelper(HashMap<directionCheck,Boolean> movementArray, int randomNum, double velx, double vely){
+        int loopCounter;
+        
+        for(loopCounter=0;loopCounter<4;loopCounter++){
+                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely!=ghostSpeed){
+                    return 1;
+                }
+       
+                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx!=ghostSpeed){
+                    return 2;
+                }        
+        
+                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely!=-ghostSpeed){
+                    return 3;
+                }
+        
+                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx!=-ghostSpeed){
+                    return 4;
+                }
+            
+                if(randomNum==4){
+                    randomNum=1;
+                }
+                else{
+                    randomNum++;
+                }
+            }
+
+        return 0;
     }
     
     

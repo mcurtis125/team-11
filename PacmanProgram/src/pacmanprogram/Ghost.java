@@ -72,6 +72,10 @@ public class Ghost {
         ghostControl.getPosition(position);
    }
    
+   public void reset(){
+       ghostControl.reset();
+   }
+   
    public Name getName(){
        return name;
    }

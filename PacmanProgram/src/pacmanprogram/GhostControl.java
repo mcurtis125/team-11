@@ -27,6 +27,16 @@ class GhostControl {
     
     public GhostControl(Ghost ghost){
         this.name=ghost.getName();
+        reset();
+        
+    }
+
+    public void refresh(ActionEvent e) {
+        checkTunnel();
+        chase();
+    }
+    
+    public void reset(){
         switch (name){
             case Blinky:
                 x=399;
@@ -53,12 +63,6 @@ class GhostControl {
                 vely=0;               
                 break;
         }
-        
-    }
-
-    void refresh(ActionEvent e) {
-        checkTunnel();
-        frightened();
     }
     
     public void getPosition(double[] pos){

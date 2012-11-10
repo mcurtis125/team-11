@@ -26,13 +26,7 @@ public class PacmanControl  {
     HashMap<VelocityChecker.typeVel,Double> validVelocityMap = new HashMap<VelocityChecker.typeVel,Double>();
     
     public PacmanControl(){
-        x=217;
-        y=417;
-        velx=0;
-        vely=0;
-        preVelX=0;
-        preVelY=0;
-        keyStrokeRemember=0;
+        reset();
     }
     
     public void refresh(ActionEvent e){
@@ -164,6 +158,17 @@ public class PacmanControl  {
     
     public void setPacmanSpeed(double pacmanSpeed){
         this.pacmanSpeed=pacmanSpeed;
+    }
+    
+    
+    public void reset(){
+        x=217;
+        y=417;
+        velx=0;
+        vely=0;
+        preVelX=0;
+        preVelY=0;
+        keyStrokeRemember=0;   
     }
     
 }

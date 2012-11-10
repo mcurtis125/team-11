@@ -57,6 +57,10 @@ public class Pacman{
        
     }
     
+    public void reset(){
+        pacControl.reset();
+    }
+    
     public void setSpeeds(double norm, double dot, double fright, double frightDot){
         this.normSpeed = MAX_SPEED*norm;
         this.dotSpeed = MAX_SPEED*dot;

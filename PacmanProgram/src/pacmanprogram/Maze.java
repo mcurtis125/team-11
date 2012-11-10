@@ -55,6 +55,18 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         clyde.refresh(ae);
         level.refresh(ae);
         posVelGet.refresh(ae);
+        if(posVelGet.pacmanGhostCollisionCheck()){
+            try{
+                Thread.sleep(1500);
+            }
+            catch(Exception e){}
+
+            pacman.reset();
+            blinky.reset();
+            pinky.reset();
+            inky.reset();
+            clyde.reset();
+        }
         repaint();
     }
 
