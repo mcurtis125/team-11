@@ -39,18 +39,17 @@ public class PositionVelocityGetter {
         blinkyControl.getPosition(blinkyPos);
         
         blinkyControl.givePacmanPos(pacmanPos);
-        blinkyControl.givePacmanVel(pacmanVel);
         
         pinkyControl.givePacmanPos(pacmanPos);
         pinkyControl.givePacmanVel(pacmanVel);
         
         inkyControl.givePacmanPos(pacmanPos);
         inkyControl.givePacmanVel(pacmanVel);
+        inkyControl.giveBlinkyPos(blinkyPos);
         
         clydeControl.givePacmanPos(pacmanPos);
-        clydeControl.givePacmanVel(pacmanVel);
         
-        inkyControl.giveBlinkyPos(blinkyPos);
+
     }
     
     

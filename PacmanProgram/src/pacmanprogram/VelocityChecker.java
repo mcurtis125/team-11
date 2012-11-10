@@ -13,6 +13,7 @@ import java.util.HashMap;
  */
 public class VelocityChecker {
     
+    double pacmanSpeed = 1;
     double xCoordinate,yCoordinate,xVelocity,yVelocity,preVelX,preVelY,keyStrokeRemember; 
     public enum typeVel{xCoordinate,yCoordinate,xVelocity,yVelocity,preVelX,preVelY,keyStrokeRemember};
     WallCollisionChecker walls = new WallCollisionChecker(0);
@@ -95,7 +96,7 @@ public class VelocityChecker {
         }
         else{
             if(!walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&keyCode==KeyEvent.VK_LEFT){
-                validVelocityMap.put(typeVel.xVelocity,-1.0);
+                validVelocityMap.put(typeVel.xVelocity,-pacmanSpeed);
                 validVelocityMap.put(typeVel.yVelocity,0.0);
                 validVelocityMap.put(typeVel.preVelX,0.0);
                 validVelocityMap.put(typeVel.preVelY,0.0);
@@ -103,7 +104,7 @@ public class VelocityChecker {
             }
             
             else if(!walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&keyCode==KeyEvent.VK_RIGHT){
-                validVelocityMap.put(typeVel.xVelocity,1.0);
+                validVelocityMap.put(typeVel.xVelocity,pacmanSpeed);
                 validVelocityMap.put(typeVel.yVelocity,0.0);
                 validVelocityMap.put(typeVel.preVelX,0.0);
                 validVelocityMap.put(typeVel.preVelY,0.0);
@@ -112,7 +113,7 @@ public class VelocityChecker {
             
             else if(!walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&keyCode==KeyEvent.VK_UP){
                 validVelocityMap.put(typeVel.xVelocity,0.0);
-                validVelocityMap.put(typeVel.yVelocity,-1.0);
+                validVelocityMap.put(typeVel.yVelocity,-pacmanSpeed);
                 validVelocityMap.put(typeVel.preVelX,0.0);
                 validVelocityMap.put(typeVel.preVelY,0.0);
                 validVelocityMap.put(typeVel.keyStrokeRemember,0.0);
@@ -120,7 +121,7 @@ public class VelocityChecker {
             
             else if(!walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&keyCode==KeyEvent.VK_DOWN){
                 validVelocityMap.put(typeVel.xVelocity,0.0);
-                validVelocityMap.put(typeVel.yVelocity,1.0);
+                validVelocityMap.put(typeVel.yVelocity,pacmanSpeed);
                 validVelocityMap.put(typeVel.preVelX,0.0);
                 validVelocityMap.put(typeVel.preVelY,0.0);
                 validVelocityMap.put(typeVel.keyStrokeRemember,0.0);
@@ -136,17 +137,17 @@ public class VelocityChecker {
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         
         if(walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&
-                                preVelY==-1&&keyCode==KeyEvent.VK_LEFT){
+                                preVelY==-pacmanSpeed&&keyCode==KeyEvent.VK_LEFT){
             validVelocityMap.put(typeVel.xVelocity,0.0);
-            validVelocityMap.put(typeVel.yVelocity,-1.0);
+            validVelocityMap.put(typeVel.yVelocity,preVelY);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);      
         }
         
         else if(walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&
-                                preVelY==1&&keyCode==KeyEvent.VK_LEFT){
+                                preVelY==pacmanSpeed&&keyCode==KeyEvent.VK_LEFT){
 
                 validVelocityMap.put(typeVel.xVelocity,0.0);
-                validVelocityMap.put(typeVel.yVelocity,1.0);
+                validVelocityMap.put(typeVel.yVelocity,preVelY);
                 validVelocityMap.put(typeVel.keyStrokeRemember,1.0);            
         }
         
@@ -166,14 +167,14 @@ public class VelocityChecker {
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         
         if(walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&
-                preVelY==-1&&keyCode==KeyEvent.VK_RIGHT){
+                preVelY==-pacmanSpeed&&keyCode==KeyEvent.VK_RIGHT){
             validVelocityMap.put(typeVel.xVelocity,0.0);
             validVelocityMap.put(typeVel.yVelocity,preVelY);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
         }
         
         else if(walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&
-                preVelY==1&&keyCode==KeyEvent.VK_RIGHT){
+                preVelY==pacmanSpeed&&keyCode==KeyEvent.VK_RIGHT){
             validVelocityMap.put(typeVel.xVelocity,0.0);
             validVelocityMap.put(typeVel.yVelocity,preVelY);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
@@ -195,14 +196,14 @@ public class VelocityChecker {
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         
         if(walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&
-                 preVelX==-1&&keyCode==KeyEvent.VK_UP){
+                 preVelX==-pacmanSpeed&&keyCode==KeyEvent.VK_UP){
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
          }
         
         else if(walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&
-                preVelX==1&&keyCode==KeyEvent.VK_UP){
+                preVelX==pacmanSpeed&&keyCode==KeyEvent.VK_UP){
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
@@ -224,7 +225,7 @@ public class VelocityChecker {
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         
         if(walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&
-            preVelX==-1&&keyCode==KeyEvent.VK_DOWN){
+            preVelX==-pacmanSpeed&&keyCode==KeyEvent.VK_DOWN){
             
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);
@@ -232,7 +233,7 @@ public class VelocityChecker {
         }
         
         else if(walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&
-            preVelX==1&&keyCode==KeyEvent.VK_DOWN){
+            preVelX==pacmanSpeed&&keyCode==KeyEvent.VK_DOWN){
             
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);

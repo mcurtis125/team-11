@@ -5,6 +5,8 @@
 package pacmanprogram;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 
 
@@ -14,8 +16,12 @@ import java.util.ArrayList;
  */
 public class ShortestDistanceFinder {
     
+    public enum directionCheck{canMoveUp,canMoveLeft,canMoveDown,canMoveRight,isIntersection};
+    
+    private double ghostSpeed=1;
+
     WallCollisionChecker wallCollsionChecker = new WallCollisionChecker(1);
-    double sizeOfPacman=Pacman.SIZE;
+    double sizeOfGhost=Ghost.SIZE;
     
     public ShortestDistanceFinder(){
     }
@@ -37,7 +43,7 @@ public class ShortestDistanceFinder {
         
         
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate)&&vely!=1){
+        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate)&&vely!=ghostSpeed){
             nextTileY = getUpTile(ghostYCoordinate);
             nextTileX = ghostXCoordinate;
             upTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -45,7 +51,7 @@ public class ShortestDistanceFinder {
         }
         
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate, ghostYCoordinate)&&velx!=1){
+        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate, ghostYCoordinate)&&velx!=ghostSpeed){
             nextTileX = getLeftTile(ghostXCoordinate);
             nextTileY = ghostYCoordinate;
             leftTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -53,7 +59,7 @@ public class ShortestDistanceFinder {
         }
         
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate)&&vely!=-1){
+        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate)&&vely!=-ghostSpeed){
             nextTileY = getDownTile(ghostYCoordinate);
             nextTileX = ghostXCoordinate;
             downTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -61,7 +67,7 @@ public class ShortestDistanceFinder {
         }
                 
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate, ghostYCoordinate)&&velx!=-1){
+        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate, ghostYCoordinate)&&velx!=-ghostSpeed){
             nextTileX = getRightTile(ghostXCoordinate);
             nextTileY = ghostYCoordinate;
             rightTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -94,24 +100,24 @@ public class ShortestDistanceFinder {
     
     public double getUpTile(double ghostYCoordinate){
         
-        return ghostYCoordinate - sizeOfPacman;
+        return ghostYCoordinate - sizeOfGhost;
 
     }
     
     public double getDownTile(double ghostYCoordinate){
         
-        return ghostYCoordinate + sizeOfPacman;
+        return ghostYCoordinate + sizeOfGhost;
         
     }
     
     public double getLeftTile(double ghostXCoordinate){
         
-        return ghostXCoordinate - sizeOfPacman;
+        return ghostXCoordinate - sizeOfGhost;
     }
     
     public double getRightTile(double ghostXCoordinate){
         
-        return ghostXCoordinate + sizeOfPacman;
+        return ghostXCoordinate + sizeOfGhost;
     }
     
     
@@ -141,5 +147,117 @@ public class ShortestDistanceFinder {
         
         return minimum; 
     }
+    
+    
+    
+    
+    public int chooseNextRandomTile(double ghostXCoordinate, double ghostYCoordinate, double velx, double vely){
+        
+        int randomNum=0;
+        int loopCounter;
+        HashMap<directionCheck,Boolean> movementArray = new HashMap<directionCheck,Boolean>();
+        movementArray=isIntersection(ghostXCoordinate,ghostYCoordinate);
+        
+        if(movementArray.get(directionCheck.isIntersection)){
+            Random randomGenerator = new Random(System.currentTimeMillis());
+            randomNum = randomGenerator.nextInt(4)+1;
+        
+            for(loopCounter=0;loopCounter<4;loopCounter++){
+                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely!=ghostSpeed){
+                    return 1;
+                }
+       
+                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx!=ghostSpeed){
+                    return 2;
+                }        
+        
+                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely!=-ghostSpeed){
+                    return 3;
+                }
+        
+                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx!=-ghostSpeed){
+                    return 4;
+                }
+            
+                if(randomNum==4){
+                    randomNum=1;
+                }
+                else{
+                    randomNum++;
+                }
+            }
+        
+        }
+        
+        else{
+            randomNum=1;
+            for(loopCounter=0;loopCounter<4;loopCounter++){
+                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely!=ghostSpeed){
+                    return 1;
+                }
+       
+                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx!=ghostSpeed){
+                    return 2;
+                }        
+        
+                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely!=-ghostSpeed){
+                    return 3;
+                }
+        
+                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx!=-ghostSpeed){
+                    return 4;
+                }
+                    randomNum++;
+                }
+        }
+        
+        return 0;
+        
+    }
+    
+    
+    
+    public HashMap<directionCheck,Boolean> isIntersection(double ghostXCoordinate, double ghostYCoordinate){
+        boolean canMoveLeft=false;
+        boolean canMoveRight=false;
+        boolean canMoveUp=false;
+        boolean canMoveDown=false;
+        boolean isIntersection=false;
+        HashMap<directionCheck,Boolean> movementArray = new HashMap<directionCheck,Boolean>();
+
+        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate)){
+            canMoveUp=true;
+        }
+        
+        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate, ghostYCoordinate)){
+            canMoveLeft=true;
+        }
+        
+        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate)){
+            canMoveDown=true;
+        }
+        
+        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate, ghostYCoordinate)){
+            canMoveRight=true;
+        }
+        
+        if((canMoveLeft&&canMoveRight)&&(canMoveUp||canMoveDown)){
+            isIntersection=true;
+        }
+        
+        if((canMoveUp&&canMoveDown)&&(canMoveLeft||canMoveRight)){
+            isIntersection=true;
+        }
+        
+        movementArray.put(directionCheck.canMoveUp,canMoveUp);
+        movementArray.put(directionCheck.canMoveLeft,canMoveLeft);
+        movementArray.put(directionCheck.canMoveDown,canMoveDown);
+        movementArray.put(directionCheck.canMoveRight,canMoveRight);
+        movementArray.put(directionCheck.isIntersection,isIntersection);
+        
+        return movementArray;
+        
+    }
+    
     
 }

@@ -15,6 +15,7 @@ import java.util.HashMap;
  */
 public class PacmanControl  {
     
+    private double pacmanSpeed = 1;
     private double x,y,velx,vely,preVelX,preVelY;
     private static final double sizeOfPacman=Pacman.SIZE;
     int code;
@@ -51,24 +52,24 @@ public class PacmanControl  {
         
     }
     
-    public void up(int scaler){
-        vely=-1*scaler;
+    public void up(){
+        vely=-pacmanSpeed;
         velx=0;
     }
     
-    public void down(int scaler){
-        vely=1*scaler;
+    public void down(){
+        vely=pacmanSpeed;
         velx=0;
     }
     
-    public void left(int scaler){
+    public void left(){
         vely=0;
-        velx=-1*scaler;
+        velx=-pacmanSpeed;
     }
     
-    public void right(int scaler){
+    public void right(){
         vely=0;
-        velx=1*scaler;
+        velx=pacmanSpeed;
     }
 
     public void control(KeyEvent ke) {
@@ -89,7 +90,7 @@ public class PacmanControl  {
                 preVelX=velx;
                 }
             } 
-            up(1); 
+            up(); 
             
         }
             
@@ -108,7 +109,7 @@ public class PacmanControl  {
                 preVelX=velx;
                 }
             } 
-            down(1);
+            down();
         }
             
         if(code==KeyEvent.VK_LEFT){
@@ -127,7 +128,7 @@ public class PacmanControl  {
                 preVelY=vely;
                 }
             }  
-            left(1);
+            left();
         }
         
         
@@ -146,7 +147,7 @@ public class PacmanControl  {
                 preVelY=vely;
                 }
             } 
-            right(1);
+            right();
         }
     }
     
@@ -158,6 +159,11 @@ public class PacmanControl  {
     public void getVelocity(double[] vel){
         vel[0]=velx;
         vel[1]=vely;
+    }
+    
+    
+    public void setPacmanSpeed(double pacmanSpeed){
+        this.pacmanSpeed=pacmanSpeed;
     }
     
 }

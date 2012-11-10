@@ -10,6 +10,8 @@ package pacmanprogram;
  */
 public class TargetTileFinder {
     
+    private double pacmanSpeed = 1;
+    
     ShortestDistanceFinder distance = new ShortestDistanceFinder();
     
     public TargetTileFinder(){
@@ -34,19 +36,19 @@ public class TargetTileFinder {
             double y=pacmanY+64;
             double[] position = new double[2];
             
-            if(pacVelX==1){
+            if(pacVelX==pacmanSpeed){
                 x=pacmanX+64;
                 y=pacmanY;
             }
-            if(pacVelX==-1){
+            if(pacVelX==-pacmanSpeed){
                 x=pacmanX-64;
                 y=pacmanY;
             }
-            if(pacVelY==1){
+            if(pacVelY==pacmanSpeed){
                 x=pacmanX;
                 y=pacmanY+64;
             }
-            if(pacVelY==-1){
+            if(pacVelY==-pacmanSpeed){
                 x=pacmanX-64;
                 y=pacmanY-64;
             }
@@ -68,7 +70,7 @@ public class TargetTileFinder {
         double y=pacmanY+32;
         double[] position = new double[2];
         
-        if(pacVelX==1){
+        if(pacVelX==pacmanSpeed){
             offsetX=pacmanX+32;
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
@@ -77,7 +79,7 @@ public class TargetTileFinder {
             y=offsetY+yLine;
         }
  
-        if(pacVelX==-1){
+        if(pacVelX==-pacmanSpeed){
             offsetX=pacmanX-32;
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
@@ -86,7 +88,7 @@ public class TargetTileFinder {
             y=offsetY+yLine;
         }
 
-        if(pacVelY==1){
+        if(pacVelY==pacmanSpeed){
             offsetX=pacmanX;
             offsetY=pacmanY+32;
             xLine=offsetX-blinkyX;
@@ -95,13 +97,20 @@ public class TargetTileFinder {
             y=offsetY+yLine;
         } 
         
-        if(pacVelY==-1){
+        if(pacVelY==-pacmanSpeed){
             offsetX=pacmanX-32;
             offsetY=pacmanY-32;
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
             x=offsetX+xLine;
             y=offsetY+yLine;
+        }
+        
+        if(pacVelY==0&&pacVelX==0){
+            xLine=x-blinkyX;
+            yLine=y-blinkyY;
+            x=x+xLine;
+            y=y+yLine;
         }
         
         position[0]=x;
