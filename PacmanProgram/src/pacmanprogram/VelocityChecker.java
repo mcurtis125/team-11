@@ -15,7 +15,7 @@ public class VelocityChecker {
     
     double xCoordinate,yCoordinate,xVelocity,yVelocity,preVelX,preVelY,keyStrokeRemember; 
     public enum typeVel{xCoordinate,yCoordinate,xVelocity,yVelocity,preVelX,preVelY,keyStrokeRemember};
-    WallCollisionChecker walls = new WallCollisionChecker();
+    WallCollisionChecker walls = new WallCollisionChecker(0);
     
     public VelocityChecker(){
         
@@ -78,7 +78,7 @@ public class VelocityChecker {
             validVelocityMap.put(typeVel.xCoordinate,444.0);
         }
         
-        if(xCoordinate==444){
+        else if(xCoordinate==444){
             validVelocityMap.put(typeVel.yVelocity,0.0);
             validVelocityMap.put(typeVel.xCoordinate,-12.0);
         }

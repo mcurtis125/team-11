@@ -29,9 +29,9 @@ public class TargetTileFinder {
     }
     
     
-    public double[] getPinkyChaseTarget(double pacmanX, double pacmanY, double pacVelX, double pacVelY, double prevXTarget, double prevYTarget){
-            double x=prevXTarget;
-            double y=prevYTarget;
+    public double[] getPinkyChaseTarget(double pacmanX, double pacmanY, double pacVelX, double pacVelY){
+            double x=pacmanX+64;
+            double y=pacmanY+64;
             double[] position = new double[2];
             
             if(pacVelX==1){
@@ -58,15 +58,14 @@ public class TargetTileFinder {
         }
 
 
-    public double[] getInkyChaseTarget(double pacmanX, double pacmanY, double pacVelX, double pacVelY, double blinkyX, double blinkyY, 
-                                                                                double prevXTarget, double prevYTarget){
+    public double[] getInkyChaseTarget(double pacmanX, double pacmanY, double pacVelX, double pacVelY, double blinkyX, double blinkyY){
         
         double offsetX;
         double offsetY;
         double xLine;
         double yLine;
-        double x=prevXTarget;
-        double y=prevYTarget;
+        double x=pacmanX+32;
+        double y=pacmanY+32;
         double[] position = new double[2];
         
         if(pacVelX==1){
@@ -106,7 +105,7 @@ public class TargetTileFinder {
         }
         
         position[0]=x;
-        position[0]=y;
+        position[1]=y;
         
         return position;
         
@@ -118,7 +117,7 @@ public class TargetTileFinder {
         
         double[] position = new double[2];
         
-        if(distance.calculateDistance(clydeX, clydeY, pacmanX, pacmanY)>=8.0){
+        if(distance.calculateDistance(clydeX, clydeY, pacmanX, pacmanY)<128.0){
             position=getClydeScatterTarget();
         }
         
@@ -135,8 +134,8 @@ public class TargetTileFinder {
     
     public double[] getBlinkyScatterTarget(){
         double[] position = new double[2];
-        position[0]=400;
-        position[1]=0;
+        position[0]=400.0;
+        position[1]=0.0;
         return position;
     }
     
@@ -144,23 +143,23 @@ public class TargetTileFinder {
     
     public double[] getPinkyScatterTarget(){
         double[] position = new double[2];
-        position[0]=48;
-        position[1]=0;
+        position[0]=48.0;
+        position[1]=0.0;
         return position;
     }
     
    
     public double[] getInkyScatterTarget(){
         double[] position = new double[2];
-        position[0]=432;
-        position[1]=544;
+        position[0]=432.0;
+        position[1]=544.0;
         return position;
     }
     
     public double[] getClydeScatterTarget(){
         double[] position = new double[2];
-        position[0]=0;
-        position[1]=544;
+        position[0]=0.0;
+        position[1]=544.0;
         return position;
     }
     

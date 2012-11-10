@@ -14,12 +14,17 @@ public class WallCollisionChecker {
     
     ArrayList<Tiles> coordinatesArray = new ArrayList<Tiles>();
     Walls wallCoordinates = new Walls();
-    double sizeOfPacman, sizeOfWalls;
+    double sizeOfCharacter, sizeOfWalls;
     
     
-    public WallCollisionChecker(){
+    public WallCollisionChecker(int pacmanOrGhost){
         coordinatesArray=wallCoordinates.getWallCoords();
-        sizeOfPacman=Pacman.SIZE;
+        if(pacmanOrGhost==0){
+            sizeOfCharacter=Pacman.SIZE;
+        }
+        else if(pacmanOrGhost==1){
+            sizeOfCharacter=Ghost.SIZE;
+        }
         sizeOfWalls=16;
     }
     
@@ -31,7 +36,7 @@ public class WallCollisionChecker {
         
         for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
             if(xCoordinate-sizeOfWalls==coordinatesArray.get(loopCounter).getXCoordinate()){
-                if(yCoordinate+sizeOfPacman>coordinatesArray.get(loopCounter).getYCoordinate()&&
+                if(yCoordinate+sizeOfCharacter>coordinatesArray.get(loopCounter).getYCoordinate()&&
                         yCoordinate<coordinatesArray.get(loopCounter).getYCoordinate()+
                         coordinatesArray.get(loopCounter).getHeight()){
                     return true;
@@ -47,8 +52,8 @@ public class WallCollisionChecker {
     public boolean isOccupiedByWallMovingRight(double xCoordinate, double yCoordinate){
         int loopCounter;
         for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
-            if(xCoordinate+sizeOfPacman==coordinatesArray.get(loopCounter).getXCoordinate()){
-                if(yCoordinate+sizeOfPacman>coordinatesArray.get(loopCounter).getYCoordinate()&&
+            if(xCoordinate+sizeOfCharacter==coordinatesArray.get(loopCounter).getXCoordinate()){
+                if(yCoordinate+sizeOfCharacter>coordinatesArray.get(loopCounter).getYCoordinate()&&
                         yCoordinate<coordinatesArray.get(loopCounter).getYCoordinate()+
                         coordinatesArray.get(loopCounter).getHeight()){
                     return true;
@@ -65,7 +70,7 @@ public class WallCollisionChecker {
         int loopCounter;
         for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
             if(yCoordinate-sizeOfWalls==coordinatesArray.get(loopCounter).getYCoordinate()){
-                if(xCoordinate+sizeOfPacman>coordinatesArray.get(loopCounter).getXCoordinate()&&
+                if(xCoordinate+sizeOfCharacter>coordinatesArray.get(loopCounter).getXCoordinate()&&
                         xCoordinate<coordinatesArray.get(loopCounter).getXCoordinate()+
                         coordinatesArray.get(loopCounter).getWidth()){
                     return true;
@@ -80,8 +85,8 @@ public class WallCollisionChecker {
     public boolean isOccupiedByWallMovingDown(double xCoordinate, double yCoordinate){
         int loopCounter;
         for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
-            if(yCoordinate+sizeOfPacman==coordinatesArray.get(loopCounter).getYCoordinate()){
-                if(xCoordinate+sizeOfPacman>coordinatesArray.get(loopCounter).getXCoordinate()&&
+            if(yCoordinate+sizeOfCharacter==coordinatesArray.get(loopCounter).getYCoordinate()){
+                if(xCoordinate+sizeOfCharacter>coordinatesArray.get(loopCounter).getXCoordinate()&&
                         xCoordinate<coordinatesArray.get(loopCounter).getXCoordinate()+
                         coordinatesArray.get(loopCounter).getWidth()){
                     return true;

@@ -14,14 +14,14 @@ import java.util.ArrayList;
  */
 public class ShortestDistanceFinder {
     
-    WallCollisionChecker wallCollsionChecker = new WallCollisionChecker();
-    public enum nextDirection{up, down, left, right, none};
+    WallCollisionChecker wallCollsionChecker = new WallCollisionChecker(1);
+    double sizeOfPacman=Pacman.SIZE;
     
     public ShortestDistanceFinder(){
     }
     
     
-    public ShortestDistanceFinder.nextDirection chooseNextTile(double ghostXCoordinate, double ghostYCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
+    public int chooseNextTile(double ghostXCoordinate, double ghostYCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
         
         double nextTileX = ghostXCoordinate;
         double nextTileY = ghostYCoordinate;
@@ -36,26 +36,34 @@ public class ShortestDistanceFinder {
         ArrayList<Double> distanceArray = new ArrayList<Double>();
         
         
-        nextTileY = getUpTile(ghostYCoordinate);
-        if(!wallCollsionChecker.isOccupiedByWallMovingUp(nextTileX, nextTileY)&&vely!=1){
+
+        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate)&&vely!=1){
+            nextTileY = getUpTile(ghostYCoordinate);
+            nextTileX = ghostXCoordinate;
             upTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
             distanceArray.add(upTileDistance);
         }
         
-        nextTileX = getLeftTile(ghostXCoordinate);
-        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(nextTileX, nextTileY)&&velx!=1){
+
+        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate, ghostYCoordinate)&&velx!=1){
+            nextTileX = getLeftTile(ghostXCoordinate);
+            nextTileY = ghostYCoordinate;
             leftTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
             distanceArray.add(leftTileDistance);
         }
         
-        nextTileY = getDownTile(ghostYCoordinate);
-        if(!wallCollsionChecker.isOccupiedByWallMovingDown(nextTileX, nextTileY)&&vely!=-1){
+        
+        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate)&&vely!=-1){
+            nextTileY = getDownTile(ghostYCoordinate);
+            nextTileX = ghostXCoordinate;
             downTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
             distanceArray.add(downTileDistance);
         }
                 
-        nextTileX = getRightTile(ghostXCoordinate);
-        if(!wallCollsionChecker.isOccupiedByWallMovingRight(nextTileX, nextTileY)&&velx!=-1){
+        
+        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate, ghostYCoordinate)&&velx!=-1){
+            nextTileX = getRightTile(ghostXCoordinate);
+            nextTileY = ghostYCoordinate;
             rightTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
             distanceArray.add(rightTileDistance);
         }
@@ -64,46 +72,46 @@ public class ShortestDistanceFinder {
         minimum = findMinimumDistance(distanceArray);
         
         if(upTileDistance==minimum){
-            return nextDirection.up;
+            return 1;
         }
         
         if(leftTileDistance==minimum){
-            return nextDirection.left;
+            return 2;
         }
         
         if(downTileDistance==minimum){
-            return nextDirection.down;
+            return 3;
         }
         
         if(rightTileDistance==minimum){
-            return nextDirection.right;
+            return 4;
         }
         
-        return nextDirection.none; 
+        return 0; 
 
     }
     
     
     public double getUpTile(double ghostYCoordinate){
         
-        return ghostYCoordinate - MazeDimensions.sizeOfPacman;
+        return ghostYCoordinate - sizeOfPacman;
 
     }
     
     public double getDownTile(double ghostYCoordinate){
         
-        return ghostYCoordinate + MazeDimensions.sizeOfPacman;
+        return ghostYCoordinate + sizeOfPacman;
         
     }
     
     public double getLeftTile(double ghostXCoordinate){
         
-        return ghostXCoordinate - MazeDimensions.sizeOfPacman;
+        return ghostXCoordinate - sizeOfPacman;
     }
     
     public double getRightTile(double ghostXCoordinate){
         
-        return ghostXCoordinate + MazeDimensions.sizeOfPacman;
+        return ghostXCoordinate + sizeOfPacman;
     }
     
     

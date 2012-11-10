@@ -24,6 +24,8 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
     Ghost pinky = new Ghost(Name.Pinky);
     Ghost inky = new Ghost(Name.Inky);
     Ghost clyde = new Ghost(Name.Clyde);
+    PositionVelocityGetter posVelGet = new PositionVelocityGetter(pacman.pacControl, blinky.ghostControl, pinky.ghostControl, 
+                                                                                        inky.ghostControl, clyde.ghostControl);
     Level level = new Level(pacman, blinky, inky, pinky, clyde, walls);
     
     public Maze(){
@@ -52,6 +54,7 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         inky.refresh(ae);
         clyde.refresh(ae);
         level.refresh(ae);
+        posVelGet.refresh(ae);
         repaint();
     }
 

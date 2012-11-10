@@ -3,11 +3,9 @@
  * and open the template in the editor.
  */
 package pacmanprogram;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
-import java.util.HashMap;
 
 /**
  *
@@ -18,23 +16,20 @@ import java.util.HashMap;
 public class Pacman{
     PacmanControl pacControl = new PacmanControl();
     Walls walls;
-//    public enum Dir{up, down, left, right}; 
     private static final double[] DIMENSIONS = {15,15};
     private static final double MAX_SPEED = 15;
     public static final double SIZE = 15;
     private double[] position = new double[2];
     private int currentTileIndex;
-//    private Dir direction = Dir.right;
     private int lives = 3;
     
-    //private Tiles currentTile;
    
     private double normSpeed;
     private double dotSpeed;
     private double frightSpeed;
     private double frightDotSpeed;
     
-    public Pacman(Walls walls/*double normRatio, double dotRatio, double frightRatio, double frightDotRatio */){
+    public Pacman(Walls walls){
        /* this.normSpeed = MAX_SPEED*normRatio;
         this.dotSpeed = MAX_SPEED*dotRatio;
         this.frightSpeed = MAX_SPEED*frightRatio;

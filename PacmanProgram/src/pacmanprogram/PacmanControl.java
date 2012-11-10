@@ -15,12 +15,12 @@ import java.util.HashMap;
  */
 public class PacmanControl  {
     
-    private double x,y,velx,vely,preVelX,preVelY, prePreVelX, prePreVelY;
+    private double x,y,velx,vely,preVelX,preVelY;
     private static final double sizeOfPacman=Pacman.SIZE;
     int code;
     double keyStrokeRemember;
     boolean tightSpace=false;
-    WallCollisionChecker walls = new WallCollisionChecker();
+    WallCollisionChecker walls = new WallCollisionChecker(0);
     VelocityChecker velChecker = new VelocityChecker();
     HashMap<VelocityChecker.typeVel,Double> validVelocityMap = new HashMap<VelocityChecker.typeVel,Double>();
     
@@ -31,8 +31,6 @@ public class PacmanControl  {
         vely=0;
         preVelX=0;
         preVelY=0;
-        prePreVelX=0;
-        prePreVelY=0;
         keyStrokeRemember=0;
     }
     
@@ -155,6 +153,11 @@ public class PacmanControl  {
     public void getPosition(double[] pos){
         pos[0] = x;
         pos[1] = y;
+    }
+    
+    public void getVelocity(double[] vel){
+        vel[0]=velx;
+        vel[1]=vely;
     }
     
 }
