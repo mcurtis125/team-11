@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Walls{
     
     ArrayList<Tiles> tiles = new ArrayList<Tiles>();
+    public static final double sizeOfTiles=16;
     
     int[] map = {
     			//0 wall
@@ -62,10 +63,10 @@ public class Walls{
 
     public Walls(){
         int a; 
-    	int b; 
+    	int b;
     	for (a=0;a<36;a++){
     	  for (b=0;b<28;b++){
-                tiles.add(new Tiles(16*b,16*a,16,16,map[b+28*(a)]));
+                tiles.add(new Tiles(sizeOfTiles*b,sizeOfTiles*a,sizeOfTiles,sizeOfTiles,map[b+28*(a)]));
     	  };
     	};
     }

@@ -15,8 +15,8 @@ import java.util.HashMap;
  */
 public class PacmanControl  {
     
-    private double pacmanSpeed = 1;
-    private double x,y,velx,vely,preVelX,preVelY;
+    public static double pacmanSpeed;
+    public static double x,y,velx,vely,preVelX,preVelY;
     private static final double sizeOfPacman=Pacman.SIZE;
     int code;
     double keyStrokeRemember;
@@ -155,6 +155,9 @@ public class PacmanControl  {
         vel[1]=vely;
     }
     
+    public double getPacmanSpeed(){
+        return pacmanSpeed;
+    }
     
     public void setPacmanSpeed(double pacmanSpeed){
         this.pacmanSpeed=pacmanSpeed;

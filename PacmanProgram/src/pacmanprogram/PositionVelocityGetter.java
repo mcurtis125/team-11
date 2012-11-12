@@ -25,6 +25,7 @@ public class PositionVelocityGetter {
     double[] pinkyPos = new double[2];
     double[] inkyPos = new double[2];
     double[] clydePos = new double[2];
+    double pacmanSpeed;
     double sizeOfPacman=Pacman.SIZE;
     double sizeOfGhost=Ghost.SIZE;
     
@@ -44,21 +45,14 @@ public class PositionVelocityGetter {
         pacControl.getVelocity(pacmanVel);
         
         blinkyControl.getPosition(blinkyPos);
-        pinkyControl.getPosition(pinkyPos);        
+        
+        pinkyControl.getPosition(pinkyPos); 
+        
         inkyControl.getPosition(inkyPos);
+        
         clydeControl.getPosition(clydePos);
-
-        blinkyControl.givePacmanPos(pacmanPos);
         
-        pinkyControl.givePacmanPos(pacmanPos);
-        pinkyControl.givePacmanVel(pacmanVel);
-        
-        inkyControl.givePacmanPos(pacmanPos);
-        inkyControl.givePacmanVel(pacmanVel);
         inkyControl.giveBlinkyPos(blinkyPos);
-        
-        clydeControl.givePacmanPos(pacmanPos);
-        
 
     }
     
@@ -110,21 +104,6 @@ public class PositionVelocityGetter {
         return false;
     }
     
-    public void getBlinkyPos(double[] pos){
-        pos=blinkyPos;
-    }
-    
-    public void getPinkyPos(double[] pos){
-        pos=pinkyPos;
-    }
-   
-    public void getInkyPos(double[] pos){
-        pos=inkyPos;
-    }
-
-    public void getClydePos(double[] pos){
-        pos=clydePos;
-    }
     
     
     

@@ -17,17 +17,17 @@ import java.util.Random;
 public class ShortestDistanceFinder {
     
     public enum directionCheck{canMoveUp,canMoveLeft,canMoveDown,canMoveRight,isIntersection};
-    
-    private double ghostSpeed=1;
 
     WallCollisionChecker wallCollsionChecker = new WallCollisionChecker(1);
     double sizeOfGhost=Ghost.SIZE;
+    double sizeOfTiles=Walls.sizeOfTiles;
     
     public ShortestDistanceFinder(){
     }
     
     
-    public int chooseNextTile(double ghostXCoordinate, double ghostYCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
+    public int chooseNextTile(double ghostXCoordinate, double ghostYCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, 
+                                                                double vely, double preVelX, double preVelY, double prePreVelX, double prePreVelY){
         
         double nextTileX = ghostXCoordinate;
         double nextTileY = ghostYCoordinate;
@@ -43,7 +43,7 @@ public class ShortestDistanceFinder {
         
         
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate)&&vely!=ghostSpeed){
+        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate-(sizeOfTiles-sizeOfGhost))&&vely<=0&&preVelY<=0&&prePreVelY<=0){
             nextTileY = getUpTile(ghostYCoordinate);
             nextTileX = ghostXCoordinate;
             upTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -51,7 +51,7 @@ public class ShortestDistanceFinder {
         }
         
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate, ghostYCoordinate)&&velx!=ghostSpeed){
+        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate-(sizeOfTiles-sizeOfGhost), ghostYCoordinate)&&velx<=0&&preVelX<=0&&prePreVelX<=0){
             nextTileX = getLeftTile(ghostXCoordinate);
             nextTileY = ghostYCoordinate;
             leftTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -59,7 +59,7 @@ public class ShortestDistanceFinder {
         }
         
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate)&&vely!=-ghostSpeed){
+        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate+(sizeOfTiles-sizeOfGhost))&&vely>=0&&preVelY>=0&&prePreVelY>=0){
             nextTileY = getDownTile(ghostYCoordinate);
             nextTileX = ghostXCoordinate;
             downTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -67,7 +67,7 @@ public class ShortestDistanceFinder {
         }
                 
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate, ghostYCoordinate)&&velx!=-ghostSpeed){
+        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate+(sizeOfTiles-sizeOfGhost), ghostYCoordinate)&&velx>=0&&preVelX>=0&&prePreVelX>=0){
             nextTileX = getRightTile(ghostXCoordinate);
             nextTileY = ghostYCoordinate;
             rightTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -151,7 +151,7 @@ public class ShortestDistanceFinder {
     
     
     
-    public int chooseNextRandomTile(double ghostXCoordinate, double ghostYCoordinate, double velx, double vely){
+    public int chooseNextRandomTile(double ghostXCoordinate, double ghostYCoordinate, double velx, double vely, double preVelX, double preVelY, double prePreVelX, double prePreVelY){
         
         int randomNum;
         HashMap<directionCheck,Boolean> movementArray = new HashMap<directionCheck,Boolean>();
@@ -166,7 +166,7 @@ public class ShortestDistanceFinder {
             randomNum=1;
         }
         
-        return chooseNextRandomTileHelper(movementArray,randomNum,velx,vely);
+        return chooseNextRandomTileHelper(movementArray,randomNum,velx,vely,preVelX,preVelY,prePreVelX,prePreVelY);
    
     }
     
@@ -180,19 +180,19 @@ public class ShortestDistanceFinder {
         boolean isIntersection=false;
         HashMap<directionCheck,Boolean> movementArray = new HashMap<directionCheck,Boolean>();
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate)){
+        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate-(sizeOfTiles-sizeOfGhost))){
             canMoveUp=true;
         }
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate, ghostYCoordinate)){
+        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate-(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
             canMoveLeft=true;
         }
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate)){
+        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate+(sizeOfTiles-sizeOfGhost))){
             canMoveDown=true;
         }
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate, ghostYCoordinate)){
+        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate+(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
             canMoveRight=true;
         }
         
@@ -215,23 +215,23 @@ public class ShortestDistanceFinder {
     }
     
     
-    public int chooseNextRandomTileHelper(HashMap<directionCheck,Boolean> movementArray, int randomNum, double velx, double vely){
+    public int chooseNextRandomTileHelper(HashMap<directionCheck,Boolean> movementArray, int randomNum, double velx, double vely, double preVelX, double preVelY, double prePreVelX, double prePreVelY){
         int loopCounter;
         
         for(loopCounter=0;loopCounter<4;loopCounter++){
-                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely!=ghostSpeed){
+                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely<=0&&preVelY<=0&&prePreVelY<=0){
                     return 1;
                 }
        
-                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx!=ghostSpeed){
+                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx<=0&&preVelX<=0&&prePreVelX<=0){
                     return 2;
                 }        
         
-                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely!=-ghostSpeed){
+                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely>=0&&preVelY>=0&&prePreVelY>=0){
                     return 3;
                 }
         
-                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx!=-ghostSpeed){
+                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx>=0&&preVelX>=0&&prePreVelX>=0){
                     return 4;
                 }
             

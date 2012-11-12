@@ -16,14 +16,15 @@ import pacmanprogram.Ghost.Name;
  * @author stavy92
  */
 class GhostControl {
-    private double ghostSpeed=1;
-    private double x,y,velx,vely,pacmanX,pacmanY,pacmanVelX,pacmanVelY,blinkyX,blinkyY;
+    private double ghostSpeed;
+    private double x,y,velx,vely,preVelX,preVelY,prePreVelX,prePreVelY,pacmanX,pacmanY,pacmanVelX,pacmanVelY,blinkyX,blinkyY;
     Name name;
     double[] targetTile = new double[2];
     double[] position = new double[2];
     int direction;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
+    WallCollisionChecker walls = new WallCollisionChecker(1);
     
     public GhostControl(Ghost ghost){
         this.name=ghost.getName();
@@ -41,24 +42,40 @@ class GhostControl {
                 y=64;
                 velx=0;
                 vely=0;
+                preVelX=0;
+                preVelY=0;
+                prePreVelX=0;
+                prePreVelY=0;
                 break;
             case Pinky:
                 x=48;
                 y=64;
                 velx=0;
                 vely=0;
+                preVelX=0;
+                preVelY=0;
+                prePreVelX=0;
+                prePreVelY=0;                
                 break;
             case Inky:
                 x=144;
                 y=272;
                 velx=0;
                 vely=0;
+                preVelX=0;
+                preVelY=0;
+                prePreVelX=0;
+                prePreVelY=0;
                 break;
             case Clyde:
                 x=320;
                 y=272;
                 velx=0;
-                vely=0;               
+                vely=0;
+                preVelX=0;
+                preVelY=0;
+                prePreVelX=0;
+                prePreVelY=0;                
                 break;
         }
     }
@@ -90,7 +107,7 @@ class GhostControl {
     }
     
     public void frightened(){
-        direction=nextDirection.chooseNextRandomTile(x, y, velx, vely);
+        direction=nextDirection.chooseNextRandomTile(x, y, velx, vely,preVelX,preVelY,prePreVelX,prePreVelY);
         move(direction);
     }
     
@@ -110,13 +127,18 @@ class GhostControl {
                 break;
         }
         
-        direction = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely);
+        direction = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely, preVelX, preVelY,prePreVelX,prePreVelY);
         
         move(direction); 
     }
     
     public void chase(){
-
+        
+        pacmanX=PacmanControl.x;
+        pacmanY=PacmanControl.y;
+        pacmanVelX=PacmanControl.velx;
+        pacmanVelY=PacmanControl.vely;
+        
         switch(name){
             case Blinky:
                 targetTile=targetFinder.getBlinkyChaseTarget(pacmanX,pacmanY);
@@ -132,7 +154,7 @@ class GhostControl {
                 break;
         }
         
-        direction = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely);
+        direction = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely,preVelX,preVelY,prePreVelX,prePreVelY);
                 
         move(direction);        
 
@@ -141,12 +163,12 @@ class GhostControl {
     
     
     public void checkTunnel(){
-        if(x==-12){
+        if(x<-12){
             vely=0;
             x=444;
         }
         
-        else if(x==444){
+        else if(x>444){
             vely=0;
             x=-12;
         } 
@@ -156,20 +178,24 @@ class GhostControl {
     
     
     public void move(int direction){
+        prePreVelX=preVelX;
+        prePreVelY=preVelY;
+        preVelX=velx;
+        preVelY=vely;
         if(direction==1){
             velx=0;
-            vely=-ghostSpeed;
+            vely=walls.upCollisionInAdvance(x, y, -ghostSpeed);
         }
         if(direction==2){
-            velx=-ghostSpeed;
+            velx=walls.leftCollisionInAdvance(x, y, -ghostSpeed);
             vely=0;
         }
         if(direction==3){
             velx=0;
-            vely=ghostSpeed;
+            vely=walls.downCollisionInAdvance(x, y, ghostSpeed);
         }
         if(direction==4){
-            velx=ghostSpeed;
+            velx=walls.rightCollisionInAdvance(x, y, ghostSpeed);
             vely=0;
         }
         
@@ -177,15 +203,6 @@ class GhostControl {
         y=y+vely;
     }
     
-    public void givePacmanPos(double[] pacmanPos){
-        pacmanX=pacmanPos[0];
-        pacmanY=pacmanPos[1];
-    }
-    
-    public void givePacmanVel(double[] pacmanVel){
-        pacmanVelX=pacmanVel[0];
-        pacmanVelY=pacmanVel[1];
-    }
     
     public void giveBlinkyPos(double[] blinkyPos){
         blinkyX=blinkyPos[0];

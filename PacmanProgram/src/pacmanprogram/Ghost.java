@@ -21,7 +21,7 @@ public class Ghost {
     public enum Name{Blinky, Pinky, Inky, Clyde};
     private Name name;
     private Color color;
-    public static final double SIZE = 16;
+    public static final double SIZE = 15;
     private static final double MAX_SPEED = 1;
     private double speed;
     private double normSpeed;
@@ -59,7 +59,7 @@ public class Ghost {
         if(mode == 3){
             Graphics2D ghost = (Graphics2D) g;
             ghost.setColor(Color.BLUE);
-            ghost.fill(new Rectangle.Double(position[0],position[1],15,15));
+            ghost.fill(new Rectangle.Double(position[0],position[1],SIZE,SIZE));
             ghost.setColor(Color.BLACK);        
             ghost.fill(new Rectangle.Double(position[0]+4,position[1]+3,2,2));
             ghost.fill(new Rectangle.Double(position[0]+9,position[1]+3,2,2));
@@ -67,7 +67,7 @@ public class Ghost {
         else{
             Graphics2D ghost = (Graphics2D) g;
             ghost.setColor(color);
-            ghost.fill(new Rectangle.Double(position[0],position[1],15,15));
+            ghost.fill(new Rectangle.Double(position[0],position[1],SIZE,SIZE));
             ghost.setColor(Color.BLACK);        
             ghost.fill(new Rectangle.Double(position[0]+4,position[1]+3,2,2));
             ghost.fill(new Rectangle.Double(position[0]+9,position[1]+3,2,2));
@@ -115,7 +115,7 @@ public class Ghost {
            speed = tunnelSpeed;
            System.out.println("tunnel");
        }
-       ghostControl.setGhostSpeed(speed);
+       ghostControl.setGhostSpeed(0.83);
    }
    
    public boolean isInTunnel(){

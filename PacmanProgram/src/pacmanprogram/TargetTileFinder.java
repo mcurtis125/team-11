@@ -10,8 +10,6 @@ package pacmanprogram;
  */
 public class TargetTileFinder {
     
-    private double pacmanSpeed = 1;
-    
     ShortestDistanceFinder distance = new ShortestDistanceFinder();
     
     public TargetTileFinder(){
@@ -36,19 +34,19 @@ public class TargetTileFinder {
             double y=pacmanY+64;
             double[] position = new double[2];
             
-            if(pacVelX==pacmanSpeed){
+            if(pacVelX>0){
                 x=pacmanX+64;
                 y=pacmanY;
             }
-            if(pacVelX==-pacmanSpeed){
+            if(pacVelX<0){
                 x=pacmanX-64;
                 y=pacmanY;
             }
-            if(pacVelY==pacmanSpeed){
+            if(pacVelY>0){
                 x=pacmanX;
                 y=pacmanY+64;
             }
-            if(pacVelY==-pacmanSpeed){
+            if(pacVelY<0){
                 x=pacmanX-64;
                 y=pacmanY-64;
             }
@@ -70,7 +68,7 @@ public class TargetTileFinder {
         double y=pacmanY+32;
         double[] position = new double[2];
         
-        if(pacVelX==pacmanSpeed){
+        if(pacVelX>0){
             offsetX=pacmanX+32;
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
@@ -79,7 +77,7 @@ public class TargetTileFinder {
             y=offsetY+yLine;
         }
  
-        if(pacVelX==-pacmanSpeed){
+        if(pacVelX<0){
             offsetX=pacmanX-32;
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
@@ -88,7 +86,7 @@ public class TargetTileFinder {
             y=offsetY+yLine;
         }
 
-        if(pacVelY==pacmanSpeed){
+        if(pacVelY>0){
             offsetX=pacmanX;
             offsetY=pacmanY+32;
             xLine=offsetX-blinkyX;
@@ -97,7 +95,7 @@ public class TargetTileFinder {
             y=offsetY+yLine;
         } 
         
-        if(pacVelY==-pacmanSpeed){
+        if(pacVelY<0){
             offsetX=pacmanX-32;
             offsetY=pacmanY-32;
             xLine=offsetX-blinkyX;

@@ -42,9 +42,13 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         walls.draw(g);
         pacman.draw(g);
         blinky.draw(g);
+        //blinky.ghostControl.algorithmTest(g);
         pinky.draw(g);
+        //pinky.ghostControl.algorithmTest(g);
         inky.draw(g);
+        inky.ghostControl.algorithmTest(g);
         clyde.draw(g);
+        //clyde.ghostControl.algorithmTest(g);
         level.drawBonus(g);
         text.drawText(g);
         score.drawScore(g);
