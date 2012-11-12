@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/** Tested under Eclipse Version:Juno Release - Build id:20120614-1722
+* 	Compiler compliance level:1.6
+*/   
+
 public class TargetTileFinderTest {
 
 	final static double epislonx = 1e-8; // used for testing
