@@ -25,7 +25,6 @@ public class PositionVelocityGetter {
     double[] pinkyPos = new double[2];
     double[] inkyPos = new double[2];
     double[] clydePos = new double[2];
-    double pacmanSpeed;
     double sizeOfPacman=Pacman.SIZE;
     double sizeOfGhost=Ghost.SIZE;
     

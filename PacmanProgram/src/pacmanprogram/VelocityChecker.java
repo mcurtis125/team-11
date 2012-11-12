@@ -139,14 +139,14 @@ public class VelocityChecker {
         double tempVelocity;
         
         if(walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&
-                                preVelY==-pacmanSpeed&&keyCode==KeyEvent.VK_LEFT){
+                                preVelY<0&&keyCode==KeyEvent.VK_LEFT){
             validVelocityMap.put(typeVel.xVelocity,0.0);
             validVelocityMap.put(typeVel.yVelocity,preVelY);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);      
         }
         
         else if(walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&
-                                preVelY==pacmanSpeed&&keyCode==KeyEvent.VK_LEFT){
+                                preVelY>0&&keyCode==KeyEvent.VK_LEFT){
 
                 validVelocityMap.put(typeVel.xVelocity,0.0);
                 validVelocityMap.put(typeVel.yVelocity,preVelY);
@@ -177,14 +177,14 @@ public class VelocityChecker {
         double tempVelocity;
         
         if(walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&
-                preVelY==-pacmanSpeed&&keyCode==KeyEvent.VK_RIGHT){
+                preVelY<0&&keyCode==KeyEvent.VK_RIGHT){
             validVelocityMap.put(typeVel.xVelocity,0.0);
             validVelocityMap.put(typeVel.yVelocity,preVelY);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
         }
         
         else if(walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&
-                preVelY==pacmanSpeed&&keyCode==KeyEvent.VK_RIGHT){
+                preVelY>0&&keyCode==KeyEvent.VK_RIGHT){
             validVelocityMap.put(typeVel.xVelocity,0.0);
             validVelocityMap.put(typeVel.yVelocity,preVelY);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
@@ -214,14 +214,14 @@ public class VelocityChecker {
         double tempVelocity;
         
         if(walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&
-                 preVelX==-pacmanSpeed&&keyCode==KeyEvent.VK_UP){
+                 preVelX<0&&keyCode==KeyEvent.VK_UP){
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
          }
         
         else if(walls.isOccupiedByWallMovingUp(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&
-                preVelX==pacmanSpeed&&keyCode==KeyEvent.VK_UP){
+                preVelX>0&&keyCode==KeyEvent.VK_UP){
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);
             validVelocityMap.put(typeVel.keyStrokeRemember,1.0);
@@ -251,7 +251,7 @@ public class VelocityChecker {
         double tempVelocity;
         
         if(walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingLeft(xCoordinate,yCoordinate)&&
-            preVelX==-pacmanSpeed&&keyCode==KeyEvent.VK_DOWN){
+            preVelX<0&&keyCode==KeyEvent.VK_DOWN){
             
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);
@@ -259,7 +259,7 @@ public class VelocityChecker {
         }
         
         else if(walls.isOccupiedByWallMovingDown(xCoordinate,yCoordinate)&&!walls.isOccupiedByWallMovingRight(xCoordinate,yCoordinate)&&
-            preVelX==pacmanSpeed&&keyCode==KeyEvent.VK_DOWN){
+            preVelX>0&&keyCode==KeyEvent.VK_DOWN){
             
             validVelocityMap.put(typeVel.xVelocity,preVelX);
             validVelocityMap.put(typeVel.yVelocity,0.0);
@@ -309,6 +309,11 @@ public class VelocityChecker {
             this.keyStrokeRemember=validVelocityMap.get(typeVel.keyStrokeRemember);
         }
         
+    }
+    
+    
+    public void givePacmanSpeed(double pacmanSpeed){
+        this.pacmanSpeed=pacmanSpeed;
     }
     
     

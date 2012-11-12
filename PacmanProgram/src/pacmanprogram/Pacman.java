@@ -94,7 +94,7 @@ public class Pacman{
                 speed = frightSpeed;    
             }
         }
-        pacControl.setPacmanSpeed(0.83);
+        pacControl.setPacmanSpeed(speed);
     }
 
 }

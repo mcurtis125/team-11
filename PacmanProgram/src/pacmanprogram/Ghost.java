@@ -115,7 +115,7 @@ public class Ghost {
            speed = tunnelSpeed;
            System.out.println("tunnel");
        }
-       ghostControl.setGhostSpeed(0.83);
+       ghostControl.setGhostSpeed(speed);
    }
    
    public boolean isInTunnel(){
