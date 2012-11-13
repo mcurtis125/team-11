@@ -5,7 +5,7 @@
 package pacmanprogram;
 
 import java.util.ArrayList;
-import pacmanprogram.BonusSymbols.Name;
+import pacmanprogram.BonusSymbol.Name;
 
 /**
  *
@@ -19,14 +19,18 @@ class LevelSpecs {
     private double[] ghostSpeedRatios = {0.75,0.85,0.85,0.85,0.95};
     private double[] ghostFrightSpeedRatios = {0.5,0.55,0.55,0.55,0.6};
     private double[] ghostTunSpeedRatios = {0.4,0.45,0.45,0.45,0.5};
+    private double[][] chaseTimes = {{7,34,59,84},{7,34,59,(1092+1/60)},{5,30,55,(1092+1/60)}};
+    private double [][] scatTimes = {{27,54,79},{27,54,1092},{25,50,1092}};
     private int[] frightTimes = {6,5,4,3,2,5,2,2,1,5,2,1,1,3,1,1,0,1,0,0,0};
     private int[] flashNumbers = {5,5,5,5,5,5,5,5,3,5,5,3,3,5,3,3,0,3,0,0,0};
     private double[] lastDotTimerLimits = {4,4,4,4,3};
     private double[] elroy1DotsLeft = {20,30,40,40,40,50,50,50,60,60,60,80,80,80,100,100,100,100,120,120,120};
     private double[] elroy2DotsLeft = {10,15,20,20,20,25,25,25,30,30,30,40,40,40,50,50,50,50,60,60,60};
     private double[] elroy1SpeedRatios = {0.8,0.9,0.9,0.9,1};
-    private double[] elroy2SpeedRatios = {0.85,0.95,0.95,0.95,1.05};
+    private double[] elroy2SpeedRatios = {0.85,0.95,0.95,0.95,1.05};  
     ArrayList<Name> bonusSymbols = new ArrayList<Name>();
+    
+    
     
     public LevelSpecs(){
         bonusSymbols.add(Name.cherry);
@@ -85,6 +89,28 @@ class LevelSpecs {
             return ghostTunSpeedRatios[4];
         }
         return ghostTunSpeedRatios[level-1];
+    }
+    public double[] getScatTimes(int level){
+        if(level==1){
+            return scatTimes[0];
+        }
+        else if(level>1 && level<5){
+            return scatTimes[1];
+        }
+        else{
+            return scatTimes[2];
+        }
+    }
+    public double[] getChaseTimes(int level){
+        if(level==1){
+            return chaseTimes[0];
+        }
+        else if(level>1 && level<5){
+            return chaseTimes[1];
+        }
+        else{
+            return chaseTimes[2];
+        }
     }
     public int getFrightTime(int level){
         if(level>21){

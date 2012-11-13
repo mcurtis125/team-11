@@ -198,7 +198,7 @@ class GhostControl {
             velx=walls.rightCollisionInAdvance(x, y, ghostSpeed);
             vely=0;
         }
-        
+            
         x=x+velx;
         y=y+vely;
     }

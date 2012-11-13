@@ -21,7 +21,7 @@ public class Ghost {
     public enum Name{Blinky, Pinky, Inky, Clyde};
     private Name name;
     private Color color;
-    public static final double SIZE = 15;
+    public static final double SIZE = 16;
     private static final double MAX_SPEED = 1;
     private double speed;
     private double normSpeed;
@@ -81,9 +81,10 @@ public class Ghost {
    }         
  
    public void refresh(ActionEvent e){
+        ghostControl.setMode(mode);
         ghostControl.refresh(e);
         ghostControl.getPosition(position);
-        setMode(mode);
+        setSpeed();
    }
    
    public void reset(){
@@ -96,8 +97,6 @@ public class Ghost {
    
    public void setMode(int mode){
        this.mode = mode;
-       ghostControl.setMode(mode);
-       setSpeed();
    }
    
    public void flash(){
@@ -105,21 +104,21 @@ public class Ghost {
    }
    
    public void setSpeed(){
-       if(mode==1||mode==2){
+       if(isInTunnel()){
+           speed = tunnelSpeed;
+           System.out.println("tunnel");
+       }
+       else if(mode==1||mode==2){
            speed = normSpeed;
        }
        else if(mode==3){
            speed = frightSpeed;
        }
-       else if(isInTunnel()){
-           speed = tunnelSpeed;
-           System.out.println("tunnel");
-       }
        ghostControl.setGhostSpeed(speed);
    }
    
    public boolean isInTunnel(){
-       if( position[1]==272 && (position[0]<96||position[0]>352) ){
+       if( (position[1]>271&&position[1]<274) && (position[0]<96||position[0]>352) ){
            return true;
        }
        else{

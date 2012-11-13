@@ -46,7 +46,7 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         pinky.draw(g);
         //pinky.ghostControl.algorithmTest(g);
         inky.draw(g);
-        inky.ghostControl.algorithmTest(g);
+        //inky.ghostControl.algorithmTest(g);
         clyde.draw(g);
         //clyde.ghostControl.algorithmTest(g);
         level.drawBonus(g);
@@ -65,15 +65,22 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         posVelGet.refresh(ae);
         if(posVelGet.pacmanGhostCollisionCheck()){
             try{
-                Thread.sleep(1500);
+                Thread.sleep(1500);    
+                level.resetLevel();
+                pacman.loseLife();
             }
             catch(Exception e){}
 
-            pacman.reset();
-            blinky.reset();
-            pinky.reset();
-            inky.reset();
-            clyde.reset();
+        }
+        if(level.getDotsRemaining() == 0){
+            try{
+                Thread.sleep(1500);
+                level.changeLevel();
+            }
+            catch(Exception e){}
+        }
+        if(pacman.getLives() == 0){
+            //do smtg
         }
         repaint();
     }

@@ -48,8 +48,8 @@ public class Pacman{
        pacControl.getPosition(position);
        currentTileIndex = walls.getIndex(position[0], position[1]);
        setMode(mode);
+       setSpeed();
        walls.changeType(currentTileIndex,2,1);
-       walls.changeType(currentTileIndex,3,1); 
     }
     
     public void reset(){
@@ -74,7 +74,6 @@ public class Pacman{
     
     public void setMode(int mode){
         this.mode = mode;
-        setSpeed();
     }
 
     private void setSpeed() {
@@ -95,6 +94,22 @@ public class Pacman{
             }
         }
         pacControl.setPacmanSpeed(speed);
+    }
+    
+    
+    public int getLives() {
+        return lives;
+    }
+    
+    public double getX(){
+        return position[0];
+    }
+    public double getY(){
+        return position[1];
+    }
+
+    public void loseLife() {
+        lives--;
     }
 
 }
