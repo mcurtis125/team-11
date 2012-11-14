@@ -49,19 +49,19 @@ class GhostControl {
                 vely=0;
                 break;
             case Pinky:
-                x=229;
+                x=216;
                 y=272;
                 velx=0;
                 vely=0;               
                 break;
             case Inky:
-                x=208;
+                x=192;
                 y=272;
                 velx=0;
                 vely=0;
                 break;
             case Clyde:
-                x=250;
+                x=240;
                 y=272;
                 velx=0;
                 vely=0;                
