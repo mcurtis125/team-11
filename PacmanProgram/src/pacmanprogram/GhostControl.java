@@ -42,7 +42,7 @@ class GhostControl {
     public void reset(){
         switch (name){
             case Blinky:
-                x=337;
+                x=399;
                 y=64;
                 velx=0;
                 vely=0;
@@ -96,22 +96,7 @@ class GhostControl {
     
     public void frightened(){
         
-        if(doDirectionCheck){
-        prevDirection=direction;
-        directionAndCoordinates = nextDirection.chooseNextRandomTile(x, y, velx, vely);
-        direction=directionAndCoordinates[0];
-        xNextTile=directionAndCoordinates[1];
-        yNextTile=directionAndCoordinates[2];
-        }
-        
-        if(prevDirection==direction){
-            move(direction,xNextTile,yNextTile);
-        }
-        
-        else{
-            doDirectionCheck=false;
-            move(0,xNextTile,yNextTile);
-        }  
+        getDirectionAndTileCoordinates(true); 
     }
     
     public void scatter(){
@@ -131,22 +116,7 @@ class GhostControl {
                 break;
         }
         
-        if(doDirectionCheck){
-        prevDirection=direction;
-        directionAndCoordinates = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely);
-        direction=directionAndCoordinates[0];
-        xNextTile=directionAndCoordinates[1];
-        yNextTile=directionAndCoordinates[2];
-        }
-        
-        if(prevDirection==direction){
-            move(direction,xNextTile,yNextTile);
-        }
-        
-        else{
-            doDirectionCheck=false;
-            move(0,xNextTile,yNextTile);
-        }
+        getDirectionAndTileCoordinates(false);
 
     }
     
@@ -172,22 +142,7 @@ class GhostControl {
                 break;
         }
         
-        if(doDirectionCheck){
-        prevDirection=direction;
-        directionAndCoordinates = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely);
-        direction=directionAndCoordinates[0];
-        xNextTile=directionAndCoordinates[1];
-        yNextTile=directionAndCoordinates[2];
-        }
-        
-        if(prevDirection==direction){
-            move(direction,xNextTile,yNextTile);
-        }
-        
-        else{
-            doDirectionCheck=false;
-            move(0,xNextTile,yNextTile);
-        }      
+        getDirectionAndTileCoordinates(false);     
 
     }
 
@@ -243,6 +198,49 @@ class GhostControl {
             
         x=x+velx;
         y=y+vely;
+    }
+    
+    public void getDirectionAndTileCoordinates(boolean isRandom){
+        
+        if(isRandom){
+            if(doDirectionCheck){
+                prevDirection=direction;
+                directionAndCoordinates = nextDirection.chooseNextRandomTile(x, y, velx, vely);
+                direction=directionAndCoordinates[0];
+                xNextTile=directionAndCoordinates[1];
+                yNextTile=directionAndCoordinates[2];
+            }
+        
+            if(prevDirection==direction){
+                move(direction,xNextTile,yNextTile);
+            }
+        
+            else{
+                doDirectionCheck=false;
+                move(0,xNextTile,yNextTile);
+            }
+        }
+
+
+        
+        else{
+            if(doDirectionCheck){
+                prevDirection=direction;
+                directionAndCoordinates = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely);
+                direction=directionAndCoordinates[0];
+                xNextTile=directionAndCoordinates[1];
+                yNextTile=directionAndCoordinates[2];
+            }
+        
+            if(prevDirection==direction){
+                move(direction,xNextTile,yNextTile);
+            }
+        
+            else{
+                doDirectionCheck=false;
+                move(0,xNextTile,yNextTile);
+            }
+        }
     }
     
     

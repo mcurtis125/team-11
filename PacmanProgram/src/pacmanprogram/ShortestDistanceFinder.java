@@ -26,6 +26,37 @@ public class ShortestDistanceFinder {
     public ShortestDistanceFinder(){
     }
     
+    public double[] chooseNextTile(double ghostXCoordinate, double ghostYCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
+        
+
+        double nextDirection;
+        double xNextTile, yNextTile;
+        double[] nextTileCoordinates = new double[2];
+        double[] directionAndCoordinates = new double[3];
+        
+        if(velx==0&&vely==0){
+            nextDirection=chooseNextTileHelper(ghostXCoordinate,ghostYCoordinate,targetXCoordinate,targetYCoordinate,velx,vely);
+            
+            directionAndCoordinates[0]=nextDirection;
+            directionAndCoordinates[1]=ghostXCoordinate;
+            directionAndCoordinates[2]=ghostYCoordinate;            
+        }
+        
+        else{
+            nextTileCoordinates=nextTileInDirectionOfVelocity(ghostXCoordinate,ghostYCoordinate,velx,vely);
+        
+            xNextTile=nextTileCoordinates[0];
+            yNextTile=nextTileCoordinates[1];
+        
+            nextDirection=chooseNextTileHelper(xNextTile,yNextTile,targetXCoordinate,targetYCoordinate,velx,vely);
+            
+            directionAndCoordinates[0]=nextDirection;
+            directionAndCoordinates[1]=xNextTile;
+            directionAndCoordinates[2]=yNextTile;
+        }
+
+        return directionAndCoordinates;      
+    }
     
     public int chooseNextTileHelper(double xCoordinate, double yCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
         
@@ -185,7 +216,36 @@ public class ShortestDistanceFinder {
    
     }
     
-    
+    public double chooseNextRandomTileHelper(HashMap<directionCheck,Boolean> movementArray, int randomNum, double velx, double vely){
+        int loopCounter;
+        
+        for(loopCounter=0;loopCounter<4;loopCounter++){
+                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely<=0){
+                    return 1;
+                }
+       
+                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx<=0){
+                    return 2;
+                }        
+        
+                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely>=0){
+                    return 3;
+                }
+        
+                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx>=0){
+                    return 4;
+                }
+            
+                if(randomNum==4){
+                    randomNum=1;
+                }
+                else{
+                    randomNum++;
+                }
+            }
+
+        return 0;
+    }
     
     public HashMap<directionCheck,Boolean> isIntersection(double ghostXCoordinate, double ghostYCoordinate){
         boolean canMoveLeft=false;
@@ -227,71 +287,6 @@ public class ShortestDistanceFinder {
         
         return movementArray;
         
-    }
-    
-    
-    public double chooseNextRandomTileHelper(HashMap<directionCheck,Boolean> movementArray, int randomNum, double velx, double vely){
-        int loopCounter;
-        
-        for(loopCounter=0;loopCounter<4;loopCounter++){
-                if(randomNum==1&&movementArray.get(directionCheck.canMoveUp)&&vely<=0){
-                    return 1;
-                }
-       
-                if(randomNum==2&&movementArray.get(directionCheck.canMoveLeft)&&velx<=0){
-                    return 2;
-                }        
-        
-                if(randomNum==3&&movementArray.get(directionCheck.canMoveDown)&&vely>=0){
-                    return 3;
-                }
-        
-                if(randomNum==4&&movementArray.get(directionCheck.canMoveRight)&&velx>=0){
-                    return 4;
-                }
-            
-                if(randomNum==4){
-                    randomNum=1;
-                }
-                else{
-                    randomNum++;
-                }
-            }
-
-        return 0;
-    }
-    
-    
-    public double[] chooseNextTile(double ghostXCoordinate, double ghostYCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
-        
-
-        double nextDirection;
-        double xNextTile, yNextTile;
-        double[] nextTileCoordinates = new double[2];
-        double[] directionAndCoordinates = new double[3];
-        
-        if(velx==0&&vely==0){
-            nextDirection=chooseNextTileHelper(ghostXCoordinate,ghostYCoordinate,targetXCoordinate,targetYCoordinate,velx,vely);
-            
-            directionAndCoordinates[0]=nextDirection;
-            directionAndCoordinates[1]=ghostXCoordinate;
-            directionAndCoordinates[2]=ghostYCoordinate;            
-        }
-        
-        else{
-            nextTileCoordinates=nextTileInDirectionOfVelocity(ghostXCoordinate,ghostYCoordinate,velx,vely);
-        
-            xNextTile=nextTileCoordinates[0];
-            yNextTile=nextTileCoordinates[1];
-        
-            nextDirection=chooseNextTileHelper(xNextTile,yNextTile,targetXCoordinate,targetYCoordinate,velx,vely);
-            
-            directionAndCoordinates[0]=nextDirection;
-            directionAndCoordinates[1]=xNextTile;
-            directionAndCoordinates[2]=yNextTile;
-        }
-
-        return directionAndCoordinates;      
     }
     
     
