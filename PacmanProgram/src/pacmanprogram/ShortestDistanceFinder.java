@@ -256,19 +256,19 @@ public class ShortestDistanceFinder {
         boolean isIntersection=false;
         HashMap<directionCheck,Boolean> movementArray = new HashMap<directionCheck,Boolean>();
 
-        if(!wallCollisionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate-(sizeOfTiles-sizeOfGhost))){
+        if(!wallCollisionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate)){
             canMoveUp=true;
         }
         
-        if(!wallCollisionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate-(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
+        if(!wallCollisionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate, ghostYCoordinate)){
             canMoveLeft=true;
         }
         
-        if(!wallCollisionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate+(sizeOfTiles-sizeOfGhost))){
+        if(!wallCollisionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate)){
             canMoveDown=true;
         }
         
-        if(!wallCollisionChecker.isOccupiedByWallMovingRight(ghostXCoordinate+(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
+        if(!wallCollisionChecker.isOccupiedByWallMovingRight(ghostXCoordinate, ghostYCoordinate)){
             canMoveRight=true;
         }
         

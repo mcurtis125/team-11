@@ -102,52 +102,60 @@ class GhostControl {
     
     public void scatter(){
         
-        switch(name){
-            case Blinky:
-                targetTile=targetFinder.getBlinkyScatterTarget();
-                break;
-            case Pinky: 
-                targetTile=targetFinder.getPinkyScatterTarget();
-                break;
-            case Inky:
-                targetTile=targetFinder.getInkyScatterTarget();
-                break;
-            case Clyde:
-                targetTile=targetFinder.getClydeScatterTarget();
-                break;
+        if(x>=176&&x<=256&&y>=256&&y<=288){
+            leaveHome();
         }
         
-        leaveHome();
-        
+        else{
+            switch(name){
+                case Blinky:
+                    targetTile=targetFinder.getBlinkyScatterTarget();
+                    break;
+                case Pinky: 
+                    targetTile=targetFinder.getPinkyScatterTarget();
+                    break;
+                case Inky:
+                    targetTile=targetFinder.getInkyScatterTarget();
+                    break;
+                case Clyde:
+                    targetTile=targetFinder.getClydeScatterTarget();
+                    break;
+            }
+        }
+
         getDirectionAndTileCoordinates(false);
 
     }
     
     public void chase(){
         
-        pacmanX=PacmanControl.x;
-        pacmanY=PacmanControl.y;
-        pacmanVelX=PacmanControl.velx;
-        pacmanVelY=PacmanControl.vely;
-        
-        switch(name){
-            case Blinky:
-                targetTile=targetFinder.getBlinkyChaseTarget(pacmanX,pacmanY);
-                break;
-            case Pinky: 
-                targetTile=targetFinder.getPinkyChaseTarget(pacmanX,pacmanY,pacmanVelX,pacmanVelY);
-                break;
-            case Inky:
-                targetTile=targetFinder.getInkyChaseTarget(pacmanX,pacmanY,pacmanVelX,pacmanVelY,blinkyX,blinkyY);
-                break;
-            case Clyde:
-                targetTile=targetFinder.getClydeChaseTarget(pacmanX,pacmanY,x,y);
-                break;
+        if(x>=176&&x<=256&&y>=256&&y<=288){
+            leaveHome();
         }
         
-        leaveHome();
+        else{
+            pacmanX=PacmanControl.x;
+            pacmanY=PacmanControl.y;
+            pacmanVelX=PacmanControl.velx;
+            pacmanVelY=PacmanControl.vely;
         
-        getDirectionAndTileCoordinates(false);     
+            switch(name){
+                case Blinky:
+                    targetTile=targetFinder.getBlinkyChaseTarget(pacmanX,pacmanY);
+                    break;
+                case Pinky: 
+                    targetTile=targetFinder.getPinkyChaseTarget(pacmanX,pacmanY,pacmanVelX,pacmanVelY);
+                    break;
+                case Inky:
+                    targetTile=targetFinder.getInkyChaseTarget(pacmanX,pacmanY,pacmanVelX,pacmanVelY,blinkyX,blinkyY);
+                    break;
+                case Clyde:
+                    targetTile=targetFinder.getClydeChaseTarget(pacmanX,pacmanY,x,y);
+                    break;
+            }
+            
+            getDirectionAndTileCoordinates(false);   
+        }
 
     }
     
@@ -165,9 +173,7 @@ class GhostControl {
     }
     
     public void leaveHome(){
-        if(x>=176&&x<=256&&y>=256&&y<=288){
-            targetTile=targetFinder.getLeaveHomeTarget();
-        }
+        targetTile=targetFinder.getLeaveHomeTarget();
         
     }
 
@@ -223,10 +229,6 @@ class GhostControl {
             
         x=x+velx;
         y=y+vely;
-        
-        if(this.name==Name.Inky){
-            System.out.println(velx + " " + vely);
-        }
     }
     
     public void getDirectionAndTileCoordinates(boolean isRandom){
