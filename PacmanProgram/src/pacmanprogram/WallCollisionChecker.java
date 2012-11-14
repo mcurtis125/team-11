@@ -13,6 +13,11 @@ import java.util.ArrayList;
 public class WallCollisionChecker {
     
     ArrayList<Tiles> coordinatesArray = new ArrayList<Tiles>();
+    ArrayList<Tiles> ghostPenDoor = new ArrayList<Tiles>();
+    
+
+    
+    
     Walls wallCoordinates = new Walls();
     double sizeOfCharacter, sizeOfWalls;
     
@@ -37,6 +42,9 @@ public class WallCollisionChecker {
             sizeOfCharacter=Ghost.SIZE;
         }
         sizeOfWalls=Walls.sizeOfTiles;
+        
+        ghostPenDoor.add(new Tiles(208,240,sizeOfWalls,sizeOfWalls,1));
+        ghostPenDoor.add(new Tiles(224,240,sizeOfWalls,sizeOfWalls,1));
     }
     
     
@@ -232,4 +240,27 @@ public class WallCollisionChecker {
     }
  
     
+     public boolean preventMovingIntoGhostPen(double xCoordinate, double yCoordinate){
+         
+         for(loopCounter=0;loopCounter<ghostPenDoor.size();loopCounter++){
+             
+            leftEdgeOfWall=ghostPenDoor.get(loopCounter).getXCoordinate();
+            rightEdgeOfWall=ghostPenDoor.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            topEdgeOfWall=ghostPenDoor.get(loopCounter).getYCoordinate();
+            bottomEdgeOfWall=ghostPenDoor.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            leftEdgeOfCharacter=xCoordinate;
+            rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
+            bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
+            
+            if(bottomEdgeOfCharacter>=topEdgeOfWall&&bottomEdgeOfCharacter<=bottomEdgeOfWall){
+                if(rightEdgeOfCharacter>leftEdgeOfWall&&leftEdgeOfCharacter<rightEdgeOfWall){
+                    return true;
+                }
+            }
+         }
+         
+         return false;
+     }
+     
+     
 }

@@ -18,7 +18,7 @@ public class ShortestDistanceFinder {
     
     public enum directionCheck{canMoveUp,canMoveLeft,canMoveDown,canMoveRight,isIntersection};
 
-    WallCollisionChecker wallCollsionChecker = new WallCollisionChecker(1);
+    WallCollisionChecker wallCollisionChecker = new WallCollisionChecker(1);
     Walls walls = new Walls();
     double sizeOfGhost=Ghost.SIZE;
     double sizeOfTiles=Walls.sizeOfTiles;
@@ -74,7 +74,7 @@ public class ShortestDistanceFinder {
         
         
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingUp(xCoordinate, yCoordinate)&&vely<=0){
+        if(!wallCollisionChecker.isOccupiedByWallMovingUp(xCoordinate, yCoordinate)&&vely<=0){
             nextTileY = getUpTile(yCoordinate);
             nextTileX = xCoordinate;
             upTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -82,7 +82,7 @@ public class ShortestDistanceFinder {
         }
         
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(xCoordinate, yCoordinate)&&velx<=0){
+        if(!wallCollisionChecker.isOccupiedByWallMovingLeft(xCoordinate, yCoordinate)&&velx<=0){
             nextTileX = getLeftTile(xCoordinate);
             nextTileY = yCoordinate;
             leftTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -90,7 +90,8 @@ public class ShortestDistanceFinder {
         }
         
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingDown(xCoordinate, yCoordinate)&&vely>=0){
+        if(!wallCollisionChecker.isOccupiedByWallMovingDown(xCoordinate, yCoordinate)&&
+                        !wallCollisionChecker.preventMovingIntoGhostPen(xCoordinate,yCoordinate)&&vely>=0){
             nextTileY = getDownTile(yCoordinate);
             nextTileX = xCoordinate;
             downTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -98,7 +99,7 @@ public class ShortestDistanceFinder {
         }
                 
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingRight(xCoordinate, yCoordinate)&&velx>=0){
+        if(!wallCollisionChecker.isOccupiedByWallMovingRight(xCoordinate, yCoordinate)&&velx>=0){
             nextTileX = getRightTile(xCoordinate);
             nextTileY = yCoordinate;
             rightTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
@@ -255,19 +256,19 @@ public class ShortestDistanceFinder {
         boolean isIntersection=false;
         HashMap<directionCheck,Boolean> movementArray = new HashMap<directionCheck,Boolean>();
 
-        if(!wallCollsionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate-(sizeOfTiles-sizeOfGhost))){
+        if(!wallCollisionChecker.isOccupiedByWallMovingUp(ghostXCoordinate, ghostYCoordinate-(sizeOfTiles-sizeOfGhost))){
             canMoveUp=true;
         }
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate-(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
+        if(!wallCollisionChecker.isOccupiedByWallMovingLeft(ghostXCoordinate-(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
             canMoveLeft=true;
         }
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate+(sizeOfTiles-sizeOfGhost))){
+        if(!wallCollisionChecker.isOccupiedByWallMovingDown(ghostXCoordinate, ghostYCoordinate+(sizeOfTiles-sizeOfGhost))){
             canMoveDown=true;
         }
         
-        if(!wallCollsionChecker.isOccupiedByWallMovingRight(ghostXCoordinate+(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
+        if(!wallCollisionChecker.isOccupiedByWallMovingRight(ghostXCoordinate+(sizeOfTiles-sizeOfGhost), ghostYCoordinate)){
             canMoveRight=true;
         }
         

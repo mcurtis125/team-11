@@ -65,12 +65,12 @@ public class TargetTileFinder {
         double offsetY;
         double xLine;
         double yLine;
-        double x=pacmanX+sizeOfTiles*2;
+        double x=pacmanX+(sizeOfTiles*2);
         double y=pacmanY+sizeOfTiles*2;
         double[] position = new double[2];
         
         if(pacVelX>0){
-            offsetX=pacmanX+sizeOfTiles*2;
+            offsetX=pacmanX+(sizeOfTiles*2);
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
@@ -79,7 +79,7 @@ public class TargetTileFinder {
         }
  
         if(pacVelX<0){
-            offsetX=pacmanX-sizeOfTiles*2;
+            offsetX=pacmanX-(sizeOfTiles*2);
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
@@ -89,7 +89,7 @@ public class TargetTileFinder {
 
         if(pacVelY>0){
             offsetX=pacmanX;
-            offsetY=pacmanY+sizeOfTiles*2;
+            offsetY=pacmanY+(sizeOfTiles*2);
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
             x=offsetX+xLine;
@@ -97,8 +97,8 @@ public class TargetTileFinder {
         } 
         
         if(pacVelY<0){
-            offsetX=pacmanX-sizeOfTiles*2;
-            offsetY=pacmanY-sizeOfTiles*2;
+            offsetX=pacmanX-(sizeOfTiles*2);
+            offsetY=pacmanY-(sizeOfTiles*2);
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
             x=offsetX+xLine;
@@ -171,4 +171,17 @@ public class TargetTileFinder {
         return position;
     }
     
+    public double[] getReturnToHomeTarget(){
+        double[] position = new double[2];
+        position[0]=208;
+        position[1]=224;
+        return position;
+    }
+    
+    public double[] getLeaveHomeTarget(){
+        double[] position = new double[2];
+        position[0]=208;
+        position[1]=224;
+        return position;
+    }
 }

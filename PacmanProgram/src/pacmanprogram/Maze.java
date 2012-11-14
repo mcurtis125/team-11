@@ -26,8 +26,7 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
     Ghost clyde = new Ghost(Name.Clyde);
     TextDisplay text = new TextDisplay();
     ScoreDisplay score = new ScoreDisplay();
-    PositionVelocityGetter posVelGet = new PositionVelocityGetter(pacman.pacControl, blinky.ghostControl, pinky.ghostControl, 
-                                                                                        inky.ghostControl, clyde.ghostControl);
+    
     Level level = new Level(pacman, blinky, inky, pinky, clyde, walls);
     
     public Maze(){
@@ -66,26 +65,7 @@ public class Maze extends JPanel implements ActionListener, KeyListener {
         inky.refresh(ae);
         clyde.refresh(ae);
         level.refresh(ae);
-        posVelGet.refresh(ae);
-        if(posVelGet.pacmanGhostCollisionCheck()){
-            try{
-                Thread.sleep(1500);    
-                level.resetLevel();
-                pacman.loseLife();
-            }
-            catch(Exception e){}
 
-        }
-        if(level.getDotsRemaining() == 0){
-            try{
-                Thread.sleep(1500);
-                level.changeLevel();
-            }
-            catch(Exception e){}
-        }
-        if(pacman.getLives() == 0){
-            //do smtg
-        }
         repaint();
     }
 

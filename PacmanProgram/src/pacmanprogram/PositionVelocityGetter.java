@@ -43,25 +43,25 @@ public class PositionVelocityGetter {
         pacControl.getPosition(pacmanPos);
         pacControl.getVelocity(pacmanVel);
         
-        blinkyControl.getPosition(blinkyPos);
+        blinkyPos=getGhostPosition(blinkyControl);
         
-        pinkyControl.getPosition(pinkyPos); 
+        pinkyPos=getGhostPosition(pinkyControl);
         
-        inkyControl.getPosition(inkyPos);
+        inkyPos=getGhostPosition(inkyControl);
         
-        clydeControl.getPosition(clydePos);
+        clydePos=getGhostPosition(clydeControl);
         
         inkyControl.giveBlinkyPos(blinkyPos);
 
     }
     
     
-    public boolean pacmanGhostCollisionCheck(){
+    public GhostControl pacmanGhostCollisionCheck(){
 
         pacmanCenterX=pacmanPos[0]+(sizeOfPacman/2);
         pacmanCenterY=pacmanPos[1]+(sizeOfPacman/2);
         blinkyX=blinkyPos[0];
-        blinkyY=blinkyPos[1];        
+        blinkyY=blinkyPos[1];
         pinkyX=pinkyPos[0];
         pinkyY=pinkyPos[1];
         inkyX=inkyPos[0];
@@ -71,22 +71,35 @@ public class PositionVelocityGetter {
         
 
         if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, blinkyX, blinkyY)){
-            return true;
+            return blinkyControl;
         }
         
         if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, pinkyX, pinkyY)){
-            return true;
+            return pinkyControl;
         }
         
         if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, inkyX, inkyY)){
-            return true;
+            return inkyControl;
         }
         
         if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, clydeX, clydeY)){
-            return true;
+            return clydeControl;
         }
         
-        return false;
+        return null;
+    }
+    
+    public double[] getGhostPosition(GhostControl ghostControl){
+        double[] position = new double[2];
+        
+        if(ghostControl.existent){
+           ghostControl.getPosition(position);
+        }
+        else{
+            position[0]=0;
+            position[1]=0;
+        }
+        return position;
     }
     
     

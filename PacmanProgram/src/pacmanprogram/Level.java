@@ -15,6 +15,9 @@ import java.util.Timer;
  */
 class Level {
     LevelSpecs levelSpecs = new LevelSpecs();
+
+    PositionVelocityGetter posVelGet;
+    
     private static final double TOLERANCE = 0.00815;
 
     
@@ -51,14 +54,15 @@ class Level {
 //    private Timer lastDotTimer = new Timer();
 //    private double timerLimit;
     
-    
     Pacman pacman;
     Ghost blinky;
     Ghost pinky;
     Ghost inky;
     Ghost clyde;
+    GhostControl ghostControl;
     Walls walls;
     BonusSymbol bonus;
+
     
     
     public Level(Pacman pacman, Ghost blinky, Ghost inky, Ghost pinky, Ghost clyde, Walls walls) {
@@ -76,6 +80,10 @@ class Level {
         bonus = new BonusSymbol(levelSpecs.getBonusSymbol(currentLevel));
         updateSpecifications(); 
         assignSpeeds();
+        
+        posVelGet= new PositionVelocityGetter(pacman.pacControl, blinky.ghostControl, pinky.ghostControl, 
+                                                                    inky.ghostControl, clyde.ghostControl);
+        
     }
     
     public void start() {
@@ -92,6 +100,39 @@ class Level {
 
 
     public void refresh(ActionEvent ae) {
+        posVelGet.refresh(ae);
+        
+        
+        if(posVelGet.pacmanGhostCollisionCheck()!=null){
+            try{
+                Thread.sleep(1500); 
+                if(mode==1||mode==2){
+                    resetLevel();
+                    pacman.loseLife();
+                }
+                if(mode==3){
+                    ghostControl=posVelGet.pacmanGhostCollisionCheck();
+                    ghostControl.becomeNonExistent();
+                    ghostControl.goHome();
+                }
+
+            }
+            catch(Exception e){}
+
+        }
+        if(getDotsRemaining() == 0){
+            try{
+                Thread.sleep(1500);
+                changeLevel();
+            }
+            catch(Exception e){}
+        }
+        if(pacman.getLives() == 0){
+            //do smtg
+        }
+        
+
+        
         //update dot count
         int[] map = walls.getMap();
         int dots = 0;

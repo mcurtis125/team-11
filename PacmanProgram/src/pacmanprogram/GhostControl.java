@@ -26,6 +26,7 @@ class GhostControl {
     double direction=1;
     double prevDirection;
     boolean doDirectionCheck=true;
+    boolean existent=true;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
     WallCollisionChecker walls = new WallCollisionChecker(1);
@@ -42,25 +43,25 @@ class GhostControl {
     public void reset(){
         switch (name){
             case Blinky:
-                x=399;
-                y=64;
+                x=208;
+                y=224;
                 velx=0;
                 vely=0;
                 break;
             case Pinky:
-                x=48;
-                y=64;
+                x=229;
+                y=272;
                 velx=0;
                 vely=0;               
                 break;
             case Inky:
-                x=144;
+                x=208;
                 y=272;
                 velx=0;
                 vely=0;
                 break;
             case Clyde:
-                x=320;
+                x=250;
                 y=272;
                 velx=0;
                 vely=0;                
@@ -116,6 +117,8 @@ class GhostControl {
                 break;
         }
         
+        leaveHome();
+        
         getDirectionAndTileCoordinates(false);
 
     }
@@ -142,8 +145,30 @@ class GhostControl {
                 break;
         }
         
+        leaveHome();
+        
         getDirectionAndTileCoordinates(false);     
 
+    }
+    
+    public void goHome(){
+        targetTile=targetFinder.getReturnToHomeTarget();
+        getDirectionAndTileCoordinates(false);
+    }
+    
+    public void becomeNonExistent(){
+        existent=false;
+    }
+    
+    public void becomeExistent(){
+        existent=true;
+    }
+    
+    public void leaveHome(){
+        if(x>=176&&x<=256&&y>=256&&y<=288){
+            targetTile=targetFinder.getLeaveHomeTarget();
+        }
+        
     }
 
     
@@ -198,6 +223,10 @@ class GhostControl {
             
         x=x+velx;
         y=y+vely;
+        
+        if(this.name==Name.Inky){
+            System.out.println(velx + " " + vely);
+        }
     }
     
     public void getDirectionAndTileCoordinates(boolean isRandom){
@@ -210,19 +239,8 @@ class GhostControl {
                 xNextTile=directionAndCoordinates[1];
                 yNextTile=directionAndCoordinates[2];
             }
-        
-            if(prevDirection==direction){
-                move(direction,xNextTile,yNextTile);
-            }
-        
-            else{
-                doDirectionCheck=false;
-                move(0,xNextTile,yNextTile);
-            }
         }
 
-
-        
         else{
             if(doDirectionCheck){
                 prevDirection=direction;
@@ -231,17 +249,24 @@ class GhostControl {
                 xNextTile=directionAndCoordinates[1];
                 yNextTile=directionAndCoordinates[2];
             }
+        }
         
-            if(prevDirection==direction){
-                move(direction,xNextTile,yNextTile);
-            }
+        if(prevDirection==direction){
+            move(direction,xNextTile,yNextTile);
+        }
         
-            else{
-                doDirectionCheck=false;
-                move(0,xNextTile,yNextTile);
-            }
+        else{
+            doDirectionCheck=false;
+            move(0,xNextTile,yNextTile);
         }
     }
+    
+    
+    public void reverseDirection(){
+        velx=-velx;
+        vely=-vely;
+    }
+    
     
     
     public void giveBlinkyPos(double[] blinkyPos){
