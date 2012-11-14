@@ -148,7 +148,7 @@ public class WallCollisionChecker {
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
             distanceFromWall=rightEdgeOfWall-leftEdgeOfCharacter;
             
-            if(distanceFromWall<0&&distanceFromWall>velx){
+            if(distanceFromWall<=0&&distanceFromWall>velx){
                 if(bottomEdgeOfCharacter>topEdgeOfWall&&topEdgeOfCharacter<bottomEdgeOfWall){
                     return distanceFromWall;
                 }
@@ -172,7 +172,7 @@ public class WallCollisionChecker {
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
             distanceFromWall=leftEdgeOfWall-rightEdgeOfCharacter;
             
-            if(distanceFromWall>0&&distanceFromWall<velx){
+            if(distanceFromWall>=0&&distanceFromWall<velx){
                 if(bottomEdgeOfCharacter>topEdgeOfWall&&topEdgeOfCharacter<bottomEdgeOfWall){
                     return distanceFromWall;
                 }
@@ -196,7 +196,7 @@ public class WallCollisionChecker {
             topEdgeOfCharacter=yCoordinate;
             distanceFromWall=bottomEdgeOfWall-topEdgeOfCharacter;
             
-            if(distanceFromWall<0&&distanceFromWall>vely){
+            if(distanceFromWall<=0&&distanceFromWall>vely){
                 if(rightEdgeOfCharacter>leftEdgeOfWall&&leftEdgeOfCharacter<rightEdgeOfWall){
                     return distanceFromWall;
                 }
@@ -220,7 +220,7 @@ public class WallCollisionChecker {
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
             distanceFromWall=topEdgeOfWall-bottomEdgeOfCharacter;
             
-            if(distanceFromWall>0&&distanceFromWall<vely){
+            if(distanceFromWall>=0&&distanceFromWall<vely){
                 if(rightEdgeOfCharacter>leftEdgeOfWall&&leftEdgeOfCharacter<rightEdgeOfWall){
                     return distanceFromWall;
                 }

@@ -11,6 +11,7 @@ package pacmanprogram;
 public class TargetTileFinder {
     
     ShortestDistanceFinder distance = new ShortestDistanceFinder();
+    double sizeOfTiles=Walls.sizeOfTiles;
     
     public TargetTileFinder(){
         
@@ -30,25 +31,25 @@ public class TargetTileFinder {
     
     
     public double[] getPinkyChaseTarget(double pacmanX, double pacmanY, double pacVelX, double pacVelY){
-            double x=pacmanX+64;
-            double y=pacmanY+64;
+            double x=pacmanX+sizeOfTiles*4;
+            double y=pacmanY+sizeOfTiles*4;
             double[] position = new double[2];
             
             if(pacVelX>0){
-                x=pacmanX+64;
+                x=pacmanX+sizeOfTiles*4;
                 y=pacmanY;
             }
             if(pacVelX<0){
-                x=pacmanX-64;
+                x=pacmanX-sizeOfTiles*4;
                 y=pacmanY;
             }
             if(pacVelY>0){
                 x=pacmanX;
-                y=pacmanY+64;
+                y=pacmanY+sizeOfTiles*4;
             }
             if(pacVelY<0){
-                x=pacmanX-64;
-                y=pacmanY-64;
+                x=pacmanX-sizeOfTiles*4;
+                y=pacmanY-sizeOfTiles*4;
             }
             
             position[0]=x;
@@ -64,12 +65,12 @@ public class TargetTileFinder {
         double offsetY;
         double xLine;
         double yLine;
-        double x=pacmanX+32;
-        double y=pacmanY+32;
+        double x=pacmanX+sizeOfTiles*2;
+        double y=pacmanY+sizeOfTiles*2;
         double[] position = new double[2];
         
         if(pacVelX>0){
-            offsetX=pacmanX+32;
+            offsetX=pacmanX+sizeOfTiles*2;
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
@@ -78,7 +79,7 @@ public class TargetTileFinder {
         }
  
         if(pacVelX<0){
-            offsetX=pacmanX-32;
+            offsetX=pacmanX-sizeOfTiles*2;
             offsetY=pacmanY;
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
@@ -88,7 +89,7 @@ public class TargetTileFinder {
 
         if(pacVelY>0){
             offsetX=pacmanX;
-            offsetY=pacmanY+32;
+            offsetY=pacmanY+sizeOfTiles*2;
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
             x=offsetX+xLine;
@@ -96,8 +97,8 @@ public class TargetTileFinder {
         } 
         
         if(pacVelY<0){
-            offsetX=pacmanX-32;
-            offsetY=pacmanY-32;
+            offsetX=pacmanX-sizeOfTiles*2;
+            offsetY=pacmanY-sizeOfTiles*2;
             xLine=offsetX-blinkyX;
             yLine=offsetY-blinkyY;
             x=offsetX+xLine;
@@ -124,7 +125,7 @@ public class TargetTileFinder {
         
         double[] position = new double[2];
         
-        if(distance.calculateDistance(clydeX, clydeY, pacmanX, pacmanY)<128.0){
+        if(distance.calculateDistance(clydeX, clydeY, pacmanX, pacmanY)<sizeOfTiles*8){
             position=getClydeScatterTarget();
         }
         

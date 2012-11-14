@@ -17,11 +17,15 @@ import pacmanprogram.Ghost.Name;
  */
 class GhostControl {
     private double ghostSpeed;
-    private double x,y,velx,vely,preVelX,preVelY,prePreVelX,prePreVelY,pacmanX,pacmanY,pacmanVelX,pacmanVelY,blinkyX,blinkyY;
+    private double x,y,velx,vely,xNextTile,yNextTile,pacmanX,pacmanY,pacmanVelX,pacmanVelY,blinkyX,blinkyY;
     Name name;
     double[] targetTile = new double[2];
     double[] position = new double[2];
-    int direction;
+    double[] directionAndCoordinates = new double[3];
+    double[] velocity = new double[2];
+    double direction=1;
+    double prevDirection;
+    boolean doDirectionCheck=true;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
     WallCollisionChecker walls = new WallCollisionChecker(1);
@@ -38,44 +42,28 @@ class GhostControl {
     public void reset(){
         switch (name){
             case Blinky:
-                x=399;
+                x=337;
                 y=64;
                 velx=0;
                 vely=0;
-                preVelX=0;
-                preVelY=0;
-                prePreVelX=0;
-                prePreVelY=0;
                 break;
             case Pinky:
                 x=48;
                 y=64;
                 velx=0;
-                vely=0;
-                preVelX=0;
-                preVelY=0;
-                prePreVelX=0;
-                prePreVelY=0;                
+                vely=0;               
                 break;
             case Inky:
                 x=144;
                 y=272;
                 velx=0;
                 vely=0;
-                preVelX=0;
-                preVelY=0;
-                prePreVelX=0;
-                prePreVelY=0;
                 break;
             case Clyde:
                 x=320;
                 y=272;
                 velx=0;
-                vely=0;
-                preVelX=0;
-                preVelY=0;
-                prePreVelX=0;
-                prePreVelY=0;                
+                vely=0;                
                 break;
         }
     }
@@ -107,11 +95,27 @@ class GhostControl {
     }
     
     public void frightened(){
-        direction=nextDirection.chooseNextRandomTile(x, y, velx, vely,preVelX,preVelY,prePreVelX,prePreVelY);
-        move(direction);
+        
+        if(doDirectionCheck){
+        prevDirection=direction;
+        directionAndCoordinates = nextDirection.chooseNextRandomTile(x, y, velx, vely);
+        direction=directionAndCoordinates[0];
+        xNextTile=directionAndCoordinates[1];
+        yNextTile=directionAndCoordinates[2];
+        }
+        
+        if(prevDirection==direction){
+            move(direction,xNextTile,yNextTile);
+        }
+        
+        else{
+            doDirectionCheck=false;
+            move(0,xNextTile,yNextTile);
+        }  
     }
     
     public void scatter(){
+        
         switch(name){
             case Blinky:
                 targetTile=targetFinder.getBlinkyScatterTarget();
@@ -127,9 +131,23 @@ class GhostControl {
                 break;
         }
         
-        direction = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely, preVelX, preVelY,prePreVelX,prePreVelY);
+        if(doDirectionCheck){
+        prevDirection=direction;
+        directionAndCoordinates = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely);
+        direction=directionAndCoordinates[0];
+        xNextTile=directionAndCoordinates[1];
+        yNextTile=directionAndCoordinates[2];
+        }
         
-        move(direction); 
+        if(prevDirection==direction){
+            move(direction,xNextTile,yNextTile);
+        }
+        
+        else{
+            doDirectionCheck=false;
+            move(0,xNextTile,yNextTile);
+        }
+
     }
     
     public void chase(){
@@ -154,9 +172,22 @@ class GhostControl {
                 break;
         }
         
-        direction = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely,preVelX,preVelY,prePreVelX,prePreVelY);
-                
-        move(direction);        
+        if(doDirectionCheck){
+        prevDirection=direction;
+        directionAndCoordinates = nextDirection.chooseNextTile(x, y, targetTile[0], targetTile[1], velx, vely);
+        direction=directionAndCoordinates[0];
+        xNextTile=directionAndCoordinates[1];
+        yNextTile=directionAndCoordinates[2];
+        }
+        
+        if(prevDirection==direction){
+            move(direction,xNextTile,yNextTile);
+        }
+        
+        else{
+            doDirectionCheck=false;
+            move(0,xNextTile,yNextTile);
+        }      
 
     }
 
@@ -166,22 +197,33 @@ class GhostControl {
         if(x<-12){
             vely=0;
             x=444;
+            xNextTile=432;
+            yNextTile=272;
         }
         
         else if(x>444){
             vely=0;
             x=-12;
+            xNextTile=0;
+            yNextTile=272;
         } 
     }
     
     
     
     
-    public void move(int direction){
-        prePreVelX=preVelX;
-        prePreVelY=preVelY;
-        preVelX=velx;
-        preVelY=vely;
+    public void move(double direction, double xNextTile, double yNextTile){
+
+       if(direction==0){
+            velocity=nextDirection.landOnTileEdge(x, y, xNextTile, yNextTile, velx, vely);
+            velx=velocity[0];
+            vely=velocity[1];
+            if(velx==0&&vely==0){
+                direction=this.direction;
+                this.doDirectionCheck=true;
+            }
+        }
+        
         if(direction==1){
             velx=0;
             vely=walls.upCollisionInAdvance(x, y, -ghostSpeed);
@@ -209,7 +251,28 @@ class GhostControl {
         blinkyY=blinkyPos[1];
     }
     
-    public void algorithmTest(Graphics g){
+    public void movementAlgorithmTest(Graphics g){
+        Graphics2D ghost = (Graphics2D) g;
+        if(direction==0){
+            ghost.setColor(Color.RED);
+        }
+        else if(direction==1){
+            ghost.setColor(Color.GREEN);
+        }
+        else if(direction==2){
+            ghost.setColor(Color.BLUE);
+        }
+        else if(direction==3){
+            ghost.setColor(Color.YELLOW);
+        }
+        else if(direction==4){
+            ghost.setColor(Color.WHITE);
+        }
+
+        ghost.fill(new Rectangle.Double(xNextTile,yNextTile,16,16));
+    }
+    
+    public void targetAlgorithmTest(Graphics g){
         Graphics2D ghost = (Graphics2D) g;
         ghost.setColor(Color.GREEN);
         ghost.fill(new Rectangle.Double(targetTile[0],targetTile[1],16,16));
