@@ -67,6 +67,9 @@ class GhostControl {
                 vely=0;                
                 break;
         }
+        doDirectionCheck=true;
+        direction=1;
+        
     }
     
     public void getPosition(double[] pos){
@@ -102,7 +105,7 @@ class GhostControl {
     
     public void scatter(){
         
-        if(x>=176&&x<=256&&y>=256&&y<=288){
+        if(x>=176&&x<=256&&y>=240&&y<=288){
             leaveHome();
         }
         
