@@ -52,8 +52,8 @@ public class Pacman{
        walls.changeType(currentTileIndex,2,1);
     }
     
-    public void reset(){
-        pacControl.reset();
+    public void resetPosition(){
+        pacControl.resetPosition();
     }
     
     public void assignSpeeds(double norm, double dot, double fright, double frightDot){
@@ -112,4 +112,7 @@ public class Pacman{
         lives--;
     }
 
+    public void newGame(){
+       lives = 3;
+    }
 }

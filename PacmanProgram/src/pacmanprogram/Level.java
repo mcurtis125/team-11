@@ -16,9 +16,10 @@ import java.util.Timer;
 class Level {
     LevelSpecs levelSpecs = new LevelSpecs();
 
-    PositionVelocityGetter posVelGet;
+    PositionVelocityGetter getCharacterPositions;
     
-    private static final double TOLERANCE = 0.00815;
+    private static final double TIME_TOLERANCE = 0.00815;
+    private static final double POSITION_TOLERANCE = 1.6;
 
     
     private int mode;
@@ -81,179 +82,12 @@ class Level {
         updateSpecifications(); 
         assignSpeeds();
         
-        posVelGet= new PositionVelocityGetter(pacman.pacControl, blinky.ghostControl, pinky.ghostControl, 
+        getCharacterPositions= new PositionVelocityGetter(pacman.pacControl, blinky.ghostControl, pinky.ghostControl, 
                                                                     inky.ghostControl, clyde.ghostControl);
-        
-    }
-    
-    public void start() {
         startTimer();
         scatterMode();
         startScatChaseTimer();
-    }
-    
-    public void drawBonus(Graphics g) {
-        if(showBonus && !bonusGone){
-            bonus.show(g);
-        }      
-    }
-
-
-    public void refresh(ActionEvent ae) {
-        posVelGet.refresh(ae);
         
-        
-        if(posVelGet.pacmanGhostCollisionCheck()!=null){
-            try{
-                Thread.sleep(1500); 
-                if(mode==1||mode==2){
-                    resetLevel();
-                    pacman.loseLife();
-                }
-                if(mode==3){
-                    ghostControl=posVelGet.pacmanGhostCollisionCheck();
-                    ghostControl.becomeNonExistent();
-                    ghostControl.goHome();
-                }
-
-            }
-            catch(Exception e){}
-
-        }
-        if(getDotsRemaining() == 0){
-            try{
-                Thread.sleep(1500);
-                changeLevel();
-            }
-            catch(Exception e){}
-        }
-        if(pacman.getLives() == 0){
-            //do smtg
-        }
-        
-
-        
-        //update dot count
-        int[] map = walls.getMap();
-        int dots = 0;
-        int energizers = 0;
-        int i;
-        for(i=0; i<map.length; i++){
-            if(map[i] == 3){
-                dots++;
-            }
-            else if(map[i] == 4){
-                energizers++;
-            }
-        }
-        dotCounter = dots;
-        energizerCounter = energizers;
-        dotsEaten = 240-dotCounter;
-        energizersEaten = 4-energizerCounter;
-        
-        //show bonus at the right time
-        if(((dotsEaten+energizersEaten)==BonusSymbol.APPEAR_TIME_DOTS_EATEN[1]) || ((dotsEaten+energizersEaten)==BonusSymbol.APPEAR_TIME_DOTS_EATEN[0])){
-            showBonus = true;
-            startBonusTimer();
-        }
-        
-        //erase bonus at the right time
-        if(showBonus){
-            if( (pacman.getX() > 216 && pacman.getX() < 232) && (pacman.getY() > 319 && pacman.getY() < 335)){
-                eatBonus();
-            }
-            else if((getBonusTimer() > 9.5-TOLERANCE && getBonusTimer() < 9.5+TOLERANCE)){
-                eraseBonus();
-            }
-        }
-        
-        
-        //start fright mode when pacman eats energizers
-        if(pacman.getCurrentTileIndex()==169||pacman.getCurrentTileIndex()==194||pacman.getCurrentTileIndex()==729||pacman.getCurrentTileIndex()==754){
-            if(walls.getType(pacman.getCurrentTileIndex())==3){
-                walls.changeType(pacman.getCurrentTileIndex(), 3, 1);
-                System.out.println(getScatChaseTimer());
-                pauseScatChaseTimer(frightTime);
-                System.out.println(getScatChaseTimer());
-                prevMode = getMode();
-                frightMode();
-                startFrightTimer();
-                frightOn = true;
-            }  
-        }
-        
-        if(!frightOn){
-            //scatter mode at appropriate times
-            if((getScatChaseTimer() > scatTimes[0]-TOLERANCE && getScatChaseTimer() < scatTimes[0]+TOLERANCE) || (getScatChaseTimer() > scatTimes[1]-TOLERANCE && getScatChaseTimer() < scatTimes[1]+TOLERANCE) || (getScatChaseTimer() > scatTimes[2]-TOLERANCE && getScatChaseTimer() < scatTimes[2]+TOLERANCE))  {
-                System.out.println(getScatChaseTimer());
-                scatterMode();
-            }
-            //chase mode at appropriate times
-            else if((getScatChaseTimer() > chaseTimes[0]-TOLERANCE && getScatChaseTimer() < chaseTimes[0]+TOLERANCE) || (getScatChaseTimer() > chaseTimes[1]-TOLERANCE && getScatChaseTimer() < chaseTimes[1]+TOLERANCE) || (getScatChaseTimer() > chaseTimes[2]-TOLERANCE && getScatChaseTimer() < chaseTimes[2]+TOLERANCE || (getScatChaseTimer() > chaseTimes[3]-TOLERANCE && getScatChaseTimer() < chaseTimes[3]+TOLERANCE)))  {
-                System.out.println(getScatChaseTimer());
-                chaseMode();
-            }
-        }
-        else{
-            if(getFrightTimer() > frightTime){
-                frightOn = false;
-                mode = prevMode;
-                System.out.println("CHANGING BACK");
-                setMode();
-            }
-        }        
-    }
-    
-    public void eraseBonus(){
-        bonusGone = true;
-    }
-    
-    public void eatBonus(){
-        bonusGone = true;
-        bonusEaten++;
-    }
-    
-    public void changeLevel(){
-        currentLevel++;
-        updateSpecifications();
-        assignSpeeds();
-        startTimer();
-        resetLevel();
-    }
-    
-    public void resetLevel(){
-        frightOn = false;
-        dotsEaten = 0;
-        energizersEaten = 0;
-        dotCounter = 240;
-        energizerCounter = 4;
-        pacman.reset();
-        blinky.reset();
-        pinky.reset();
-        inky.reset();
-        clyde.reset();
-        scatterMode();
-        startScatChaseTimer();
-    }
-    
-    public int getDotsEaten(){
-        return dotsEaten;
-    }
-    
-    public int getDotsRemaining() {
-        return dotCounter;
-    }
-    
-    public int getEnergizersEaten(){
-        return energizersEaten;
-    }
-    
-    public int getEnergizersRemaining(){
-        return energizerCounter;
-    }
-    
-    public int getLevel(){
-        return currentLevel;
     }
     
     private void updateSpecifications(){
@@ -277,9 +111,201 @@ class Level {
         inky.assignSpeeds(ghostSpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
         clyde.assignSpeeds(ghostSpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
     }
+
+    public void refresh(ActionEvent ae) {
+        getCharacterPositions.refresh(ae);
+        checkCollision();
+        checkGameOver();
+        updateDotCount();
+        checkLevelChange();
+        updateBonusSymbols();
+        updateModes();           
+    }
     
-    private int getMode(){
-        return mode;
+    private void resetLevel(){
+        frightOn = false;
+        pacman.resetPosition();
+        blinky.resetPosition();
+        pinky.resetPosition();
+        inky.resetPosition();
+        clyde.resetPosition();
+        scatterMode();
+        startScatChaseTimer();
+    }
+    
+    private void checkCollision(){
+        if(getCharacterPositions.pacmanGhostCollisionCheck()!=null){
+            try{ 
+                if(mode==1||mode==2){
+                    Thread.sleep(1500);
+                    System.out.println("LOSE LIFE");
+                    resetLevel();
+                    pacman.loseLife();
+                }
+                if(mode==3){
+                    ghostControl=getCharacterPositions.pacmanGhostCollisionCheck();
+                    ghostControl.becomeNonExistent();
+                    ghostControl.goHome();
+                }
+
+            }
+            catch(Exception e){}
+        }
+    }
+    
+    private void checkGameOver(){
+        if(pacman.getLives() == 0){
+            try{
+                System.out.println("GAME OVER");
+                Thread.sleep(5000);
+                pacman.newGame();
+                currentLevel = 1;
+                walls.resetMap();
+                resetLevel();
+                
+            }
+            catch(Exception e){}
+        }  
+    }
+    
+    private void updateDotCount(){
+        int[] map = walls.getMap();
+        int dots = 0;
+        int energizers = 0;
+        int i;
+        for(i=0; i<map.length; i++){
+            if(map[i] == 2){
+                dots++;
+            }
+            else if(map[i] == 3){
+                energizers++;
+            }
+        }
+        dotCounter = dots;
+        energizerCounter = energizers;
+        dotsEaten = 240-dotCounter;
+        energizersEaten = 4-energizerCounter;      
+    }
+    
+    private void checkLevelChange(){
+        if((getDotsRemaining()+getEnergizersRemaining()) == 0){
+            try{
+                Thread.sleep(1500);
+            }
+            catch(Exception e){}
+            changeLevel();
+            walls.resetMap();
+            System.out.println(""+currentLevel);
+        }
+    }
+    
+    public void changeLevel(){
+        currentLevel++;
+        walls.resetMap();
+        updateSpecifications();
+        assignSpeeds();
+        startTimer();
+        resetLevel();
+    }
+    
+    private void updateBonusSymbols(){
+        //show bonus at the right time
+        if(!showBonus){
+            if(((dotsEaten+energizersEaten)==BonusSymbol.APPEAR_TIME_DOTS_EATEN[1]) || ((dotsEaten+energizersEaten)==BonusSymbol.APPEAR_TIME_DOTS_EATEN[0])){
+                showBonus = true;
+                bonusGone = false;
+                startBonusTimer();
+            }
+        }
+        else{
+            if(pacEatingBonus()){
+                System.out.println("Eating bonus");
+                eatBonus();
+            }
+            else if(timeCheck(getBonusTimer(), 9.5)){
+                System.out.println("Bonus Time Up");
+                eraseBonus();
+            }
+        } 
+    }
+    
+    public void drawBonus(Graphics g) {
+        if(showBonus && !bonusGone){
+            bonus.show(g);
+        }      
+    }
+    
+    public void eraseBonus(){
+        showBonus = false;
+        bonusGone = true;
+    }
+    
+    public void eatBonus(){
+        showBonus = false;
+        bonusGone = true;
+        bonusEaten++;
+    }
+    
+    private void updateModes(){
+        //start fright mode when pacman eats energizers
+        if(pacEatingEnergizer()){
+            if(walls.getType(pacman.getCurrentTileIndex())==3){
+                walls.changeType(pacman.getCurrentTileIndex(), 3, 1);
+                System.out.println(getScatChaseTimer());
+                pauseScatChaseTimer(frightTime);
+                System.out.println(getScatChaseTimer());
+                prevMode = getMode();
+                frightMode();
+                startFrightTimer();
+                frightOn = true;
+            }  
+        }
+        if(!frightOn){
+            //scatter mode at appropriate times
+            if(isScatterTime()){
+                System.out.println(getScatChaseTimer());
+                scatterMode();
+            }
+            //chase mode at appropriate times
+            else if(isChaseTime())  {
+                System.out.println(getScatChaseTimer());
+                chaseMode();
+            }
+        }
+        else{
+            if(getFrightTimer() > frightTime){
+                frightTimer = 0;
+                frightOn = false;
+                mode = prevMode;
+                System.out.println(""+getScatChaseTimer());
+                System.out.println("CHANGING BACK");
+                setMode();
+            }
+        } 
+    }
+    
+    private boolean pacEatingEnergizer(){
+        return ((positionCheck(pacman.getX(),16) && positionCheck(pacman.getY(),96))
+                ||(positionCheck(pacman.getX(),416) && positionCheck(pacman.getY(),96))
+                ||(positionCheck(pacman.getX(),16) && positionCheck(pacman.getY(),416))
+                ||(positionCheck(pacman.getX(),416) && positionCheck(pacman.getY(),416)));
+    }
+    
+    private boolean pacEatingBonus(){
+        return (positionCheck(pacman.getX(),224) && positionCheck(pacman.getY(), 320));
+    }
+    
+    private boolean isScatterTime(){
+        return (timeCheck(getScatChaseTimer(),scatTimes[0]) 
+                || timeCheck(getScatChaseTimer(),scatTimes[1]) 
+                || timeCheck(getScatChaseTimer(),scatTimes[2]));
+    }
+    
+    private boolean isChaseTime(){
+        return (timeCheck(getScatChaseTimer(), chaseTimes[0]) 
+                || timeCheck(getScatChaseTimer(), chaseTimes[1]) 
+                || timeCheck(getScatChaseTimer(), chaseTimes[2]) 
+                || timeCheck(getScatChaseTimer(), chaseTimes[3]));
     }
     
     private void scatterMode(){
@@ -307,6 +333,30 @@ class Level {
         pinky.setMode(mode);
         clyde.setMode(mode);
         pacman.setMode(mode);
+    }
+    
+    public int getDotsEaten(){
+        return dotsEaten;
+    }
+    
+    public int getDotsRemaining() {
+        return dotCounter;
+    }
+    
+    public int getEnergizersEaten(){
+        return energizersEaten;
+    }
+    
+    public int getEnergizersRemaining(){
+        return energizerCounter;
+    }
+    
+    public int getLevel(){
+        return currentLevel;
+    }
+    
+    private int getMode(){
+        return mode;
     }
 
     private void startScatChaseTimer(){
@@ -357,6 +407,11 @@ class Level {
         return (System.currentTimeMillis()-timer)/1000;
     }
 
-    
+    private boolean timeCheck(double num1, double num2){
+        return ((num1 > (num2-TIME_TOLERANCE)) && (num1 < (num2+TIME_TOLERANCE)));
+    }
    
+    private boolean positionCheck(double pos1, double pos2){
+        return ((pos1 > (pos2-POSITION_TOLERANCE)) && (pos1 < (pos2+POSITION_TOLERANCE)));
+    }
 }

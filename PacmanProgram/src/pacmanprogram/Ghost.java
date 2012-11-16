@@ -82,13 +82,13 @@ public class Ghost {
  
    public void refresh(ActionEvent e){
         ghostControl.setMode(mode);
-        ghostControl.refresh(e);
+        ghostControl.checkTunnel(e);
         ghostControl.getPosition(position);
         setSpeed();
    }
    
-   public void reset(){
-       ghostControl.reset();
+   public void resetPosition(){
+       ghostControl.resetPosition();
    }
    
    public Name getName(){
@@ -106,7 +106,6 @@ public class Ghost {
    public void setSpeed(){
        if(isInTunnel()){
            speed = tunnelSpeed;
-           System.out.println("tunnel");
        }
        else if(mode==1||mode==2){
            speed = normSpeed;

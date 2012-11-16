@@ -33,14 +33,14 @@ class GhostControl {
     
     public GhostControl(Ghost ghost){
         this.name=ghost.getName();
-        reset();
+        resetPosition();
     }
 
-    public void refresh(ActionEvent e) {
+    public void checkTunnel(ActionEvent e) {
         checkTunnel();
     }
     
-    public void reset(){
+    public void resetPosition(){
         switch (name){
             case Blinky:
                 x=208;

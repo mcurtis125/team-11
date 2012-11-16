@@ -26,7 +26,7 @@ public class PacmanControl  {
     HashMap<VelocityChecker.typeVel,Double> validVelocityMap = new HashMap<VelocityChecker.typeVel,Double>();
     
     public PacmanControl(){
-        reset();
+        resetPosition();
     }
     
     public void refresh(ActionEvent e){
@@ -164,7 +164,7 @@ public class PacmanControl  {
     }
     
     
-    public void reset(){
+    public void resetPosition(){
         x=217;
         y=417;
         velx=0;
