@@ -17,6 +17,7 @@ public class PacmanControl  {
     
     public static double pacmanSpeed;
     public static double x,y,velx,vely,preVelX,preVelY;
+    public static int direction,prevDirection;
     private static final double sizeOfPacman=Pacman.SIZE;
     int code;
     double keyStrokeRemember;
@@ -81,7 +82,7 @@ public class PacmanControl  {
                     tightSpace=false;
                 }
                 else{
-                preVelX=velx;
+                   preVelX=velx;
                 }
             } 
             up(); 
@@ -100,7 +101,7 @@ public class PacmanControl  {
                     tightSpace=false;
                 }
                 else{
-                preVelX=velx;
+                    preVelX=velx;
                 }
             } 
             down();
@@ -119,7 +120,7 @@ public class PacmanControl  {
                     tightSpace=false;
                 }
                 else{
-                preVelY=vely;
+                    preVelY=vely;
                 }
             }  
             left();
@@ -138,7 +139,7 @@ public class PacmanControl  {
                     tightSpace=false;
                 }
                 else{
-                preVelY=vely;
+                    preVelY=vely;
                 }
             } 
             right();
@@ -171,7 +172,32 @@ public class PacmanControl  {
         vely=0;
         preVelX=0;
         preVelY=0;
+        direction=0;
+        prevDirection=0;
         keyStrokeRemember=0;   
     }
     
+    public int getDirection(){
+        if(velx==0 && vely==0){
+            return prevDirection;
+        }
+        else if(velx==0 && preVelX==0){
+            if(vely>0 && !walls.isOccupiedByWallMovingDown(x,y)){
+                direction = 1;
+            }
+            else if(vely<0 && !walls.isOccupiedByWallMovingUp(x,y)){
+                direction = 2;
+            }    
+        }
+        else if(vely==0 && preVelY==0){
+            if(velx>0 && !walls.isOccupiedByWallMovingRight(x,y)){
+                direction = 3;
+            }
+            else if(velx<0 && !walls.isOccupiedByWallMovingLeft(x,y)){
+                direction = 4;
+            }
+        }
+        prevDirection = direction;           
+        return direction;  
+    }
 }

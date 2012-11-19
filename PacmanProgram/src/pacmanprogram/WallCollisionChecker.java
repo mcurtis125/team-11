@@ -12,13 +12,13 @@ import java.util.ArrayList;
  */
 public class WallCollisionChecker {
     
-    ArrayList<Tiles> coordinatesArray = new ArrayList<Tiles>();
+    ArrayList<Tiles> wallCoordinatesArray = new ArrayList<Tiles>();
     ArrayList<Tiles> ghostPenDoor = new ArrayList<Tiles>();
     
 
     
     
-    Walls wallCoordinates = new Walls();
+    Maze wallCoordinates = new Maze();
     double sizeOfCharacter, sizeOfWalls;
     
         int loopCounter;
@@ -34,14 +34,14 @@ public class WallCollisionChecker {
     
     
     public WallCollisionChecker(int pacmanOrGhost){
-        coordinatesArray=wallCoordinates.getWallCoords();
+        wallCoordinatesArray=wallCoordinates.getWallCoords();
         if(pacmanOrGhost==0){
             sizeOfCharacter=Pacman.SIZE;
         }
         else if(pacmanOrGhost==1){
             sizeOfCharacter=Ghost.SIZE;
         }
-        sizeOfWalls=Walls.sizeOfTiles;
+        sizeOfWalls=Maze.sizeOfTiles;
         
         ghostPenDoor.add(new Tiles(208,240,sizeOfWalls,sizeOfWalls,1));
         ghostPenDoor.add(new Tiles(224,240,sizeOfWalls,sizeOfWalls,1));
@@ -52,17 +52,17 @@ public class WallCollisionChecker {
     
     public boolean isOccupiedByWallMovingLeft(double xCoordinate, double yCoordinate){
         
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
             
-            leftEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate();
-            rightEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            topEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate();
-            bottomEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
+            rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
+            bottomEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
             leftEdgeOfCharacter=xCoordinate;
             topEdgeOfCharacter=yCoordinate;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
             
-            if(leftEdgeOfCharacter>=leftEdgeOfWall&&xCoordinate<=rightEdgeOfWall){
+            if(leftEdgeOfCharacter>=leftEdgeOfWall&&leftEdgeOfCharacter<=rightEdgeOfWall){
                 if(bottomEdgeOfCharacter>topEdgeOfWall&&topEdgeOfCharacter<bottomEdgeOfWall){
                     return true;
                 }
@@ -76,12 +76,12 @@ public class WallCollisionChecker {
 
     public boolean isOccupiedByWallMovingRight(double xCoordinate, double yCoordinate){
         
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
             
-            leftEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate();
-            rightEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            topEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate();
-            bottomEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
+            rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
+            bottomEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             topEdgeOfCharacter=yCoordinate;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
@@ -101,12 +101,12 @@ public class WallCollisionChecker {
     public boolean isOccupiedByWallMovingUp(double xCoordinate, double yCoordinate){
         
 
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
             
-            leftEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate();
-            rightEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            topEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate();
-            bottomEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
+            rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
+            bottomEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
             leftEdgeOfCharacter=xCoordinate;
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             topEdgeOfCharacter=yCoordinate;
@@ -124,12 +124,12 @@ public class WallCollisionChecker {
     
     public boolean isOccupiedByWallMovingDown(double xCoordinate, double yCoordinate){
         
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
             
-            leftEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate();
-            rightEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            topEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate();
-            bottomEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
+            rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
+            bottomEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
             leftEdgeOfCharacter=xCoordinate;
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
@@ -146,11 +146,11 @@ public class WallCollisionChecker {
     
     public double leftCollisionInAdvance(double xCoordinate, double yCoordinate, double velx){
         
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
              
-            rightEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            topEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate();
-            bottomEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
+            bottomEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
             leftEdgeOfCharacter=xCoordinate;
             topEdgeOfCharacter=yCoordinate;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
@@ -170,11 +170,11 @@ public class WallCollisionChecker {
     
     public double rightCollisionInAdvance(double xCoordinate, double yCoordinate, double velx){
         
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
             
-            leftEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate();
-            topEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate();
-            bottomEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
+            topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
+            bottomEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             topEdgeOfCharacter=yCoordinate;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
@@ -194,11 +194,11 @@ public class WallCollisionChecker {
     
     public double upCollisionInAdvance(double xCoordinate, double yCoordinate, double vely){
         
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
             
-            leftEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate();
-            rightEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            bottomEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
+            leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
+            rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            bottomEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate()+sizeOfWalls;
             leftEdgeOfCharacter=xCoordinate;
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             topEdgeOfCharacter=yCoordinate;
@@ -218,11 +218,11 @@ public class WallCollisionChecker {
     
      public double downCollisionInAdvance(double xCoordinate, double yCoordinate, double vely){
          
-        for(loopCounter=0;loopCounter<coordinatesArray.size();loopCounter++){
+        for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
             
-            leftEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate();
-            rightEdgeOfWall=coordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            topEdgeOfWall=coordinatesArray.get(loopCounter).getYCoordinate();
+            leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
+            rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
+            topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
             leftEdgeOfCharacter=xCoordinate;
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;

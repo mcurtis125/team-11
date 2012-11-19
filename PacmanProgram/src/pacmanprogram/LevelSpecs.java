@@ -24,10 +24,11 @@ class LevelSpecs {
     private int[] frightTimes = {6,5,4,3,2,5,2,2,1,5,2,1,1,3,1,1,0,1,0,0,0};
     private int[] flashNumbers = {5,5,5,5,5,5,5,5,3,5,5,3,3,5,3,3,0,3,0,0,0};
     private double[] lastDotTimerLimits = {4,4,4,4,3};
-    private double[] elroy1DotsLeft = {20,30,40,40,40,50,50,50,60,60,60,80,80,80,100,100,100,100,120,120,120};
-    private double[] elroy2DotsLeft = {10,15,20,20,20,25,25,25,30,30,30,40,40,40,50,50,50,50,60,60,60};
+    private int[] elroy1DotsLeft = {20,30,40,40,40,50,50,50,60,60,60,80,80,80,100,100,100,100,120,120,120};
+    private int[] elroy2DotsLeft = {10,15,20,20,20,25,25,25,30,30,30,40,40,40,50,50,50,50,60,60,60};
     private double[] elroy1SpeedRatios = {0.8,0.9,0.9,0.9,1};
-    private double[] elroy2SpeedRatios = {0.85,0.95,0.95,0.95,1.05};  
+    private double[] elroy2SpeedRatios = {0.85,0.95,0.95,0.95,1.05}; 
+    private int[][] personalCounterLimits = {{0,30,60},{0,0,50},{0,0,0}};
     ArrayList<Name> bonusSymbols = new ArrayList<Name>();
     
     
@@ -47,7 +48,7 @@ class LevelSpecs {
         bonusSymbols.add(Name.bell);
         bonusSymbols.add(Name.key);
     }
-    
+
     public double getPacSpeedRatio(int level){
         if(level>21){
             return pacSpeedRatios[20];
@@ -130,13 +131,13 @@ class LevelSpecs {
         }
         return lastDotTimerLimits[level-1];
     }
-    public double getElroy1DotsLeft(int level){
+    public int getElroy1DotsLeft(int level){
         if(level>21){
             return elroy1DotsLeft[20];
         }
         return elroy1DotsLeft[level-1];
     }
-    public double getElroy2DotsLeft(int level){
+    public int getElroy2DotsLeft(int level){
         if(level>21){
             return elroy2DotsLeft[20];
         }
@@ -153,6 +154,12 @@ class LevelSpecs {
             return elroy2SpeedRatios[4];
         }
         return elroy2SpeedRatios[level-1];
+    }
+    public int[] getPersonalCounterLimits(int level){
+        if(level>3){
+            return personalCounterLimits[2];
+        }
+        return personalCounterLimits[level-1];
     }
     public Name getBonusSymbol(int level){
         if(level>13){

@@ -11,7 +11,7 @@ package pacmanprogram;
 public class TargetTileFinder {
     
     ShortestDistanceFinder distance = new ShortestDistanceFinder();
-    double sizeOfTiles=Walls.sizeOfTiles;
+    double sizeOfTiles=Maze.sizeOfTiles;
     
     public TargetTileFinder(){
         

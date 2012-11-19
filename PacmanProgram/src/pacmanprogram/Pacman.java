@@ -15,12 +15,13 @@ import java.awt.geom.*;
 
 public class Pacman{
     PacmanControl pacControl = new PacmanControl();
-    Walls walls;
+    Maze maze;
     private static final double[] DIMENSIONS = {15,15};
     private static final double MAX_SPEED = 1;
     public static final double SIZE = 15;
     private double[] position = new double[2];
     private int currentTileIndex;
+    private int prevDirection;
     private int lives = 3;
     private int mode;
    
@@ -30,26 +31,47 @@ public class Pacman{
     private double frightSpeed;
     private double frightDotSpeed;
     
-    public Pacman(Walls walls){
-        this.walls = walls;
+    public Pacman(Maze maze){
+        this.maze = maze;
         mode = 2;
         pacControl.getPosition(position);
-        currentTileIndex = walls.getIndex(position[0], position[1]);
+        currentTileIndex = maze.getIndex(position[0], position[1]);
+        prevDirection = 0;
     }
     
     public void draw(Graphics g){
         Graphics2D pac = (Graphics2D) g;
         pac.setColor(Color.YELLOW);
         pac.fill(new Ellipse2D.Double(position[0], position[1], DIMENSIONS[0], DIMENSIONS[1]));
+        
+        
+        pac.setColor(Color.BLACK);
+        int direction = pacControl.getDirection();
+        if(direction == 1){ //up
+            pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0]+4, position[0]+11}, new double[] {position[1]+7.5, position[1]+15, position[1]+15}));
+            System.out.println("u");
+        }
+        else if(direction == 2){ //down
+            pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0]+4, position[0]+11}, new double[] {position[1]+7.5, position[1], position[1]}));
+            System.out.println("d");
+        }
+        else if (direction == 3){ //right
+            pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0]+15, position[0]+15}, new double[] {position[1]+7.5, position[1]+4, position[1]+11}));
+            System.out.println("r");
+        }
+        else if(direction == 4){ //left
+            pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0], position[0]}, new double[] {position[1]+7.5, position[1]+4, position[1]+11}));
+            System.out.println("d");
+        }
     }
     
     public void refresh(ActionEvent e){ 
        pacControl.refresh(e);
        pacControl.getPosition(position);
-       currentTileIndex = walls.getIndex(position[0], position[1]);
+       currentTileIndex = maze.getIndex(position[0], position[1]);
        setMode(mode);
        setSpeed();
-       walls.changeType(currentTileIndex,2,1);
+       maze.changeType(currentTileIndex,2,1);
     }
     
     public void resetPosition(){
@@ -78,7 +100,7 @@ public class Pacman{
 
     private void setSpeed() {
         if(mode==1||mode==2){
-            if(walls.getType(getCurrentTileIndex())==2 || walls.getType(getCurrentTileIndex())==3){
+            if(maze.getType(getCurrentTileIndex())==2 || maze.getType(getCurrentTileIndex())==3){
                 speed = dotSpeed;
             }
             else{
@@ -86,7 +108,7 @@ public class Pacman{
             }
         }
         else if(mode==3){
-            if(walls.getType(getCurrentTileIndex())==2 || walls.getType(getCurrentTileIndex())==3){
+            if(maze.getType(getCurrentTileIndex())==2 || maze.getType(getCurrentTileIndex())==3){
                 speed = frightDotSpeed;
             }
             else{
@@ -112,7 +134,18 @@ public class Pacman{
         lives--;
     }
 
-    public void newGame(){
+    public void resetLives(){
        lives = 3;
+    }
+    
+    private GeneralPath buildTriangle(double[] pointsX, double[] pointsY){
+        GeneralPath triangle = new GeneralPath(GeneralPath.WIND_EVEN_ODD,pointsX.length);
+        triangle.moveTo(pointsX[0], pointsY[0]);
+        int i;
+        for(i=1;i<pointsX.length;i++){
+            triangle.lineTo(pointsX[i], pointsY[i]);
+        }
+        triangle.closePath();
+        return triangle;
     }
 }

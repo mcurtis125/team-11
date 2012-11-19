@@ -19,9 +19,9 @@ public class ShortestDistanceFinder {
     public enum directionCheck{canMoveUp,canMoveLeft,canMoveDown,canMoveRight,isIntersection};
 
     WallCollisionChecker wallCollisionChecker = new WallCollisionChecker(1);
-    Walls walls = new Walls();
+    Maze walls = new Maze();
     double sizeOfGhost=Ghost.SIZE;
-    double sizeOfTiles=Walls.sizeOfTiles;
+    double sizeOfTiles=Maze.sizeOfTiles;
     
     public ShortestDistanceFinder(){
     }

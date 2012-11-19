@@ -3,85 +3,203 @@
  * and open the template in the editor.
  */
 package pacmanprogram;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.*;
-import pacmanprogram.Ghost.Name;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.util.ArrayList;
 
 /**
  *
- * @author stavy92
+ * @author Kevin
  */
-public class Maze extends JPanel implements ActionListener, KeyListener {
-    Timer t = new Timer(10, this);
-    Walls walls = new Walls();
-    Pacman pacman = new Pacman(walls);
-    Ghost blinky = new Ghost(Name.Blinky);
-    Ghost pinky = new Ghost(Name.Pinky);
-    Ghost inky = new Ghost(Name.Inky);
-    Ghost clyde = new Ghost(Name.Clyde);
-    TextDisplay text = new TextDisplay();
-    ScoreDisplay score = new ScoreDisplay();
+public class Maze{
     
-    Level level = new Level(pacman, blinky, inky, pinky, clyde, walls);
+    ArrayList<Tiles> tiles = new ArrayList<Tiles>();
+    public static final double sizeOfTiles=16;
     
+    int[] maze = {
+    			//0 wall
+    			//1 path
+    			//2 dot
+    			//3 energizer
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,2,2,2,2,2,2,2,2,2,2,2,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+    			0,3,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,3,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+    			0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,
+    			0,2,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,2,0,
+    			0,2,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,2,0,
+    			0,2,2,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,2,2,0,
+    			0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,1,1,1,1,1,1,1,1,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,1,1,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,1,1,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			1,1,1,1,1,1,2,1,1,1,0,0,1,1,1,1,0,0,1,1,1,2,1,1,1,1,1,1,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,1,1,1,1,1,1,1,1,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,2,2,2,2,2,2,2,2,2,2,2,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+        		0,3,2,2,0,0,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,0,0,2,2,3,0,
+        		0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,0,
+        		0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,0,
+        		0,2,2,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,2,2,0,
+        		0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,
+        		0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,
+        		0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,
+        		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 			
+    		}; 
+    
+    private int[] penTileIndexes = {459,460,461,462,463,464,487,488,489,490,491,492,515,516,517,518,519,520};
+    private int[] tunnelTileIndexes = {476,477,478,479,480,481,498,499,500,501,502,503};
+
     public Maze(){
-        t.start();
-        addKeyListener(this);
-        setFocusable(true);
-        setFocusTraversalKeysEnabled(false);
+        int a; 
+    	int b;
+    	for (a=0;a<36;a++){
+    	  for (b=0;b<28;b++){
+                tiles.add(new Tiles(sizeOfTiles*b,sizeOfTiles*a,sizeOfTiles,sizeOfTiles,maze[b+28*(a)]));
+    	  };
+    	};
+    }
+   
+    
+    public void draw(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
+        //g2.setColor(Color.BLUE);
+     
+        int loopCounter;
+        
+        for(loopCounter=0;loopCounter<tiles.size();loopCounter++){
+        	if (tiles.get(loopCounter).getType()==0){
+                    g2.setColor(Color.BLUE );
+                    g2.fill(new Rectangle.Double(tiles.get(loopCounter).getXCoordinate(),
+                        tiles.get(loopCounter).getYCoordinate(),tiles.get(loopCounter).getWidth(),
+                        tiles.get(loopCounter).getHeight()));}
+                else if (tiles.get(loopCounter).getType()==1){
+                    g2.setColor(Color.BLACK );
+                    g2.fill(new Ellipse2D.Double(tiles.get(loopCounter).getXCoordinate(),
+                        tiles.get(loopCounter).getYCoordinate(),tiles.get(loopCounter).getWidth(),
+                        tiles.get(loopCounter).getHeight()));
+                }
+        	else if (tiles.get(loopCounter).getType()==2){
+                    g2.setColor(Color.LIGHT_GRAY );
+                    g2.fill(new Ellipse2D.Double(tiles.get(loopCounter).getXCoordinate()+6.5,
+                        tiles.get(loopCounter).getYCoordinate()+6.5,3,3));
+                }
+        	else if (tiles.get(loopCounter).getType()==3){
+                    g2.setColor(Color.LIGHT_GRAY );
+                    g2.fill(new Ellipse2D.Double(tiles.get(loopCounter).getXCoordinate()+1,
+                        tiles.get(loopCounter).getYCoordinate()+1,14,14));
+                }
+
+        }
     }
     
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        walls.draw(g);
-        pacman.draw(g);
-        blinky.draw(g);
-        //blinky.ghostControl.targetAlgorithmTest(g);
-        //blinky.ghostControl.movementAlgorithmTest(g);
-        pinky.draw(g);
-        //pinky.ghostControl.targetAlgorithmTest(g);
-        //pinky.ghostControl.movementAlgorithmTest(g);
-        inky.draw(g);
-        //inky.ghostControl.targetAlgorithmTest(g);
-        //inky.ghostControl.movementAlgorithmTest(g);
-        clyde.draw(g);
-        //clyde.ghostControl.targetAlgorithmTest(g);
-        //clyde.ghostControl.movementAlgorithmTest(g);
-        level.drawBonus(g);
-        text.drawText(g);
-        score.drawScore(g);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        pacman.refresh(ae);
-        blinky.refresh(ae);
-        pinky.refresh(ae);
-        inky.refresh(ae);
-        clyde.refresh(ae);
-        level.refresh(ae);
-
-        repaint();
-    }
-
-    @Override
-    public void keyTyped(KeyEvent ke) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        pacman.controlPacman(ke);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
+    public int[] getPenTileIndexes(){
+        return penTileIndexes;
     }
     
+    public int[] getTunnelTileIndexes(){
+        return tunnelTileIndexes;
+    }
     
+    public int getType(int index){
+        return maze[index];
+    }
     
+    public int getIndex(double xCoord, double yCoord){
+        int col, row;
+        col = (int)(xCoord+8)/16;
+        row = (int)(yCoord+8)/16;
+        return col+28*row;
+    }
+    
+    public void changeType(int index, int originalType, int type){
+        if(maze[index]==originalType){
+            maze[index]=type;
+            tiles.get(index).setType(type);
+        }
+    } 
+    
+    public int[] getMap(){
+        return maze;
+    }
+     
+    public ArrayList<Tiles> getWallCoords(){
+        ArrayList<Tiles> walls = new ArrayList<Tiles>();;
+        int i;
+        for(i=0;i<tiles.size();i++){
+            if (tiles.get(i).getType()==0){
+                walls.add(tiles.get(i));
+            }
+        }
+        return walls;
+    }
+    
+    public void resetMaze(){
+        ArrayList<Tiles> newTiles = new ArrayList<Tiles>();
+        int[] newMaze = {
+    			//0 wall
+    			//1 path
+    			//2 dot
+    			//3 energizer
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    			0,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,2,2,2,2,2,2,2,2,2,2,2,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+    			0,3,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,3,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+    			0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,
+    			0,2,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,2,0,
+    			0,2,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,2,0,
+    			0,2,2,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,2,2,0,
+    			0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,1,1,1,1,1,1,1,1,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,1,1,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,1,1,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			1,1,1,1,1,1,2,1,1,1,0,0,1,1,1,1,0,0,1,1,1,2,1,1,1,1,1,1,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,1,1,1,1,1,1,1,1,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,
+    			0,2,2,2,2,2,2,2,2,2,2,2,2,0,0,2,2,2,2,2,2,2,2,2,2,2,2,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+    			0,2,0,0,0,0,2,0,0,0,0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,2,0,
+        		0,3,2,2,0,0,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,0,0,2,2,3,0,
+        		0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,0,
+        		0,0,0,2,0,0,2,0,0,2,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,0,0,0,
+        		0,2,2,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,0,0,2,2,2,2,2,2,0,
+        		0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,
+        		0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,
+        		0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,
+        		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 			
+    		}; 
+        int a; 
+    	int b;
+    	for (a=0;a<36;a++){
+    	  for (b=0;b<28;b++){
+                newTiles.add(new Tiles(sizeOfTiles*b,sizeOfTiles*a,sizeOfTiles,sizeOfTiles,newMaze[b+28*(a)]));
+    	  };
+    	};
+        maze = newMaze;
+        tiles = newTiles;
+    }
 }

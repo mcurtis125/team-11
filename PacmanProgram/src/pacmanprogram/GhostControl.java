@@ -92,6 +92,9 @@ class GhostControl {
         else if(mode==3){
             frightened();
         }
+        else if(mode==4 && name == Name.Blinky){
+            chase();
+        }
     }
     
     public void setGhostSpeed(double ghostSpeed){
