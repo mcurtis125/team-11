@@ -28,7 +28,7 @@ class GhostControl {
     boolean doDirectionCheck=true;
     boolean existent=true;
     boolean frightenedAndCaught=false;
-    boolean leavePen=true;
+    boolean leavePen=false;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
     WallCollisionChecker walls = new WallCollisionChecker(1);
@@ -95,6 +95,11 @@ class GhostControl {
         
         else if(leavePen==true){
             leaveHome();
+        }
+        
+        else if(leavePen==false&&x>=176&&x<=256&&y>=240&&y<=288){
+            velx=0;
+            vely=0;
         }
         
         else if(mode==1){
