@@ -27,6 +27,8 @@ class GhostControl {
     double prevDirection;
     boolean doDirectionCheck=true;
     boolean existent=true;
+    boolean frightenedAndCaught=false;
+    boolean leavePen=true;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
     WallCollisionChecker walls = new WallCollisionChecker(1);
@@ -67,6 +69,9 @@ class GhostControl {
                 vely=0;                
                 break;
         }
+        frightenedAndCaught=false;
+        leavePen=true;
+        existent=true;
         doDirectionCheck=true;
         direction=1;
         
@@ -83,7 +88,16 @@ class GhostControl {
     }
     
     public void setMode(int mode) {
-        if(mode==1){
+        
+        if(frightenedAndCaught==true){
+            goHome();
+        }
+        
+        else if(leavePen==true){
+            leaveHome();
+        }
+        
+        else if(mode==1){
             scatter();
         }
         else if(mode==2){
@@ -108,11 +122,6 @@ class GhostControl {
     
     public void scatter(){
         
-        if(x>=176&&x<=256&&y>=240&&y<=288){
-            leaveHome();
-        }
-        
-        else{
             switch(name){
                 case Blinky:
                     targetTile=targetFinder.getBlinkyScatterTarget();
@@ -127,7 +136,6 @@ class GhostControl {
                     targetTile=targetFinder.getClydeScatterTarget();
                     break;
             }
-        }
 
         getDirectionAndTileCoordinates(false);
 
@@ -135,11 +143,6 @@ class GhostControl {
     
     public void chase(){
         
-        if(x>=176&&x<=256&&y>=256&&y<=288){
-            leaveHome();
-        }
-        
-        else{
             pacmanX=PacmanControl.x;
             pacmanY=PacmanControl.y;
             pacmanVelX=PacmanControl.velx;
@@ -161,13 +164,19 @@ class GhostControl {
             }
             
             getDirectionAndTileCoordinates(false);   
-        }
 
     }
     
     public void goHome(){
         targetTile=targetFinder.getReturnToHomeTarget();
-        getDirectionAndTileCoordinates(false);
+        
+        if(x>=targetTile[0]-0.5&&x<=targetTile[0]+0.5&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
+            resetPosition();
+        }
+        else{
+            getDirectionAndTileCoordinates(false);
+        }
+
     }
     
     public void becomeNonExistent(){
@@ -181,6 +190,13 @@ class GhostControl {
     public void leaveHome(){
         targetTile=targetFinder.getLeaveHomeTarget();
         
+        if(x>=targetTile[0]-0.5&&x<=targetTile[0]+0.5&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
+            leavePen=false;
+        }
+        
+        else{
+            getDirectionAndTileCoordinates(false);
+        }
     }
 
     

@@ -217,7 +217,7 @@ class Level {
                 if(mode==3){
                     ghostControl=getCharacterPositions.pacmanGhostCollisionCheck();
                     ghostControl.becomeNonExistent();
-                    ghostControl.goHome();
+                    ghostControl.frightenedAndCaught=true;
                 }
 
             }
