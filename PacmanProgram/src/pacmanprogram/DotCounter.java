@@ -35,13 +35,18 @@ public class DotCounter {
         counter = 0;
     }
     
-    public void updateCounter() {
+    public void increaseCounter() {
         counter++;
     }
 
     public boolean checkIfLimitReached() {
         if(type == Type.personal){
             return (counter>=limit);
+        }
+        else if(type == Type.elroy){
+            if(getStatus() == DotCounter.Status.activated){
+                return (counter==limit);
+            }
         }
         return (counter==limit);
     }

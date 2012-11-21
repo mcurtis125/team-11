@@ -25,10 +25,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     Ghost pinky = new Ghost(Name.Pinky, maze);
     Ghost inky = new Ghost(Name.Inky, maze);
     Ghost clyde = new Ghost(Name.Clyde, maze);
+    Characters characters = new Characters(pacman,blinky,pinky,inky,clyde);
     TextDisplay text = new TextDisplay();
     ScoreDisplay score = new ScoreDisplay();
     
-    Level level = new Level(pacman, blinky, inky, pinky, clyde, maze, 1);
+    Level level = new Level(characters, maze, 1);
     
     public Game(/*int startLevel*/){
         t.start();
@@ -43,16 +44,16 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         maze.draw(g);
         pacman.draw(g);
         blinky.draw(g);
-        blinky.ghostControl.targetAlgorithmTest(g);
+//        blinky.ghostControl.targetAlgorithmTest(g);
         //blinky.ghostControl.movementAlgorithmTest(g);
         pinky.draw(g);
-        pinky.ghostControl.targetAlgorithmTest(g);
+//        pinky.ghostControl.targetAlgorithmTest(g);
         //pinky.ghostControl.movementAlgorithmTest(g);
         inky.draw(g);
-        inky.ghostControl.targetAlgorithmTest(g);
+//        inky.ghostControl.targetAlgorithmTest(g);
         //inky.ghostControl.movementAlgorithmTest(g);
         clyde.draw(g);
-        clyde.ghostControl.targetAlgorithmTest(g);
+//        clyde.ghostControl.targetAlgorithmTest(g);
         //clyde.ghostControl.movementAlgorithmTest(g);
         level.drawBonus(g);
         text.drawText(g);
