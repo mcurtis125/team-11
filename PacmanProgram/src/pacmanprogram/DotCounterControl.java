@@ -22,7 +22,6 @@ public class DotCounterControl {
     DotCounter blinkyCounter;
     private double lastDotTimer;
     private double lastDotTimerLimit;
-    private double[] lastDotTimerLimits = {4,4,4,4,3};
     private int elroyLimit1;
     private int elroyLimit2;
     private int[] personalCounterLimits;
@@ -34,13 +33,13 @@ public class DotCounterControl {
         this.maze = maze;
         this.modeControl = modeControl;
         this.levelSpecs = levelSpecs;
-        ghosts.add(characters.pinky);
-        ghosts.add(characters.inky);
-        ghosts.add(characters.clyde);
-        ghosts.add(characters.blinky);
-        personalCounters.add(characters.pinky.dotCounter);
-        personalCounters.add(characters.inky.dotCounter);
-        personalCounters.add(characters.clyde.dotCounter);
+        ghosts.add(0,characters.pinky);
+        ghosts.add(1,characters.inky);
+        ghosts.add(2,characters.clyde);
+        ghosts.add(3,characters.blinky);
+        personalCounters.add(0,characters.pinky.dotCounter);
+        personalCounters.add(1,characters.inky.dotCounter);
+        personalCounters.add(2,characters.clyde.dotCounter);
         globalDotCounter = new DotCounter(DotCounter.Type.global, maze);
         blinkyCounter = characters.blinky.dotCounter;
         
@@ -48,8 +47,16 @@ public class DotCounterControl {
         updateSpecifications();
         setCounterLimits();
     }
+    
+    private void updateSpecifications(){
+        lastDotTimerLimit = levelSpecs.getLastDotTimerLimit(currentLevel);
+        elroyLimit1 = levelSpecs.getElroy1DotsLeft(currentLevel);
+        elroyLimit2 = levelSpecs.getElroy2DotsLeft(currentLevel);
+        personalCounterLimits = levelSpecs.getPersonalCounterLimits(currentLevel);
+    }
+    
      
-    public void setCounterLimits(){
+    private void setCounterLimits(){
         blinkyCounter.setLimit(elroyLimit1);
         int i;
         for(i=0;i<personalCounters.size();i++){
@@ -60,6 +67,7 @@ public class DotCounterControl {
     private void updateElroyCounter(){
         blinkyCounter.increaseCounter();
         if(blinkyCounter.checkIfLimitReached()){
+            System.out.println("Elroy Limit Reached");
             modeControl.cruiseElroyOn();
             characters.blinky.setElroySpeed(2);
             blinkyCounter.setLimit(elroyLimit2);
@@ -71,19 +79,22 @@ public class DotCounterControl {
         for(i=0;i<personalCounters.size();i++){
             if(personalCounters.get(i).getStatus() == DotCounter.Status.enabled || personalCounters.get(i).getStatus() == DotCounter.Status.deactivated){
                 if(ghosts.get(i).isInPen()){
+                    System.out.println("Activate Personal Counter "+i);
                     personalCounters.get(i).activateCounter();
                 }
             }
+            else if(personalCounters.get(i).getStatus() == DotCounter.Status.activated && ghosts.get(i).isInPen()==false){
+                personalCounters.get(i).deactivateCounter();
+            }
             if(personalCounters.get(i).getStatus() == DotCounter.Status.activated){
-                personalCounters.get(i).increaseCounter();
+                
                 if(personalCounters.get(i).checkIfLimitReached()){
-                    personalCounters.get(i).deactivateCounter();
-                    //leave pen
-                    if(i != (personalCounters.size()-1)){
-                        personalCounters.get(i+1).activateCounter();
-                    }
+                    System.out.println("Ghost Limit Reached  "+i);
+                    ghosts.get(i).ghostControl.leavePen();
                 }
                 else{
+                    personalCounters.get(i).increaseCounter();
+                    System.out.println("Personal Counter "+i+" : "+personalCounters.get(i).getCount());
                     break;
                 }
             }
@@ -93,14 +104,16 @@ public class DotCounterControl {
     private void updateGlobalCounter(){
         if(globalDotCounter.getStatus() == DotCounter.Status.activated){
             globalDotCounter.increaseCounter();
-            globalDotCounter.checkIfLimitReached();
             if(globalDotCounter.getCount() == 7){
-                //pinky.leavePen();
+                System.out.println("Pinky leaves");
+                ghosts.get(0).ghostControl.leavePen();
             }
             else if(globalDotCounter.getCount() == 17){
-                //inky.leavePen();
+                System.out.println("Inky leaves");
+                ghosts.get(1).ghostControl.leavePen();
             }
             else if(globalDotCounter.getCount() == 32 && characters.clyde.isInPen()){
+                System.out.println("deactivate global, enable personal");
                 globalDotCounter.resetCounter();
                 globalDotCounter.deactivateCounter();
                 enablePersonalCounters();
@@ -109,12 +122,17 @@ public class DotCounterControl {
     }
     
     public void updateLastDotTimer(){
-        if(TimerControl.timeCheck(getLastDotTimer(),lastDotTimerLimit)){
-            startLastDotTimer();
-            //most preferred ghost in pen-> deactivateCounter(); leavePen();
-        }
+            int i;
+            for(i=0;i<personalCounters.size();i++){
+                if(ghosts.get(i).isInPen()){
+                    if(TimerControl.timeCheck(getLastDotTimer(),lastDotTimerLimit)){
+                        System.out.println("LastDotTimer limit: Most preferred ghost leaves");
+                        ghosts.get(i).ghostControl.leavePen();
+                        startLastDotTimer();
+                    }
+                }
+            }
     }
-    
         
     public void resetCounters(){
         blinkyCounter.resetCounter();
@@ -133,6 +151,7 @@ public class DotCounterControl {
     }
     
     public void updateDotCounters(){
+        startLastDotTimer();
         updateElroyCounter();
         updatePersonalCounters();
         updateGlobalCounter();
@@ -161,18 +180,10 @@ public class DotCounterControl {
         return (System.currentTimeMillis()-lastDotTimer)/1000;
     }
     
-    private void updateSpecifications(){
-        lastDotTimerLimit = levelSpecs.getLastDotTimerLimit(currentLevel);
-        elroyLimit1 = levelSpecs.getElroy1DotsLeft(currentLevel);
-        elroyLimit2 = levelSpecs.getElroy2DotsLeft(currentLevel);
-        personalCounterLimits = levelSpecs.getPersonalCounterLimits(currentLevel);
-    }
-    
     public void resetLevel(){
         disablePersonalCounters();
         globalDotCounter.resetCounter();
         globalDotCounter.activateCounter();
-        blinkyCounter.deactivateCounter();
     }
     
     public void changeLevel() {

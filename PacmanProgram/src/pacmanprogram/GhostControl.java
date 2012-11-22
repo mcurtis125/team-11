@@ -26,7 +26,6 @@ class GhostControl {
     double direction=1;
     double prevDirection;
     boolean doDirectionCheck=true;
-    boolean existent=true;
     boolean frightenedAndCaught=false;
     boolean leavePen=false;
     TargetTileFinder targetFinder = new TargetTileFinder();
@@ -70,8 +69,8 @@ class GhostControl {
                 break;
         }
         frightenedAndCaught=false;
-        leavePen=true;
-        existent=true;
+        leavePen=false;
+//        existent=true;
         doDirectionCheck=true;
         direction=1;
         
@@ -89,11 +88,11 @@ class GhostControl {
     
     public void setMode(int mode) {
         
-        if(frightenedAndCaught==true){
+        if(frightenedAndCaught){
             goHome();
         }
         
-        else if(leavePen==true){
+        else if(leavePen){
             leaveHome();
         }
         
@@ -172,7 +171,16 @@ class GhostControl {
 
     }
     
-    public void goHome(){
+    public void goToPen(){
+        frightenedAndCaught = true;
+    }
+    
+    public void leavePen(){
+        leavePen = true;
+        frightenedAndCaught = false;
+    }
+    
+    private void goHome(){
         targetTile=targetFinder.getReturnToHomeTarget();
         
         if(x>=targetTile[0]-0.5&&x<=targetTile[0]+0.5&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
@@ -181,24 +189,14 @@ class GhostControl {
         else{
             getDirectionAndTileCoordinates(false);
         }
-
     }
     
-    public void becomeNonExistent(){
-        existent=false;
-    }
-    
-    public void becomeExistent(){
-        existent=true;
-    }
-    
-    public void leaveHome(){
+    private void leaveHome(){
         targetTile=targetFinder.getLeaveHomeTarget();
         
         if(x>=targetTile[0]-0.5&&x<=targetTile[0]+0.5&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
             leavePen=false;
         }
-        
         else{
             getDirectionAndTileCoordinates(false);
         }

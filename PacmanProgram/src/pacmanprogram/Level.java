@@ -43,7 +43,12 @@ class Level {
     private int prevDotsRemaining;
     private boolean wasDotEaten;
     
+    //TEMPORARY
+    private int totdots=0;
+    
     private boolean wasLifeLost;
+    
+    private int ghostsEaten;
     
     
     //speeds
@@ -67,7 +72,7 @@ class Level {
         this.characters = characters;
         collision= new CollisionChecker(characters);
         this.modeControl = new ModeControl(characters, maze, levelSpecs, currentLevel);
-        this.bonusControl = new BonusControl(levelSpecs.getBonusSymbol(currentLevel),characters.pacman);
+        this.bonusControl = new BonusControl(characters.pacman, levelSpecs, currentLevel);
         this.dotCounterControl = new DotCounterControl(characters, maze, modeControl, levelSpecs, currentLevel);
         
         //speeds and timers
@@ -117,12 +122,14 @@ class Level {
     }
 
     private void resetLevel(){
+        System.out.println("Resetting Level");
         characters.resetPosition();
         modeControl.resetLevel();
         dotCounterControl.resetLevel();
     }
     
     private void restartGame(){
+        System.out.println("Restarting game");
         currentLevel = 1;
         characters.pacman.resetLives();
         maze.resetMaze();
@@ -130,6 +137,7 @@ class Level {
         assignSpeeds();
         modeControl.restartGame();
         dotCounterControl.restartGame();
+        bonusControl.newGame();
         startTimer();
         resetLevel();           
     }
@@ -144,14 +152,14 @@ class Level {
                     System.out.println("LOSE LIFE");
                     resetLevel();
                     characters.pacman.loseLife();
+                    wasLifeLost = true;
                 }
                 else if(modeControl.getMode()==3){
                     System.out.println("Eaten");
+//                    ghostsEaten++;  doesnt work right now because this is called many times: pacmanGhostCollisionCheck()
                     ghostControl=collision.pacmanGhostCollisionCheck();
-                    ghostControl.becomeNonExistent();
-                    ghostControl.frightenedAndCaught=true;
+                    ghostControl.goToPen();
                 }
-
             }
             catch(Exception e){}
         }
@@ -194,6 +202,7 @@ class Level {
         
         if(prevDotsRemaining>totalDotsRemaining){
             wasDotEaten = true;
+            totdots++;
         }
         else{
             wasDotEaten = false;
@@ -214,9 +223,11 @@ class Level {
     
     public void changeLevel(){
         currentLevel++;
+        wasLifeLost = false;
         maze.resetMaze();
         updateSpecifications();
         dotCounterControl.changeLevel();
+        bonusControl.changeLevel();
         assignSpeeds();
         startTimer();
         resetLevel();
@@ -251,6 +262,10 @@ class Level {
        bonusControl.drawBonus(g); 
     }
     
+    
+    public int getDots(){
+        return totdots;
+    }
     
 
 }

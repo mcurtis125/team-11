@@ -26,10 +26,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     Ghost inky = new Ghost(Name.Inky, maze);
     Ghost clyde = new Ghost(Name.Clyde, maze);
     Characters characters = new Characters(pacman,blinky,pinky,inky,clyde);
-    TextDisplay text = new TextDisplay();
-    ScoreDisplay score = new ScoreDisplay();
+    
     
     Level level = new Level(characters, maze, 1);
+    
+    TextDisplay text = new TextDisplay(pacman);
+    ScoreDisplay score = new ScoreDisplay(level);
     
     public Game(/*int startLevel*/){
         t.start();

@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -16,16 +17,27 @@ import java.awt.Font;
 public class ScoreDisplay {
     
     String totalScore;
-    private int dotPoint;
-    private int bonusPoint;
+    private int totalDotCount;
+    private int currentLevelDotCount;
+    private int energizerCount;
+    private int currentLevelEnergizerCount;
+    private int bonusCount;
+    private int ghostCount;
+    
     
     Font font = new Font ("Monospaced", Font.BOLD, 20);
     private Color color = Color.WHITE;
     
+    Level level;
+    
+    public ScoreDisplay(Level level){
+        this.level = level;
+    }
+    
     public void test(){
-        dotPoint = 23*100;
-        Integer i = new Integer(dotPoint);
-        totalScore = i.toString();
+        bonusCount = level.bonusControl.getBonusesEaten();
+        totalDotCount = level.getDots();
+        totalScore = ""+bonusCount*100 + totalDotCount*10;
     }
     
     public void drawScore(Graphics g){
@@ -34,4 +46,9 @@ public class ScoreDisplay {
         score.drawString(totalScore, 10, 35);
     }
     
+    public void refresh(ActionEvent ae){
+        
+    }
+    
+       
 }

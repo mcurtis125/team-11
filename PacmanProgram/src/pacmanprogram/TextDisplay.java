@@ -17,13 +17,18 @@ public class TextDisplay {
     
     Font font = new Font ("Monospaced", Font.BOLD, 20);
     private Color color = Color.WHITE;
+    Pacman pacman;
+    
+    public TextDisplay(Pacman pacman){
+        this.pacman = pacman;
+    }
     
     public void drawText(Graphics g){
         Graphics2D text = (Graphics2D) g;
         text.setFont(font);
         text.setColor(color);
-        text.drawString("Score:", 10, 15);
+        text.drawString("Score: ", 10, 15);
         text.drawString("High Score", 165, 15);
-        text.drawString("Lives", 10, 565);
+        text.drawString("Lives: "+pacman.getLives(), 10, 565);
     }
 }

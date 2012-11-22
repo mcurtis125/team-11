@@ -16,7 +16,7 @@ public class Characters {
     Ghost inky;
     Ghost clyde;
     
-    public Characters(Pacman pacman, Ghost blinky, Ghost inky, Ghost pinky, Ghost clyde){
+    public Characters(Pacman pacman, Ghost blinky, Ghost pinky, Ghost inky, Ghost clyde){
         this.pacman = pacman;
         this.blinky = blinky;
         this.inky = inky;

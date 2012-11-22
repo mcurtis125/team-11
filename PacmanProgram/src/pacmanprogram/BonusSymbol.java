@@ -25,10 +25,6 @@ class BonusSymbol {
     private Name name;
     private int points;
     Color color = Color.BLACK;
-    static final double[] APPEAR_TIME_DOTS_EATEN = {70,170};
-    private boolean isEaten = false;
-    private boolean isErased = false;
-    private boolean wasDrawn = false;
     
     public BonusSymbol(Name name){
         this.name = name;
@@ -71,7 +67,6 @@ class BonusSymbol {
 
     public void show(Graphics g) {
         //bonus coords: x[216,232], y[320,336]
-        
         Graphics2D bonus = (Graphics2D) g;
         switch (name){
             case cherry:
@@ -149,7 +144,7 @@ class BonusSymbol {
                 bonus.fill(new Rectangle.Double(227,329,2,3));
                 bonus.fill(new Rectangle.Double(230,329,2,3));
                 break;
-        }        
+        }
     }
     
     private GeneralPath buildTriangle(double[] pointsX, double[] pointsY){

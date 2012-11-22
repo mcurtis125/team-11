@@ -90,7 +90,9 @@ public class ModeControl {
                 frightTimer = 0;
                 frightOn = false;
                 mode = prevMode;
-                elroyMode = prevElroyMode;
+                if(prevElroyMode ==4){
+                    cruiseElroyOn();
+                }
                 System.out.println(""+getScatChaseTimer());
                 System.out.println("CHANGING BACK");
                 setMode();
@@ -166,11 +168,13 @@ public class ModeControl {
     }
     
     public void cruiseElroyOn(){
+        System.out.println("Cruise Elroy ON");
         elroyOn = true;
         elroyMode = 4;
     }
     
     public void cruiseElroyOff(){
+        System.out.println("Cruise Elroy OFF");
         elroyOn = false;
         elroyMode = mode;
     }

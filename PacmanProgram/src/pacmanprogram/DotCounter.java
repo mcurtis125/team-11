@@ -45,7 +45,7 @@ public class DotCounter {
         }
         else if(type == Type.elroy){
             if(getStatus() == DotCounter.Status.activated){
-                return (counter==limit);
+                return ((244-counter)==limit);
             }
         }
         return (counter==limit);
