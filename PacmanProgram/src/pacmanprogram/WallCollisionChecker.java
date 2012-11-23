@@ -273,29 +273,6 @@ public class WallCollisionChecker {
         return vely;
         
     }
- 
-    
-     public boolean preventMovingIntoGhostPen(double xCoordinate, double yCoordinate){
-         
-         for(loopCounter=0;loopCounter<ghostPenDoor.size();loopCounter++){
-             
-            leftEdgeOfWall=ghostPenDoor.get(loopCounter).getXCoordinate();
-            rightEdgeOfWall=ghostPenDoor.get(loopCounter).getXCoordinate()+sizeOfWalls;
-            topEdgeOfWall=ghostPenDoor.get(loopCounter).getYCoordinate();
-            bottomEdgeOfWall=ghostPenDoor.get(loopCounter).getYCoordinate()+sizeOfWalls;
-            leftEdgeOfCharacter=xCoordinate;
-            rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
-            bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
-            
-            if(bottomEdgeOfCharacter>=topEdgeOfWall&&bottomEdgeOfCharacter<=bottomEdgeOfWall){
-                if(rightEdgeOfCharacter>leftEdgeOfWall&&leftEdgeOfCharacter<rightEdgeOfWall){
-                    return true;
-                }
-            }
-         }
-         
-         return false;
-     }
      
      
 }
