@@ -90,8 +90,7 @@ public class ShortestDistanceFinder {
         }
         
         
-        if(!wallCollisionChecker.isOccupiedByWallMovingDown(xCoordinate, yCoordinate)&&
-                        !wallCollisionChecker.preventMovingIntoGhostPen(xCoordinate,yCoordinate)&&vely>=0){
+        if(!wallCollisionChecker.isOccupiedByWallMovingDown(xCoordinate, yCoordinate)&&vely>=0){
             nextTileY = getDownTile(yCoordinate);
             nextTileX = xCoordinate;
             downTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
