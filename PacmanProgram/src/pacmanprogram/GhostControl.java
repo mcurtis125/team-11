@@ -28,6 +28,7 @@ class GhostControl {
     boolean doDirectionCheck=true;
     boolean frightenedAndCaught=false;
     boolean leavePen=false;
+    boolean reverseDirection=false;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
     WallCollisionChecker walls = new WallCollisionChecker(1);
@@ -87,6 +88,10 @@ class GhostControl {
     }
     
     public void setMode(int mode) {
+        
+        if(reverseDirection){
+            reverseDirection();
+        }
         
         if(frightenedAndCaught){
             goHome();
@@ -292,6 +297,11 @@ class GhostControl {
     public void reverseDirection(){
         velx=-velx;
         vely=-vely;
+        reverseDirection=false;
+    }
+    
+    public void setReverseDirectionTrue(){
+        reverseDirection=true;
     }
     
     
