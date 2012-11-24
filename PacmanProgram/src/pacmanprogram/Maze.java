@@ -202,4 +202,5 @@ public class Maze{
         maze = newMaze;
         tiles = newTiles;
     }
+    
 }

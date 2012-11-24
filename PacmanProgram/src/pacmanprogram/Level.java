@@ -128,7 +128,7 @@ class Level {
         dotCounterControl.resetLevel();
     }
     
-    private void restartGame(){
+    public void restartGame(){
         System.out.println("Restarting game");
         currentLevel = 1;
         characters.pacman.resetLives();
