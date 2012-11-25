@@ -26,8 +26,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     Ghost inky = new Ghost(Name.Inky, maze);
     Ghost clyde = new Ghost(Name.Clyde, maze);
     Characters characters = new Characters(pacman,blinky,pinky,inky,clyde);
-    boolean endGame=false;
-    
     
     Level level = new Level(characters, maze, 1);
     

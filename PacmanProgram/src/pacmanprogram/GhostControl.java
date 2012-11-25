@@ -25,6 +25,7 @@ class GhostControl {
     double[] velocity = new double[2];
     double direction=1;
     double prevDirection;
+    boolean randomSelection=false;
     boolean doDirectionCheck=true;
     boolean frightenedAndCaught=false;
     boolean leavePen=false;
@@ -125,8 +126,8 @@ class GhostControl {
     }
     
     public void frightened(){
-        
-        getDirectionAndTileCoordinates(true); 
+        randomSelection=true;
+        getDirectionAndTileCoordinates(randomSelection); 
     }
     
     public void scatter(){
@@ -145,8 +146,8 @@ class GhostControl {
                     targetTile=targetFinder.getClydeScatterTarget();
                     break;
             }
-
-        getDirectionAndTileCoordinates(false);
+        randomSelection=false;
+        getDirectionAndTileCoordinates(randomSelection);
 
     }
     
@@ -171,8 +172,8 @@ class GhostControl {
                     targetTile=targetFinder.getClydeChaseTarget(pacmanX,pacmanY,x,y);
                     break;
             }
-            
-            getDirectionAndTileCoordinates(false);   
+            randomSelection=false;
+            getDirectionAndTileCoordinates(randomSelection);   
 
     }
     

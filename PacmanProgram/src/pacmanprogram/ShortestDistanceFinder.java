@@ -69,16 +69,27 @@ public class ShortestDistanceFinder {
         Double rightTileDistance = Double.MAX_VALUE;
         
         double minimum;
+        int direction=-1;
         
         ArrayList<Double> distanceArray = new ArrayList<Double>();
         
+        boolean inRedZone=false;
         
-
-        if(!wallCollisionChecker.isOccupiedByWallMovingUp(xCoordinate, yCoordinate)&&vely<=0){
-            nextTileY = getUpTile(yCoordinate);
-            nextTileX = xCoordinate;
-            upTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
-            distanceArray.add(upTileDistance);
+        if(xCoordinate>=192&&xCoordinate<=240&&yCoordinate==416){
+            inRedZone=true;
+        }
+        
+        if(xCoordinate>=192&&xCoordinate<=240&&yCoordinate==224){
+            inRedZone=true;
+        }
+        
+        if(inRedZone!=true){
+            if(!wallCollisionChecker.isOccupiedByWallMovingUp(xCoordinate, yCoordinate)&&vely<=0){
+                nextTileY = getUpTile(yCoordinate);
+                nextTileX = xCoordinate;
+                upTileDistance = calculateDistance(nextTileX, nextTileY, targetXCoordinate, targetYCoordinate);
+                distanceArray.add(upTileDistance);
+            }
         }
         
 
@@ -109,22 +120,22 @@ public class ShortestDistanceFinder {
         minimum = findMinimumDistance(distanceArray);
         
         if(upTileDistance==minimum){
-            return 1;
+            direction = 1;
         }
         
         if(leftTileDistance==minimum){
-            return 2;
+            direction = 2;
         }
         
         if(downTileDistance==minimum){
-            return 3;
+            direction = 3;
         }
         
         if(rightTileDistance==minimum){
-            return 4;
+            direction = 4;
         }
         
-        return 0; 
+        return direction;
 
     }
     
