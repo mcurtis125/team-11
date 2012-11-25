@@ -47,13 +47,13 @@ public class Pacman{
         
         pac.setColor(Color.BLACK);
         int direction = pacControl.getDirection();
-        if(direction == 1){ //up
+        if(direction == 1){ //down
             pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0]+4, position[0]+11}, new double[] {position[1]+7.5, position[1]+15, position[1]+15}));
-            //System.out.println("u");
-        }
-        else if(direction == 2){ //down
-            pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0]+4, position[0]+11}, new double[] {position[1]+7.5, position[1], position[1]}));
             //System.out.println("d");
+        }
+        else if(direction == 2){ //up
+            pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0]+4, position[0]+11}, new double[] {position[1]+7.5, position[1], position[1]}));
+            //System.out.println("u");
         }
         else if (direction == 3){ //right
             pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0]+15, position[0]+15}, new double[] {position[1]+7.5, position[1]+4, position[1]+11}));
@@ -61,7 +61,7 @@ public class Pacman{
         }
         else if(direction == 4){ //left
             pac.fill(buildTriangle(new double[] {position[0]+7.5, position[0], position[0]}, new double[] {position[1]+7.5, position[1]+4, position[1]+11}));
-            //System.out.println("d");
+            //System.out.println("l");
         }
     }
     
