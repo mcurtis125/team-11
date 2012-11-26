@@ -89,36 +89,38 @@ class GhostControl {
     }
     
     public void setMode(int mode) {
-        
-        if(reverseDirection){
-            reverseDirection();
+        try{
+            if(reverseDirection){
+                reverseDirection();
+            }
+
+            if(frightenedAndCaught){
+                goHome();
+            }
+
+            else if(leavePen){
+                leaveHome();
+            }
+
+            else if(leavePen==false&&x>=176&&x<=256&&y>=240&&y<=288){
+                velx=0;
+                vely=0;
+            }
+
+            else if(mode==1){
+                scatter();
+            }
+            else if(mode==2){
+                chase();
+            }
+            else if(mode==3){
+                frightened();
+            }
+            else if(mode==4 && name == Name.Blinky){
+                chase();
+            }
         }
-        
-        if(frightenedAndCaught){
-            goHome();
-        }
-        
-        else if(leavePen){
-            leaveHome();
-        }
-        
-        else if(leavePen==false&&x>=176&&x<=256&&y>=240&&y<=288){
-            velx=0;
-            vely=0;
-        }
-        
-        else if(mode==1){
-            scatter();
-        }
-        else if(mode==2){
-            chase();
-        }
-        else if(mode==3){
-            frightened();
-        }
-        else if(mode==4 && name == Name.Blinky){
-            chase();
-        }
+        catch(Exception e){resetPosition();}
     }
     
     public void setGhostSpeed(double ghostSpeed){

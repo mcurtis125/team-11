@@ -131,6 +131,10 @@ public class Ghost {
    }
    
    public void setSpeed(){
+       //if(ghostControl.frightenedAndCaught==true){
+//           speed = frightenedAndCaughtSpeed;
+       //}
+       
        if(isInTunnel()){
            speed = tunnelSpeed;
        }
