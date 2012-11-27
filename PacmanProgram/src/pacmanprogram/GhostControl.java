@@ -193,7 +193,7 @@ class GhostControl {
     private void goHome(){
         targetTile=targetFinder.getReturnToHomeTarget();
         
-        if(x>=targetTile[0]-0.5&&x<=targetTile[0]+0.5&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
+        if(x>=targetTile[0]-16&&x<=targetTile[0]+16&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
             resetPosition();
         }
         else{
@@ -204,7 +204,7 @@ class GhostControl {
     private void leaveHome(){
         targetTile=targetFinder.getLeaveHomeTarget();
         
-        if(x>=targetTile[0]-0.5&&x<=targetTile[0]+0.5&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
+        if(x>=targetTile[0]-16&&x<=targetTile[0]+16&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
             leavePen=false;
         }
         else{

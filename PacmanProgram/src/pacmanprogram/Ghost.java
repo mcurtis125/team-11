@@ -34,6 +34,7 @@ public class Ghost {
     private double[] elroySpeeds = new double[2];
     private double tunnelSpeed;
     private double frightSpeed;
+    private double frightenedAndCaughtSpeed;
     private int frightTime;
     private int flashNumber;
     private double[] position = new double[2];
@@ -105,6 +106,7 @@ public class Ghost {
        this.elroySpeed = elroySpeeds[0];
        this.tunnelSpeed = MAX_SPEED*tunnel;
        this.frightSpeed = MAX_SPEED*fright;
+       this.frightenedAndCaughtSpeed = MAX_SPEED*3;
    }         
  
    public void refresh(ActionEvent e){
@@ -131,11 +133,12 @@ public class Ghost {
    }
    
    public void setSpeed(){
-       //if(ghostControl.frightenedAndCaught==true){
-//           speed = frightenedAndCaughtSpeed;
-       //}
        
-       if(isInTunnel()){
+       if(ghostControl.frightenedAndCaught){
+           speed = frightenedAndCaughtSpeed;
+       }
+       
+       else if(isInTunnel()){
            speed = tunnelSpeed;
        }
        else if(mode==1||mode==2){
