@@ -12,7 +12,7 @@ import java.util.*;
 /**
  *
  * @author xchen82
- * please delete "UserFile.txt" before starting a new test
+ * please delete "UserData.txt" before starting a new test
  *
  *	methods included:
  *
