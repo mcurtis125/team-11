@@ -90,7 +90,7 @@ public class DotCounterControl {
                 
                 if(personalCounters.get(i).checkIfLimitReached()){
                     System.out.println("Ghost Limit Reached  "+i);
-                    ghosts.get(i).ghostControl.leavePen();
+                    ghosts.get(i).ghostControl.setLeavePenTrue();
                 }
                 else{
                     personalCounters.get(i).increaseCounter();
@@ -106,11 +106,11 @@ public class DotCounterControl {
             globalDotCounter.increaseCounter();
             if(globalDotCounter.getCount() == 7){
                 System.out.println("Pinky leaves");
-                ghosts.get(0).ghostControl.leavePen();
+                ghosts.get(0).ghostControl.setLeavePenTrue();
             }
             else if(globalDotCounter.getCount() == 17){
                 System.out.println("Inky leaves");
-                ghosts.get(1).ghostControl.leavePen();
+                ghosts.get(1).ghostControl.setLeavePenTrue();
             }
             else if(globalDotCounter.getCount() == 32 && characters.clyde.isInPen()){
                 System.out.println("deactivate global, enable personal");
@@ -127,7 +127,7 @@ public class DotCounterControl {
                 if(ghosts.get(i).isInPen()){
                     if(TimerControl.timeCheck(getLastDotTimer(),lastDotTimerLimit)){
                         System.out.println("LastDotTimer limit: Most preferred ghost leaves");
-                        ghosts.get(i).ghostControl.leavePen();
+                        ghosts.get(i).ghostControl.setLeavePenTrue();
                         startLastDotTimer();
                     }
                 }

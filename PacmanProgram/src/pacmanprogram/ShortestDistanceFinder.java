@@ -116,22 +116,22 @@ public class ShortestDistanceFinder {
             distanceArray.add(rightTileDistance);
         }
         
-        
+
         minimum = findMinimumDistance(distanceArray);
         
         if(upTileDistance==minimum){
             direction = 1;
         }
         
-        if(leftTileDistance==minimum){
+        else if(leftTileDistance==minimum){
             direction = 2;
         }
         
-        if(downTileDistance==minimum){
+        else if(downTileDistance==minimum){
             direction = 3;
         }
         
-        if(rightTileDistance==minimum){
+        else if(rightTileDistance==minimum){
             direction = 4;
         }
         

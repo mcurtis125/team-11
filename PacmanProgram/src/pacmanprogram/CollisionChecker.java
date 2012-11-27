@@ -51,19 +51,19 @@ public class CollisionChecker {
         clydeY=clydePos[1];
         
 
-        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, blinkyX, blinkyY)){
+        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, blinkyX, blinkyY)&&blinkyControl.existent==true){
             return blinkyControl;
         }
         
-        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, pinkyX, pinkyY)){
+        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, pinkyX, pinkyY)&&pinkyControl.existent==true){
             return pinkyControl;
         }
         
-        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, inkyX, inkyY)){
+        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, inkyX, inkyY)&&inkyControl.existent==true){
             return inkyControl;
         }
         
-        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, clydeX, clydeY)){
+        if(characterCollisionCheck(pacmanCenterX, pacmanCenterY, clydeX, clydeY)&&clydeControl.existent==true){
             return clydeControl;
         }
         

@@ -156,9 +156,11 @@ class Level {
                 }
                 else if(modeControl.getMode()==3){
                     System.out.println("Eaten");
+                    Thread.sleep(500);
 //                    ghostsEaten++;  doesnt work right now because this is called many times: pacmanGhostCollisionCheck()
                     ghostControl=collision.pacmanGhostCollisionCheck();
-                    ghostControl.goToPen();
+                    ghostControl.setFrightenedAndCaughtTrue();
+                    ghostControl.becomeNonExistent();
                 }
             }
             catch(Exception e){}

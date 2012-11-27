@@ -30,6 +30,7 @@ class GhostControl {
     boolean frightenedAndCaught=false;
     boolean leavePen=false;
     boolean reverseDirection=false;
+    boolean existent=true;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
     WallCollisionChecker walls = new WallCollisionChecker(1);
@@ -72,7 +73,8 @@ class GhostControl {
         }
         frightenedAndCaught=false;
         leavePen=false;
-//        existent=true;
+        existent=true;
+        reverseDirection=false;
         doDirectionCheck=true;
         direction=1;
         
@@ -179,11 +181,11 @@ class GhostControl {
 
     }
     
-    public void goToPen(){
+    public void setFrightenedAndCaughtTrue(){
         frightenedAndCaught = true;
     }
     
-    public void leavePen(){
+    public void setLeavePenTrue(){
         leavePen = true;
         frightenedAndCaught = false;
     }
@@ -208,6 +210,10 @@ class GhostControl {
         else{
             getDirectionAndTileCoordinates(false);
         }
+    }
+    
+    public void becomeNonExistent(){
+        existent=false;
     }
 
     
