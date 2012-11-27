@@ -192,18 +192,20 @@ public class Login {
         return userinfo;
 	}
 
-       public static String login(String username, String password,String filename){
-       String user = "Guest";
+       public static GetLoginInfoClass login(String username, String password,String filename){
            
        ArrayList<GetLoginInfoClass> test=getuserinfo(filename);
                
         //check if the user already exists
-        for (int i=0;i<test.size();i++){
+        int i;
+       
+        for (i=0;i<test.size();i++){
             if (test.get(i).GetUserName().equals(username)&&test.get(i).GetPassWord().equals(password)) {
-                user = test.get(i).GetUserName();
-                }            
+                return test.get(i);
+            }            
         }
-        return user;
+        
+        return test.get(0);
         }
 
     
@@ -263,7 +265,7 @@ public class Login {
         
         try {
             PrintWriter outputStream = new PrintWriter(fileName);
-            outputStream.write("&DefaultUser^DefaultPassword^DefaultDisplayName^100^90^80^70^60^50^40^30^20^10");
+            outputStream.write("&Guest^DefaultPassword^Guest^100^90^80^70^60^50^40^30^20^10");
             outputStream.flush();
             outputStream.close();
 
