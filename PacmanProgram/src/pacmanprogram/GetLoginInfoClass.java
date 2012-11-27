@@ -9,13 +9,14 @@ import java.util.Arrays;
 /**
  *
  * @author xchen82
- * Justin provided ideas on sorting
+ * @author ChanWoo
  */
 public class GetLoginInfoClass {
     
     String username;
     String password;
     String displayname;
+    String securityQuestion;
     int[] score=new int[10];
     
 
@@ -81,6 +82,7 @@ public void ChangeDisplayName(String NewDisplayName){
 public String GetUserName(){return username;}
 public String GetPassWord(){return password;}
 public String GetDisplayName(){return displayname;}
+public String GetSecurityQuestion(){return securityQuestion;}
 
 public int GetScore(int i){return score[i];}
 

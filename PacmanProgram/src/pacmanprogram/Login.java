@@ -12,6 +12,7 @@ import java.util.*;
 /**
  *
  * @author xchen82
+ * @author ChanWoo
  * please delete "UserData.txt" before starting a new test
  *
  *	methods included:
@@ -191,6 +192,20 @@ public class Login {
         return userinfo;
 	}
 
+       public static String login(String username, String password,String filename){
+       String user = "Guest";
+           
+       ArrayList<GetLoginInfoClass> test=getuserinfo(filename);
+               
+        //check if the user already exists
+        for (int i=0;i<test.size();i++){
+            if (test.get(i).GetUserName().equals(username)&&test.get(i).GetPassWord().equals(password)) {
+                user = test.get(i).GetUserName();
+                }            
+        }
+        return user;
+        }
+
     
 
     public static void create(String username, String password, String displayname, String filename){
@@ -261,13 +276,13 @@ public class Login {
     }
     }
     
-    public static void remove(String username,String FilePath){
+    public static void remove(String username,String password,String FilePath){
         
         ArrayList<GetLoginInfoClass> test=getuserinfo(FilePath);
                
         //check if the user already exists
         for (int i=0;i<test.size();i++){
-            if (test.get(i).GetUserName().equals(username)) {
+            if (test.get(i).GetUserName().equals(username)&&test.get(i).GetPassWord().equals(password)) {
                 test.remove(i);
                 }            
         }
@@ -275,14 +290,14 @@ public class Login {
         UpdateFile(test,FilePath);
       }
     
-    public static void ChangePW(String username,String NewPW,String FilePath){
+    public static void ChangePW(String username,String password,String NewPW,String FilePath){
         
     	ArrayList<GetLoginInfoClass> test=getuserinfo(FilePath);
     	
         //check which user
         for (int i=0;i<test.size();i++){
         	
-            if (test.get(i).GetUserName().equals(username)) {
+            if (test.get(i).GetUserName().equals(username)&&test.get(i).GetPassWord().equals(password)) {
             	test.get(i).ChangePassWord(NewPW);
             }
             
@@ -291,14 +306,14 @@ public class Login {
         UpdateFile(test,FilePath);
       }
     
-    public static void ChangeDN(String username,String NewDN,String FilePath){
+    public static void ChangeDN(String username,String password,String NewDN,String FilePath){
         
     	ArrayList<GetLoginInfoClass> test=getuserinfo(FilePath);
     	
         //check which user
         for (int i=0;i<test.size();i++){
         	
-            if (test.get(i).GetUserName().equals(username)) {
+            if (test.get(i).GetUserName().equals(username)&&test.get(i).GetPassWord().equals(password)) {
             	test.get(i).ChangeDisplayName(NewDN);
             }
             
@@ -404,9 +419,9 @@ public class Login {
         create("hello","hi","Display",Path);
         create("hello2","hi2","Display2",Path);
         create("test3","hi3","Display3",Path);
-        remove("hello",Path);
-        ChangePW("hello2","hinew2",Path);
-        ChangeDN("test3","bye3",Path);
+//        remove("hello",Path);
+//        ChangePW("hello2","hinew2",Path);
+//        ChangeDN("test3","bye3",Path);
         
         AddNewScore("hello2",15,Path);
         AddNewScore("test3",150,Path);
