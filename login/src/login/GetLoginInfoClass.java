@@ -9,6 +9,7 @@ import java.util.Arrays;
 /**
  *
  * @author xchen82
+ * Justin provided ideas on sorting
  */
 public class GetLoginInfoClass {
     
