@@ -55,6 +55,7 @@ public class GUI extends javax.swing.JFrame {
         mainMenuButton = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         nameDisplayLabel = new javax.swing.JLabel();
+        logOutButton = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
         usernameField = new javax.swing.JTextField();
         label1 = new java.awt.Label();
@@ -63,6 +64,7 @@ public class GUI extends javax.swing.JFrame {
         passwordField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         createProfileFromLoginButton = new javax.swing.JButton();
+        loginStatusLabel = new javax.swing.JLabel();
         profileManagementPanel = new javax.swing.JPanel();
         modifyProfileButton = new javax.swing.JButton();
         createProfileButton = new javax.swing.JButton();
@@ -79,16 +81,16 @@ public class GUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        profileCreateStatusLabel = new javax.swing.JLabel();
         deleteProfilePanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        profileDeleteButton = new javax.swing.JButton();
         jTextField10 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
+        profileDeleteStatusLabel = new javax.swing.JLabel();
         statisticsPanel = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -104,6 +106,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
         passwordChangeButton = new javax.swing.JButton();
+        changePasswordStatusLabel = new javax.swing.JLabel();
         displayNameChangePanel = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -112,6 +115,7 @@ public class GUI extends javax.swing.JFrame {
         jTextField14 = new javax.swing.JTextField();
         jTextField15 = new javax.swing.JTextField();
         displayNameChangeButton = new javax.swing.JButton();
+        changeDNStatusLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(400, 10, 448, 656));
@@ -162,17 +166,17 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(165, 165, 165)
                         .addComponent(playGameButton))
                     .addGroup(mainMenuPanelLayout.createSequentialGroup()
-                        .addGap(177, 177, 177)
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel16))
+                    .addGroup(mainMenuPanelLayout.createSequentialGroup()
+                        .addGap(180, 180, 180)
                         .addComponent(goToLoginButton))
                     .addGroup(mainMenuPanelLayout.createSequentialGroup()
-                        .addGap(135, 135, 135)
+                        .addGap(137, 137, 137)
                         .addComponent(goToProfileButton))
                     .addGroup(mainMenuPanelLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(mainMenuViewStatisticsButton))
-                    .addGroup(mainMenuPanelLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jLabel16)))
+                        .addGap(156, 156, 156)
+                        .addComponent(mainMenuViewStatisticsButton)))
                 .addGap(100, 100, 100))
         );
         mainMenuPanelLayout.setVerticalGroup(
@@ -183,11 +187,11 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(playGameButton)
                 .addGap(32, 32, 32)
                 .addComponent(goToLoginButton)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(goToProfileButton)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(mainMenuViewStatisticsButton)
-                .addContainerGap())
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         game.endGame();
@@ -223,6 +227,13 @@ public class GUI extends javax.swing.JFrame {
 
         nameDisplayLabel.setText("Guest");
 
+        logOutButton.setText("Log Out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout topMenuButtonPanelLayout = new javax.swing.GroupLayout(topMenuButtonPanel);
         topMenuButtonPanel.setLayout(topMenuButtonPanelLayout);
         topMenuButtonPanelLayout.setHorizontalGroup(
@@ -230,7 +241,9 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(topMenuButtonPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(mainMenuButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(logOutButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,11 +252,12 @@ public class GUI extends javax.swing.JFrame {
         topMenuButtonPanelLayout.setVerticalGroup(
             topMenuButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topMenuButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(topMenuButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mainMenuButton)
                     .addComponent(jLabel19)
-                    .addComponent(nameDisplayLabel))
+                    .addComponent(nameDisplayLabel)
+                    .addComponent(logOutButton))
                 .addGap(26, 26, 26))
         );
 
@@ -269,35 +283,39 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        loginStatusLabel.setText("Login Status");
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
+                .addContainerGap(56, Short.MAX_VALUE)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(createProfileFromLoginButton))
-                    .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(loginPanelLayout.createSequentialGroup()
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(loginPanelLayout.createSequentialGroup()
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(loginSubmitButton)
-                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loginSubmitButton)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loginStatusLabel)
+                            .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(49, 49, 49))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(133, 133, 133)
+                .addGap(99, 99, 99)
+                .addComponent(loginStatusLabel)
+                .addGap(18, 18, 18)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -305,9 +323,9 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72)
+                .addGap(93, 93, 93)
                 .addComponent(loginSubmitButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(createProfileFromLoginButton))
@@ -347,7 +365,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(modifyProfileButton)
                     .addComponent(deleteProfileButton)
                     .addComponent(createProfileButton))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         profileManagementPanelLayout.setVerticalGroup(
             profileManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +376,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(modifyProfileButton)
                 .addGap(40, 40, 40)
                 .addComponent(deleteProfileButton)
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Username");
@@ -378,12 +396,14 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        profileCreateStatusLabel.setText("Status");
+
         javax.swing.GroupLayout createProfilePanelLayout = new javax.swing.GroupLayout(createProfilePanel);
         createProfilePanel.setLayout(createProfilePanelLayout);
         createProfilePanelLayout.setHorizontalGroup(
             createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(createProfilePanelLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -408,11 +428,17 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(104, 104, 104))
+            .addGroup(createProfilePanelLayout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(profileCreateStatusLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         createProfilePanelLayout.setVerticalGroup(
             createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(createProfilePanelLayout.createSequentialGroup()
-                .addGap(131, 131, 131)
+                .addGap(86, 86, 86)
+                .addComponent(profileCreateStatusLabel)
+                .addGap(29, 29, 29)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -434,7 +460,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(48, 48, 48)
                 .addComponent(jButton1)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         jLabel7.setText("Username:");
@@ -443,44 +469,49 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel9.setText("Security Question:");
 
-        jLabel10.setText("Display Name:");
-
-        jButton2.setText("Delete Profile!");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        profileDeleteButton.setText("Delete Profile!");
+        profileDeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                profileDeleteButtonActionPerformed(evt);
             }
         });
+
+        profileDeleteStatusLabel.setText("Status");
 
         javax.swing.GroupLayout deleteProfilePanelLayout = new javax.swing.GroupLayout(deleteProfilePanel);
         deleteProfilePanel.setLayout(deleteProfilePanelLayout);
         deleteProfilePanelLayout.setHorizontalGroup(
             deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deleteProfilePanelLayout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
-                .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(deleteProfilePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(deleteProfilePanelLayout.createSequentialGroup()
+            .addGroup(deleteProfilePanelLayout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deleteProfilePanelLayout.createSequentialGroup()
                         .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField9)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                                .addComponent(jTextField11)))))
-                .addGap(121, 121, 121))
+                            .addGroup(deleteProfilePanelLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(deleteProfilePanelLayout.createSequentialGroup()
+                                .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(18, 18, 18)
+                                .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(profileDeleteButton)
+                                    .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                        .addComponent(jTextField11)))))
+                        .addGap(121, 121, 121))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deleteProfilePanelLayout.createSequentialGroup()
+                        .addComponent(profileDeleteStatusLabel)
+                        .addGap(204, 204, 204))))
         );
         deleteProfilePanelLayout.setVerticalGroup(
             deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deleteProfilePanelLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
+                .addGap(115, 115, 115)
+                .addComponent(profileDeleteStatusLabel)
+                .addGap(28, 28, 28)
                 .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -492,24 +523,20 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addGap(46, 46, 46)
-                .addComponent(jButton2)
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addGap(85, 85, 85)
+                .addComponent(profileDeleteButton)
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 444, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
 
         statisticsPanel.addTab("Leaderboard", jPanel4);
@@ -521,14 +548,14 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
 
         statisticsPanel.addTab("Personal Stats", jPanel3);
@@ -552,13 +579,14 @@ public class GUI extends javax.swing.JFrame {
         modificationPanelLayout.setHorizontalGroup(
             modificationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modificationPanelLayout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(changePasswordPanelButton)
-                .addContainerGap(160, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificationPanelLayout.createSequentialGroup()
-                .addContainerGap(143, Short.MAX_VALUE)
-                .addComponent(changeDisplayNamePanelButton)
-                .addGap(124, 124, 124))
+                .addGroup(modificationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modificationPanelLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(changePasswordPanelButton))
+                    .addGroup(modificationPanelLayout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(changeDisplayNamePanelButton)))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         modificationPanelLayout.setVerticalGroup(
             modificationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,7 +595,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(changePasswordPanelButton)
                 .addGap(48, 48, 48)
                 .addComponent(changeDisplayNamePanelButton)
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         jLabel12.setText("Username:");
@@ -583,12 +611,14 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        changePasswordStatusLabel.setText("Status");
+
         javax.swing.GroupLayout passwordChangePanelLayout = new javax.swing.GroupLayout(passwordChangePanel);
         passwordChangePanel.setLayout(passwordChangePanelLayout);
         passwordChangePanelLayout.setHorizontalGroup(
             passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(passwordChangePanelLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(58, 58, 58)
                 .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14)
                     .addComponent(jLabel12)
@@ -599,13 +629,19 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTextField2)
                         .addComponent(jTextField7)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(83, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, passwordChangePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(changePasswordStatusLabel)
+                .addGap(198, 198, 198))
         );
         passwordChangePanelLayout.setVerticalGroup(
             passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(passwordChangePanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addComponent(changePasswordStatusLabel)
+                .addGap(18, 18, 18)
                 .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -619,7 +655,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(passwordChangeButton)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(54, 54, 54))
         );
 
         jLabel15.setText("Username:");
@@ -635,31 +671,34 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        changeDNStatusLabel.setText("Status");
+
         javax.swing.GroupLayout displayNameChangePanelLayout = new javax.swing.GroupLayout(displayNameChangePanel);
         displayNameChangePanel.setLayout(displayNameChangePanelLayout);
         displayNameChangePanelLayout.setHorizontalGroup(
             displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(displayNameChangePanelLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(29, 29, 29)
                 .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel18)
                     .addComponent(jLabel17)
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
-                .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField14)
-                    .addComponent(jTextField13)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayNameChangePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(displayNameChangeButton)
-                .addGap(75, 75, 75))
+                .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(changeDNStatusLabel)
+                    .addComponent(displayNameChangeButton)
+                    .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField14)
+                        .addComponent(jTextField13)
+                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         displayNameChangePanelLayout.setVerticalGroup(
             displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(displayNameChangePanelLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, displayNameChangePanelLayout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addComponent(changeDNStatusLabel)
+                .addGap(44, 44, 44)
                 .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -673,9 +712,9 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel18)))
-                .addGap(67, 67, 67)
+                .addGap(58, 58, 58)
                 .addComponent(displayNameChangeButton)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGap(53, 53, 53))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -687,7 +726,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                    .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -716,19 +755,19 @@ public class GUI extends javax.swing.JFrame {
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 32, Short.MAX_VALUE)
+                    .addGap(0, 18, Short.MAX_VALUE)
                     .addComponent(modificationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 32, Short.MAX_VALUE)))
+                    .addGap(0, 18, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 36, Short.MAX_VALUE)
+                    .addGap(0, 15, Short.MAX_VALUE)
                     .addComponent(passwordChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 36, Short.MAX_VALUE)))
+                    .addGap(0, 14, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 76, Short.MAX_VALUE)
+                    .addGap(0, 55, Short.MAX_VALUE)
                     .addComponent(displayNameChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 77, Short.MAX_VALUE)))
+                    .addGap(0, 55, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -739,7 +778,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(43, 43, 43)
-                    .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+                    .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
                     .addGap(43, 43, 43)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -768,19 +807,19 @@ public class GUI extends javax.swing.JFrame {
                     .addGap(57, 57, 57)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 174, Short.MAX_VALUE)
+                    .addGap(0, 144, Short.MAX_VALUE)
                     .addComponent(modificationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 175, Short.MAX_VALUE)))
+                    .addGap(0, 145, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 246, Short.MAX_VALUE)
+                    .addGap(0, 200, Short.MAX_VALUE)
                     .addComponent(passwordChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 247, Short.MAX_VALUE)))
+                    .addGap(0, 201, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 201, Short.MAX_VALUE)
+                    .addGap(0, 155, Short.MAX_VALUE)
                     .addComponent(displayNameChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 201, Short.MAX_VALUE)))
+                    .addGap(0, 155, Short.MAX_VALUE)))
         );
 
         pack();
@@ -800,6 +839,14 @@ public class GUI extends javax.swing.JFrame {
         String password = passwordField.getText();
         currentUserInfo=login.login(username,password,fileName);
         nameDisplayLabel.setText(currentUserInfo.GetUserName());
+        if (nameDisplayLabel.getText().equals("Guest")){
+            loginStatusLabel.setText("Login Failed. Try again");
+        }
+        else {
+            loginStatusLabel.setText("Login successful");
+        }
+        usernameField.setText("");
+        passwordField.setText("");
     }//GEN-LAST:event_loginSubmitButtonActionPerformed
 
     private void playGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playGameButtonActionPerformed
@@ -850,16 +897,36 @@ public class GUI extends javax.swing.JFrame {
         String newPassword = jTextField3.getText();
         String newDisplayName = jTextField6.getText();       
         login.create(newUsername, newPassword, newDisplayName, fileName);
+        profileCreateStatusLabel.setText("Profile is created");
+        
+        jTextField1.setText("");
+        jTextField3.setText("");
+        jTextField6.setText("");
+
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void profileDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileDeleteButtonActionPerformed
         // TODO add your handling code here:
         String username = jTextField8.getText();
         String password = jTextField10.getText();
-        if(username==currentUserInfo.GetUserName()){
-            login.remove(username,password,fileName);
+        
+        if(nameDisplayLabel.getText().equals("Guest")){
+            profileDeleteStatusLabel.setText("Login Please");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
+            login.remove(username,password,fileName);
+            profileDeleteStatusLabel.setText("Profile is deleted");
+        }
+        else if (!username.equals(currentUserInfo.GetUserName())) {
+            profileDeleteStatusLabel.setText("Warning: Delete your own profile");
+        }
+        else if (username.equals(currentUserInfo.GetUserName())&&!password.equals(currentUserInfo.GetPassWord())) {
+            profileDeleteStatusLabel.setText("Password is incorrect. Try again.");
+        }
+        jTextField8.setText("");
+        jTextField10.setText("");
+    }//GEN-LAST:event_profileDeleteButtonActionPerformed
 
     private void modifyProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyProfileButtonActionPerformed
         game.endGame();
@@ -905,18 +972,46 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = jTextField2.getText();
         String password = jTextField7.getText();
-        String newPassword = jTextField12.getText();       
-        login.ChangePW(username, password, newPassword, fileName);
+        String newPassword = jTextField12.getText();
+        if(nameDisplayLabel.getText().equals("Guest")){
+            changePasswordStatusLabel.setText("Login Please");
+        }
+        else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
+            login.ChangePW(username, password, newPassword, fileName);
+            changePasswordStatusLabel.setText("Password is changed");
+        }
+        else {
+            changePasswordStatusLabel.setText("Password Change is failed. Try again");
+        }
+        jTextField2.setText("");
+        jTextField7.setText(""); 
+        jTextField12.setText("");
     }//GEN-LAST:event_passwordChangeButtonActionPerformed
 
     private void displayNameChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayNameChangeButtonActionPerformed
         // TODO add your handling code here:
         String username = jTextField14.getText();
         String password = jTextField13.getText();
-        String newPassword = jTextField15.getText();       
-        login.ChangeDN(username, password, newPassword, fileName);
-
+        String newPassword = jTextField15.getText();
+        if(nameDisplayLabel.getText().equals("Guest")){
+            changeDNStatusLabel.setText("Login Please");
+        }
+        else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
+            login.ChangeDN(username, password, newPassword, fileName);
+            changeDNStatusLabel.setText("Display Name is changed");
+        }
+        else {
+            changeDNStatusLabel.setText("Display Name Change is failed. Try again");
+        }
+        jTextField14.setText("");
+        jTextField13.setText("");
+        jTextField15.setText("");
     }//GEN-LAST:event_displayNameChangeButtonActionPerformed
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        // TODO add your handling code here:
+        nameDisplayLabel.setText("Guest");
+    }//GEN-LAST:event_logOutButtonActionPerformed
 
 
     /**
@@ -973,8 +1068,10 @@ public class GUI extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel changeDNStatusLabel;
     private javax.swing.JButton changeDisplayNamePanelButton;
     private javax.swing.JButton changePasswordPanelButton;
+    private javax.swing.JLabel changePasswordStatusLabel;
     private javax.swing.JButton createProfileButton;
     private javax.swing.JButton createProfileFromLoginButton;
     private javax.swing.JPanel createProfilePanel;
@@ -986,9 +1083,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton goToLoginButton;
     private javax.swing.JButton goToProfileButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1022,10 +1117,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private java.awt.Label label1;
     private java.awt.Label label2;
+    private javax.swing.JButton logOutButton;
     private javax.swing.JPanel loginPanel;
+    private javax.swing.JLabel loginStatusLabel;
     private javax.swing.JButton loginSubmitButton;
     private javax.swing.JButton mainMenuButton;
     private javax.swing.JPanel mainMenuPanel;
@@ -1037,6 +1133,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel passwordChangePanel;
     private javax.swing.JTextField passwordField;
     private javax.swing.JButton playGameButton;
+    private javax.swing.JLabel profileCreateStatusLabel;
+    private javax.swing.JButton profileDeleteButton;
+    private javax.swing.JLabel profileDeleteStatusLabel;
     private javax.swing.JPanel profileManagementPanel;
     private javax.swing.JTabbedPane statisticsPanel;
     private javax.swing.JPanel topMenuButtonPanel;
