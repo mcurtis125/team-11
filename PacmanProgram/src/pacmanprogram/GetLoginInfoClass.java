@@ -45,10 +45,12 @@ public GetLoginInfoClass(String usernamex,String passwordx,String displaynamex
     }
 
 public void AddNewScore(int NewScore){
+        System.out.println("in addnewScore" + NewScore);
+        
 	int[] CurrentScore={this.score[0],this.score[1],this.score[2],this.score[3],this.score[4],this.score[5],this.score[6],this.score[7],this.score[8],this.score[9]};
 	for (int i=0;i<10;i++){
 		if (NewScore>CurrentScore[i]){
-			
+			System.out.println("in addnewScore");
 			for (int ii=9;ii>i;ii--){
 			CurrentScore[ii]=CurrentScore[ii-1];
 			}

@@ -330,6 +330,8 @@ public class Login {
     
     public static void AddNewScore(String username, int NewScore,String FilePath){
     	
+        System.out.println(NewScore);
+        
     	ArrayList<GetLoginInfoClass> test=getuserinfo(FilePath);
     	
         for (int i=0;i<test.size();i++){

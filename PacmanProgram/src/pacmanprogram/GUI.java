@@ -21,9 +21,10 @@ public class GUI extends javax.swing.JFrame {
      */
     
     static Game game = new Game();
-    static Login login = new Login();
+    static Login userInfoGetter = new Login();
     static String fileName = "UserData.txt";
-    static GetLoginInfoClass currentUserInfo=login.login("Guest","DefaultPassword","UserData.txt");
+    static String guestUsername = "Guest";
+    static GetLoginInfoClass currentUserInfo=userInfoGetter.login("Guest","DefaultPassword","UserData.txt");
     
 //    private String newUsername;
 //    private String newPassword;
@@ -49,20 +50,20 @@ public class GUI extends javax.swing.JFrame {
         goToLoginButton = new javax.swing.JButton();
         goToProfileButton = new javax.swing.JButton();
         mainMenuViewStatisticsButton = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
+        PacmanImageLabel = new javax.swing.JLabel();
         gamePanel = game;
         topMenuButtonPanel = new javax.swing.JPanel();
         mainMenuButton = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
+        playerLabel = new javax.swing.JLabel();
         nameDisplayLabel = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
         usernameField = new javax.swing.JTextField();
-        label1 = new java.awt.Label();
-        label2 = new java.awt.Label();
+        usernameLabel = new java.awt.Label();
+        passwordLabel = new java.awt.Label();
         loginSubmitButton = new javax.swing.JButton();
         passwordField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        noUsernameLabel = new javax.swing.JLabel();
         createProfileFromLoginButton = new javax.swing.JButton();
         loginStatusLabel = new javax.swing.JLabel();
         profileManagementPanel = new javax.swing.JPanel();
@@ -70,26 +71,26 @@ public class GUI extends javax.swing.JFrame {
         createProfileButton = new javax.swing.JButton();
         deleteProfileButton = new javax.swing.JButton();
         createProfilePanel = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        createUsernameField = new javax.swing.JTextField();
+        createPasswordField = new javax.swing.JTextField();
+        createPasswordCheckField = new javax.swing.JTextField();
+        createSecurityQuestionField = new javax.swing.JTextField();
+        createDisplayNameField = new javax.swing.JTextField();
+        createUsernameLabel = new javax.swing.JLabel();
+        createPasswordLabel = new javax.swing.JLabel();
+        createPasswordCheckLabel = new javax.swing.JLabel();
+        createSecurityQuestionLabel = new javax.swing.JLabel();
+        createDisplayNameLabel = new javax.swing.JLabel();
+        createProfileSubmitButton = new javax.swing.JButton();
         profileCreateStatusLabel = new javax.swing.JLabel();
         deleteProfilePanel = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        deleteUsernameLabel = new javax.swing.JLabel();
+        deletePasswordLabel = new javax.swing.JLabel();
+        deleteUsernameField = new javax.swing.JTextField();
+        deleteSecurityQuestionLabel = new javax.swing.JLabel();
         profileDeleteButton = new javax.swing.JButton();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        deletePasswordField = new javax.swing.JTextField();
+        deleteSecurityQuestionField = new javax.swing.JTextField();
         profileDeleteStatusLabel = new javax.swing.JLabel();
         statisticsPanel = new javax.swing.JTabbedPane();
         leaderBoardPanel = new javax.swing.JPanel();
@@ -99,21 +100,21 @@ public class GUI extends javax.swing.JFrame {
         changeDisplayNamePanelButton = new javax.swing.JButton();
         changePasswordPanelButton = new javax.swing.JButton();
         passwordChangePanel = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        passwordChangeUsernameLabel = new javax.swing.JLabel();
+        passwordChangePasswordLabel = new javax.swing.JLabel();
+        passwordChangeUsernameField = new javax.swing.JTextField();
+        passwordChangePasswordField = new javax.swing.JTextField();
+        passwordChangeNewPasswordLabel = new javax.swing.JLabel();
+        passwordChangeNewPasswordField = new javax.swing.JTextField();
         passwordChangeButton = new javax.swing.JButton();
         changePasswordStatusLabel = new javax.swing.JLabel();
         displayNameChangePanel = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
+        displayNameChangeUsernameLabel = new javax.swing.JLabel();
+        displayNameChangePasswordLabel = new javax.swing.JLabel();
+        displayNameChangeDisplayNameLabel = new javax.swing.JLabel();
+        displayNameChangePasswordField = new javax.swing.JTextField();
+        displayNameChangeUsernameField = new javax.swing.JTextField();
+        displayNameChangeDisplayNameField = new javax.swing.JTextField();
         displayNameChangeButton = new javax.swing.JButton();
         changeDNStatusLabel = new javax.swing.JLabel();
 
@@ -155,7 +156,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pacmanprogram/image.png"))); // NOI18N
+        PacmanImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pacmanprogram/image.png"))); // NOI18N
 
         javax.swing.GroupLayout mainMenuPanelLayout = new javax.swing.GroupLayout(mainMenuPanel);
         mainMenuPanel.setLayout(mainMenuPanelLayout);
@@ -168,7 +169,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(playGameButton))
                     .addGroup(mainMenuPanelLayout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(jLabel16))
+                        .addComponent(PacmanImageLabel))
                     .addGroup(mainMenuPanelLayout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(goToLoginButton))
@@ -183,7 +184,7 @@ public class GUI extends javax.swing.JFrame {
         mainMenuPanelLayout.setVerticalGroup(
             mainMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainMenuPanelLayout.createSequentialGroup()
-                .addComponent(jLabel16)
+                .addComponent(PacmanImageLabel)
                 .addGap(52, 52, 52)
                 .addComponent(playGameButton)
                 .addGap(32, 32, 32)
@@ -224,7 +225,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel19.setText("Player:");
+        playerLabel.setText("Player:");
 
         nameDisplayLabel.setText("Guest");
 
@@ -245,7 +246,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(logOutButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19)
+                .addComponent(playerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -256,7 +257,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(topMenuButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mainMenuButton)
-                    .addComponent(jLabel19)
+                    .addComponent(playerLabel)
                     .addComponent(nameDisplayLabel)
                     .addComponent(logOutButton))
                 .addGap(26, 26, 26))
@@ -264,9 +265,9 @@ public class GUI extends javax.swing.JFrame {
 
         loginPanel.setPreferredSize(new java.awt.Dimension(428, 576));
 
-        label1.setText("Username:");
+        usernameLabel.setText("Username:");
 
-        label2.setText("Password: ");
+        passwordLabel.setText("Password: ");
 
         loginSubmitButton.setText("Submit");
         loginSubmitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +276,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Don't have a username?");
+        noUsernameLabel.setText("Don't have a username?");
 
         createProfileFromLoginButton.setText("Create Profile");
         createProfileFromLoginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -294,17 +295,17 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(179, Short.MAX_VALUE)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(noUsernameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(createProfileFromLoginButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(loginSubmitButton)
                             .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(loginStatusLabel)
@@ -319,21 +320,21 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(93, 93, 93)
                 .addComponent(loginSubmitButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(noUsernameLabel)
                     .addComponent(createProfileFromLoginButton))
                 .addGap(91, 91, 91))
         );
 
-        label2.getAccessibleContext().setAccessibleName("Password:");
+        passwordLabel.getAccessibleContext().setAccessibleName("Password:");
 
         modifyProfileButton.setText("Modify Profile");
         modifyProfileButton.addActionListener(new java.awt.event.ActionListener() {
@@ -380,20 +381,20 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(373, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Username");
+        createUsernameLabel.setText("Username");
 
-        jLabel3.setText("Password");
+        createPasswordLabel.setText("Password");
 
-        jLabel4.setText("Re-enter Password");
+        createPasswordCheckLabel.setText("Re-enter Password");
 
-        jLabel5.setText("Security Question");
+        createSecurityQuestionLabel.setText("Security Question");
 
-        jLabel6.setText("Display Name");
+        createDisplayNameLabel.setText("Display Name");
 
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createProfileSubmitButton.setText("Submit");
+        createProfileSubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createProfileSubmitButtonActionPerformed(evt);
             }
         });
 
@@ -407,27 +408,27 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(129, Short.MAX_VALUE)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(createProfilePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(createSecurityQuestionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(createSecurityQuestionField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(createProfilePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(createPasswordCheckLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(createPasswordCheckField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(createProfilePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(createPasswordLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(createPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(createProfilePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(createUsernameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(createUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(createProfilePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addComponent(createDisplayNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(createProfileSubmitButton)
+                            .addComponent(createDisplayNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(104, 104, 104))
             .addGroup(createProfilePanelLayout.createSequentialGroup()
                 .addGap(205, 205, 205)
@@ -441,34 +442,34 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(profileCreateStatusLabel)
                 .addGap(29, 29, 29)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(createUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createUsernameLabel))
                 .addGap(28, 28, 28)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(createPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createPasswordLabel))
                 .addGap(29, 29, 29)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(createPasswordCheckField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createPasswordCheckLabel))
                 .addGap(26, 26, 26)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(createSecurityQuestionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createSecurityQuestionLabel))
                 .addGap(28, 28, 28)
                 .addGroup(createProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(createDisplayNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createDisplayNameLabel))
                 .addGap(48, 48, 48)
-                .addComponent(jButton1)
+                .addComponent(createProfileSubmitButton)
                 .addContainerGap(234, Short.MAX_VALUE))
         );
 
-        jLabel7.setText("Username:");
+        deleteUsernameLabel.setText("Username:");
 
-        jLabel8.setText("Password:");
+        deletePasswordLabel.setText("Password:");
 
-        jLabel9.setText("Security Question:");
+        deleteSecurityQuestionLabel.setText("Security Question:");
 
         profileDeleteButton.setText("Delete Profile!");
         profileDeleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -489,19 +490,19 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deleteProfilePanelLayout.createSequentialGroup()
                         .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(deleteProfilePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addComponent(deleteUsernameLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(deleteUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(deleteProfilePanelLayout.createSequentialGroup()
                                 .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
+                                    .addComponent(deletePasswordLabel)
+                                    .addComponent(deleteSecurityQuestionLabel))
                                 .addGap(18, 18, 18)
                                 .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(profileDeleteButton)
                                     .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                                        .addComponent(jTextField11)))))
+                                        .addComponent(deletePasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                        .addComponent(deleteSecurityQuestionField)))))
                         .addGap(121, 121, 121))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deleteProfilePanelLayout.createSequentialGroup()
                         .addComponent(profileDeleteStatusLabel)
@@ -514,16 +515,16 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(profileDeleteStatusLabel)
                 .addGap(28, 28, 28)
                 .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteUsernameLabel)
+                    .addComponent(deleteUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deletePasswordLabel)
+                    .addComponent(deletePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(deleteProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteSecurityQuestionLabel)
+                    .addComponent(deleteSecurityQuestionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(85, 85, 85)
                 .addComponent(profileDeleteButton)
                 .addContainerGap(236, Short.MAX_VALUE))
@@ -599,11 +600,11 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(253, Short.MAX_VALUE))
         );
 
-        jLabel12.setText("Username:");
+        passwordChangeUsernameLabel.setText("Username:");
 
-        jLabel13.setText("Password:");
+        passwordChangePasswordLabel.setText("Password:");
 
-        jLabel14.setText("New Password:");
+        passwordChangeNewPasswordLabel.setText("New Password:");
 
         passwordChangeButton.setText("Change Password");
         passwordChangeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -621,16 +622,16 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(passwordChangePanelLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                    .addComponent(passwordChangeNewPasswordLabel)
+                    .addComponent(passwordChangeUsernameLabel)
+                    .addComponent(passwordChangePasswordLabel))
                 .addGap(18, 18, 18)
                 .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(passwordChangeButton)
                     .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField2)
-                        .addComponent(jTextField7)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(passwordChangeUsernameField)
+                        .addComponent(passwordChangePasswordField)
+                        .addComponent(passwordChangeNewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(83, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, passwordChangePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -644,26 +645,26 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(changePasswordStatusLabel)
                 .addGap(18, 18, 18)
                 .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordChangeUsernameLabel)
+                    .addComponent(passwordChangeUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordChangePasswordLabel)
+                    .addComponent(passwordChangePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(passwordChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordChangeNewPasswordLabel)
+                    .addComponent(passwordChangeNewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(passwordChangeButton)
                 .addGap(54, 54, 54))
         );
 
-        jLabel15.setText("Username:");
+        displayNameChangeUsernameLabel.setText("Username:");
 
-        jLabel17.setText("Password:");
+        displayNameChangePasswordLabel.setText("Password:");
 
-        jLabel18.setText("New Display Name:");
+        displayNameChangeDisplayNameLabel.setText("New Display Name:");
 
         displayNameChangeButton.setText("Change Display Name");
         displayNameChangeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -681,17 +682,17 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(displayNameChangePanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel15))
+                    .addComponent(displayNameChangeDisplayNameLabel)
+                    .addComponent(displayNameChangePasswordLabel)
+                    .addComponent(displayNameChangeUsernameLabel))
                 .addGap(18, 18, 18)
                 .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(changeDNStatusLabel)
                     .addComponent(displayNameChangeButton)
                     .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField14)
-                        .addComponent(jTextField13)
-                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(displayNameChangeUsernameField)
+                        .addComponent(displayNameChangePasswordField)
+                        .addComponent(displayNameChangeDisplayNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
         displayNameChangePanelLayout.setVerticalGroup(
@@ -701,18 +702,18 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(changeDNStatusLabel)
                 .addGap(44, 44, 44)
                 .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(displayNameChangeUsernameLabel)
+                    .addComponent(displayNameChangeUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(displayNameChangePanelLayout.createSequentialGroup()
                         .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(displayNameChangePasswordLabel)
+                            .addComponent(displayNameChangePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42))
                     .addGroup(displayNameChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel18)))
+                        .addComponent(displayNameChangeDisplayNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(displayNameChangeDisplayNameLabel)))
                 .addGap(58, 58, 58)
                 .addComponent(displayNameChangeButton)
                 .addGap(53, 53, 53))
@@ -828,9 +829,16 @@ public class GUI extends javax.swing.JFrame {
 
     private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
 
-        game.endGame();
+        if(currentUserInfo.GetUserName().equals(guestUsername)||!gamePanel.isVisible()){
+            game.endGame();
+        }
+        else{
+            int scoreToAdd = game.endGame();
+            userInfoGetter.AddNewScore(currentUserInfo.GetUserName(),scoreToAdd,fileName);
+        }
         makeAllPanelsNotVisible();
         setButtonsVisibility();
+        updateJLabels();
         mainMenuPanel.setVisible(true);
 
     }//GEN-LAST:event_mainMenuButtonActionPerformed
@@ -839,7 +847,7 @@ public class GUI extends javax.swing.JFrame {
 
         String username = usernameField.getText();
         String password = passwordField.getText();
-        currentUserInfo=login.login(username,password,fileName);
+        currentUserInfo=userInfoGetter.login(username,password,fileName);
         updateJLabels();
         if (nameDisplayLabel.getText().equals("Guest")){
             loginStatusLabel.setText("Login Failed. Try again");
@@ -847,8 +855,8 @@ public class GUI extends javax.swing.JFrame {
         else {
             loginStatusLabel.setText("Login successful");
         }
-        usernameField.setText("");
-        passwordField.setText("");
+        
+        clearAllTextFields();
         
         setButtonsVisibility();
     }//GEN-LAST:event_loginSubmitButtonActionPerformed
@@ -900,32 +908,31 @@ public class GUI extends javax.swing.JFrame {
         createProfilePanel.setVisible(true);
     }//GEN-LAST:event_createProfileFromLoginButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createProfileSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProfileSubmitButtonActionPerformed
         setButtonsVisibility();
-        String newUsername = jTextField1.getText();
-        String newPassword = jTextField3.getText();
-        String newDisplayName = jTextField6.getText();       
-        login.create(newUsername, newPassword, newDisplayName, fileName);
+        String newUsername = createUsernameField.getText();
+        String newPassword = createPasswordField.getText();
+        String newDisplayName = createDisplayNameField.getText();       
+        userInfoGetter.create(newUsername, newPassword, newDisplayName, fileName);
         profileCreateStatusLabel.setText("Profile is created");
         
-        jTextField1.setText("");
-        jTextField3.setText("");
-        jTextField6.setText("");
+        clearAllTextFields();
 
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createProfileSubmitButtonActionPerformed
 
     private void profileDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileDeleteButtonActionPerformed
         // TODO add your handling code here:
-        String username = jTextField8.getText();
-        String password = jTextField10.getText();
+        String username = deleteUsernameField.getText();
+        String password = deletePasswordField.getText();
         
         if(nameDisplayLabel.getText().equals("Guest")){
             profileDeleteStatusLabel.setText("Login Please");
         }
         else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
-            login.remove(username,password,fileName);
+            userInfoGetter.remove(username,password,fileName);
             profileDeleteStatusLabel.setText("Profile is deleted");
+            currentUserInfo=userInfoGetter.login("Guest","DefaultPassword","UserData.txt");
         }
         else if (!username.equals(currentUserInfo.GetUserName())) {
             profileDeleteStatusLabel.setText("Warning: Delete your own profile");
@@ -933,9 +940,9 @@ public class GUI extends javax.swing.JFrame {
         else if (username.equals(currentUserInfo.GetUserName())&&!password.equals(currentUserInfo.GetPassWord())) {
             profileDeleteStatusLabel.setText("Password is incorrect. Try again.");
         }
-        jTextField8.setText("");
-        jTextField10.setText("");
+        clearAllTextFields();
         
+        updateJLabels();
         setButtonsVisibility();
     }//GEN-LAST:event_profileDeleteButtonActionPerformed
 
@@ -976,47 +983,46 @@ public class GUI extends javax.swing.JFrame {
 
     private void passwordChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordChangeButtonActionPerformed
         // TODO add your handling code here:
-        String username = jTextField2.getText();
-        String password = jTextField7.getText();
-        String newPassword = jTextField12.getText();
+        String username = passwordChangeUsernameField.getText();
+        String password = passwordChangePasswordField.getText();
+        String newPassword = passwordChangeNewPasswordField.getText();
         if(nameDisplayLabel.getText().equals("Guest")){
             changePasswordStatusLabel.setText("Login Please");
         }
         else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
-            login.ChangePW(username, password, newPassword, fileName);
+            userInfoGetter.ChangePW(username, password, newPassword, fileName);
             changePasswordStatusLabel.setText("Password is changed");
         }
         else {
             changePasswordStatusLabel.setText("Password Change is failed. Try again");
         }
-        jTextField2.setText("");
-        jTextField7.setText(""); 
-        jTextField12.setText("");
+        
+        clearAllTextFields();       
     }//GEN-LAST:event_passwordChangeButtonActionPerformed
 
     private void displayNameChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayNameChangeButtonActionPerformed
         // TODO add your handling code here:
-        String username = jTextField14.getText();
-        String password = jTextField13.getText();
-        String newPassword = jTextField15.getText();
+        String username = displayNameChangeUsernameField.getText();
+        String password = displayNameChangePasswordField.getText();
+        String newPassword = displayNameChangeDisplayNameField.getText();
         if(nameDisplayLabel.getText().equals("Guest")){
             changeDNStatusLabel.setText("Login Please");
         }
         else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
-            login.ChangeDN(username, password, newPassword, fileName);
+            userInfoGetter.ChangeDN(username, password, newPassword, fileName);
             changeDNStatusLabel.setText("Display Name is changed");
         }
         else {
             changeDNStatusLabel.setText("Display Name Change is failed. Try again");
         }
-        jTextField14.setText("");
-        jTextField13.setText("");
-        jTextField15.setText("");
+        
+        clearAllTextFields();
     }//GEN-LAST:event_displayNameChangeButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        currentUserInfo=login.login("Guest","DefaultPassword","UserData.txt");
+        currentUserInfo=userInfoGetter.login("Guest","DefaultPassword","UserData.txt");
         updateJLabels();
+        setButtonsVisibility();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
 
@@ -1054,7 +1060,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
            
-        login.Initialize("UserData.txt");
+        userInfoGetter.Initialize("UserData.txt");
         
     }
     
@@ -1089,9 +1095,11 @@ public class GUI extends javax.swing.JFrame {
         
         String personalStats = new String();
         
+        currentUserInfo=userInfoGetter.login(currentUserInfo.GetUserName(), currentUserInfo.GetPassWord(), fileName);
+        
         nameDisplayLabel.setText(currentUserInfo.GetUserName());
         
-        if(currentUserInfo.GetUserName().equals("Guest")){
+        if(currentUserInfo.GetUserName().equals(guestUsername)){
             personalStats="You are not logged in, so you cannot view personal stats";
         }
         
@@ -1099,6 +1107,7 @@ public class GUI extends javax.swing.JFrame {
             int loopCounter;
             for(loopCounter=0;loopCounter<10;loopCounter++){
                 personalStats+=currentUserInfo.GetScore(loopCounter)+"<br>";
+                System.out.println(currentUserInfo.GetScore(loopCounter));
             }
         }
         
@@ -1106,56 +1115,66 @@ public class GUI extends javax.swing.JFrame {
         
     }
     
+    public void clearAllTextFields(){
+    
+    createUsernameField.setText("");
+    deletePasswordField.setText("");
+    deleteSecurityQuestionField.setText("");
+    passwordChangeNewPasswordField.setText("");
+    displayNameChangePasswordField.setText("");
+    displayNameChangeUsernameField.setText("");
+    displayNameChangeDisplayNameField.setText("");
+    passwordChangeUsernameField.setText("");
+    createPasswordField.setText("");
+    createPasswordCheckField.setText("");
+    createSecurityQuestionField.setText("");
+    createDisplayNameField.setText("");
+    passwordChangePasswordField.setText("");
+    deleteUsernameField.setText("");
+    usernameField.setText("");
+    passwordField.setText("");
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel PacmanImageLabel;
     private javax.swing.JLabel changeDNStatusLabel;
     private javax.swing.JButton changeDisplayNamePanelButton;
     private javax.swing.JButton changePasswordPanelButton;
     private javax.swing.JLabel changePasswordStatusLabel;
+    private javax.swing.JTextField createDisplayNameField;
+    private javax.swing.JLabel createDisplayNameLabel;
+    private javax.swing.JTextField createPasswordCheckField;
+    private javax.swing.JLabel createPasswordCheckLabel;
+    private javax.swing.JTextField createPasswordField;
+    private javax.swing.JLabel createPasswordLabel;
     private javax.swing.JButton createProfileButton;
     private javax.swing.JButton createProfileFromLoginButton;
     private javax.swing.JPanel createProfilePanel;
+    private javax.swing.JButton createProfileSubmitButton;
+    private javax.swing.JTextField createSecurityQuestionField;
+    private javax.swing.JLabel createSecurityQuestionLabel;
+    private javax.swing.JTextField createUsernameField;
+    private javax.swing.JLabel createUsernameLabel;
+    private javax.swing.JTextField deletePasswordField;
+    private javax.swing.JLabel deletePasswordLabel;
     private javax.swing.JButton deleteProfileButton;
     private javax.swing.JPanel deleteProfilePanel;
+    private javax.swing.JTextField deleteSecurityQuestionField;
+    private javax.swing.JLabel deleteSecurityQuestionLabel;
+    private javax.swing.JTextField deleteUsernameField;
+    private javax.swing.JLabel deleteUsernameLabel;
     private javax.swing.JButton displayNameChangeButton;
+    private javax.swing.JTextField displayNameChangeDisplayNameField;
+    private javax.swing.JLabel displayNameChangeDisplayNameLabel;
     private javax.swing.JPanel displayNameChangePanel;
+    private javax.swing.JTextField displayNameChangePasswordField;
+    private javax.swing.JLabel displayNameChangePasswordLabel;
+    private javax.swing.JTextField displayNameChangeUsernameField;
+    private javax.swing.JLabel displayNameChangeUsernameLabel;
     private javax.swing.JPanel gamePanel;
     private javax.swing.JButton goToLoginButton;
     private javax.swing.JButton goToProfileButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private java.awt.Label label1;
-    private java.awt.Label label2;
     private javax.swing.JPanel leaderBoardPanel;
     private javax.swing.JButton logOutButton;
     private javax.swing.JPanel loginPanel;
@@ -1167,12 +1186,21 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel modificationPanel;
     private javax.swing.JButton modifyProfileButton;
     private javax.swing.JLabel nameDisplayLabel;
+    private javax.swing.JLabel noUsernameLabel;
     private javax.swing.JButton passwordChangeButton;
+    private javax.swing.JTextField passwordChangeNewPasswordField;
+    private javax.swing.JLabel passwordChangeNewPasswordLabel;
     private javax.swing.JPanel passwordChangePanel;
+    private javax.swing.JTextField passwordChangePasswordField;
+    private javax.swing.JLabel passwordChangePasswordLabel;
+    private javax.swing.JTextField passwordChangeUsernameField;
+    private javax.swing.JLabel passwordChangeUsernameLabel;
     private javax.swing.JTextField passwordField;
+    private java.awt.Label passwordLabel;
     private javax.swing.JLabel personalStatsLabel;
     private javax.swing.JPanel personalStatsPanel;
     private javax.swing.JButton playGameButton;
+    private javax.swing.JLabel playerLabel;
     private javax.swing.JLabel profileCreateStatusLabel;
     private javax.swing.JButton profileDeleteButton;
     private javax.swing.JLabel profileDeleteStatusLabel;
@@ -1180,5 +1208,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTabbedPane statisticsPanel;
     private javax.swing.JPanel topMenuButtonPanel;
     private javax.swing.JTextField usernameField;
+    private java.awt.Label usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

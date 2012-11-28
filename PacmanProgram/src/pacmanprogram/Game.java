@@ -77,8 +77,20 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     }
 
     
-    public void endGame(){
-        t.stop();
+    public int endGame(){
+        if(t.isRunning()){
+            t.stop();
+            if(score.totalScore==null){
+                return 0;
+            }
+            else{
+                int finalScore = Integer.parseInt(score.totalScore);
+                return finalScore;
+            }
+        }
+        
+        return 0;
+
     }
     
     public void startGame(){
