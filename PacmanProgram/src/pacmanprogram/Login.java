@@ -193,19 +193,23 @@ public class Login {
 	}
 
        public static GetLoginInfoClass login(String username, String password,String filename){
-           
-       ArrayList<GetLoginInfoClass> test=getuserinfo(filename);
-               
-        //check if the user already exists
-        int i;
        
-        for (i=0;i<test.size();i++){
-            if (test.get(i).GetUserName().equals(username)&&test.get(i).GetPassWord().equals(password)) {
-                return test.get(i);
+       ArrayList<GetLoginInfoClass> userArray=getuserinfo(filename);
+           
+       if(username.equals("")){
+           return userArray.get(0);
+       }    
+           
+
+       int loopCounter;
+       
+        for (loopCounter=0;loopCounter<userArray.size();loopCounter++){
+            if (userArray.get(loopCounter).GetUserName().equals(username)&&userArray.get(loopCounter).GetPassWord().equals(password)) {
+                return userArray.get(loopCounter);
             }            
         }
         
-        return test.get(0);
+        return userArray.get(0);
         }
 
     
