@@ -1,1 +1,1 @@
-&Guest^DefaultPassword^Guest^100^90^80^70^60^50^40^30^20^10&kevin^789^blarh^0^0^0^0^0^130^200^350^470^1450
+&Guest^DefaultPassword^Guest^100^90^80^70^60^50^40^30^20^10&kevin^mypass^myballs^330^80^0^0^0^0^0^0^0^0&someguy^somepass^rickroll^0^0^0^0^0^0^0^0^0^240
