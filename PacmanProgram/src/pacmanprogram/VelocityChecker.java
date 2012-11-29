@@ -1,15 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pacmanprogram;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
-/**
+/**This class determines whether the movement specified by a key press if valid.
+ * For example, if the player presses the right arrow key to move Pacman right,
+ * this class will check to see if Pacman is actually allowed to move in that direction.
+ * It will also "remember" key strokes so that Pacman will move in the specified direction
+ * at the next available opportunity.
  *
- * @author Kevin
+ * @author Takeshi
  */
 public class VelocityChecker {
     
@@ -18,11 +19,23 @@ public class VelocityChecker {
     public enum typeVel{xCoordinate,yCoordinate,xVelocity,yVelocity,preVelX,preVelY,keyStrokeRemember};
     WallCollisionChecker walls = new WallCollisionChecker(0);
     
+    /**The constructor does not set any variables or take any parameters*/
     public VelocityChecker(){
         
     }
     
-    
+    /**This returns information about what position and speed Pacman should have.
+     * @return a hash map with the x and y position and velocity of Pacman, the previous x and y velocity of Pacman,
+     * and keyStrokeRemember which determines whether or not a previous key stroke should be put in memory.
+     * @param xCoordinate The current position of Pacman in the x direction.
+     * @param yCoordinate The current position of Pacman in the y direction.
+     * @param xVelocity The current velocity of Pacman in the x direction.
+     * @param yVelocity The current velocity Pacman in the y direction.
+     * @param preVelX The previous velocity of Pacman in the x direction.
+     * @param preVelY The previous velocity of Pacman in the y direction.
+     * @param keyStrokeRemember This determines whether a pressed key should be remembered for later use.
+     * @param keyCode This is the code corresponding to the key that the user pressed.
+     */
     public HashMap<typeVel,Double> velocityCheck(double xCoordinate, double yCoordinate, double xVelocity, double yVelocity, double preVelX, 
                                                     double preVelY, double keyStrokeRemember, int keyCode){
         this.xCoordinate=xCoordinate;
@@ -69,8 +82,7 @@ public class VelocityChecker {
         
     }
     
-    
-    public HashMap<typeVel,Double> checkTunnel(double xCoordinate, double yCoordinate){
+    private HashMap<typeVel,Double> checkTunnel(double xCoordinate, double yCoordinate){
         
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         
@@ -88,7 +100,8 @@ public class VelocityChecker {
         return validVelocityMap;
     }
     
-    public HashMap<typeVel,Double> checkMemory(double xCoordinate, double yCoordinate, double keyStrokeRemember, int keyCode){
+    
+    private HashMap<typeVel,Double> checkMemory(double xCoordinate, double yCoordinate, double keyStrokeRemember, int keyCode){
 
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
 
@@ -133,7 +146,7 @@ public class VelocityChecker {
     }
     
     
-    public HashMap<typeVel,Double> checkMoveLeft(double xCoordinate, double yCoordinate, double xVelocity, double preVelY, int keyCode){
+    private HashMap<typeVel,Double> checkMoveLeft(double xCoordinate, double yCoordinate, double xVelocity, double preVelY, int keyCode){
         
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         double tempVelocity;
@@ -171,7 +184,7 @@ public class VelocityChecker {
     
     
     
-    public HashMap<typeVel,Double> checkMoveRight(double xCoordinate, double yCoordinate, double xVelocity, double preVelY, int keyCode){
+    private HashMap<typeVel,Double> checkMoveRight(double xCoordinate, double yCoordinate, double xVelocity, double preVelY, int keyCode){
         
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         double tempVelocity;
@@ -208,7 +221,7 @@ public class VelocityChecker {
     
     
     
-    public HashMap<typeVel,Double> checkMoveUp(double xCoordinate, double yCoordinate, double yVelocity, double preVelX, int keyCode){
+    private HashMap<typeVel,Double> checkMoveUp(double xCoordinate, double yCoordinate, double yVelocity, double preVelX, int keyCode){
         
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         double tempVelocity;
@@ -245,7 +258,7 @@ public class VelocityChecker {
     
     
         
-    public HashMap<typeVel,Double> checkMoveDown(double xCoordinate, double yCoordinate, double yVelocity, double preVelX, int keyCode){
+    private HashMap<typeVel,Double> checkMoveDown(double xCoordinate, double yCoordinate, double yVelocity, double preVelX, int keyCode){
         
         HashMap<typeVel,Double> validVelocityMap = new HashMap<typeVel,Double>();
         double tempVelocity;
@@ -286,7 +299,7 @@ public class VelocityChecker {
     
     
     
-    public void setVelocityCheckerVariables(HashMap<typeVel,Double> validVelocityMap){
+    private void setVelocityCheckerVariables(HashMap<typeVel,Double> validVelocityMap){
         if(validVelocityMap.get(typeVel.xCoordinate)!=null){
             this.xCoordinate=validVelocityMap.get(typeVel.xCoordinate);
         }
@@ -310,11 +323,7 @@ public class VelocityChecker {
         }
         
     }
-    
-    
-    public void givePacmanSpeed(double pacmanSpeed){
-        this.pacmanSpeed=pacmanSpeed;
-    }
+
     
     
 }
