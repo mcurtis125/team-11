@@ -122,7 +122,9 @@ class GhostControl {
                 chase();
             }
         }
-        catch(Exception e){resetPosition();}
+        catch(Exception e){resetPosition();
+            e.printStackTrace();
+        }
     }
     
     public void setGhostSpeed(double ghostSpeed){

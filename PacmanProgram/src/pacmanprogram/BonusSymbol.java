@@ -21,6 +21,8 @@ import java.util.ArrayList;
  * @author stavy92
  */
 class BonusSymbol {
+    public static final double BONUS_X_POS = 220;
+    public static final double BONUS_Y_POS = 320;
     public enum Name{cherry,strawberry,orange,apple,melon,tulip,bell,key};
     private Name name;
     private int points;
@@ -71,23 +73,23 @@ class BonusSymbol {
         switch (name){
             case cherry:
                 GeneralPath stems = new GeneralPath(GeneralPath.WIND_EVEN_ODD,3);
-                stems.moveTo(221,328);
-                stems.lineTo(224, 321);
-                stems.lineTo(227,328);
+                stems.moveTo(BONUS_X_POS+1,BONUS_Y_POS+8);
+                stems.lineTo(BONUS_X_POS+4, BONUS_Y_POS+1);
+                stems.lineTo(BONUS_X_POS+7,BONUS_Y_POS+8);
                 bonus.setColor(Color.GREEN);
                 bonus.fill(stems);
                 bonus.setColor(color);
-                bonus.fill(new Ellipse2D.Double(217,328,8,8));
-                bonus.fill(new Ellipse2D.Double(223,328,8,8));
+                bonus.fill(new Ellipse2D.Double(BONUS_X_POS-3,BONUS_Y_POS+8,8,8));
+                bonus.fill(new Ellipse2D.Double(BONUS_X_POS+3,BONUS_Y_POS+8,8,8));
                 break;
             case strawberry:
-                double[] strawbPointsX = {218,224,230};
-                double[] strawbPointsY = {324,334,324};
-                double[] leaf1PointsX = {221,218,224};
-                double[] leaf2PointsX = {227,224,230};
-                double[] leaf1PointsY = {321,324,324};
-                double[] leaf2PointsY = {321,324,324};
-                double[][] seedCoords = {{222,325.5},{224,325.5},{226,325.5},{223,327.5},{225,327.5},{224,329.5}};
+                double[] strawbPointsX = {BONUS_X_POS-2,BONUS_X_POS+4,BONUS_X_POS+10};
+                double[] strawbPointsY = {BONUS_Y_POS+4,BONUS_Y_POS+14,BONUS_Y_POS+4};
+                double[] leaf1PointsX = {BONUS_X_POS+1,BONUS_X_POS-2,BONUS_X_POS+4};
+                double[] leaf2PointsX = {BONUS_X_POS+7,BONUS_X_POS+4,BONUS_X_POS+10};
+                double[] leaf1PointsY = {BONUS_Y_POS+1,BONUS_Y_POS+4,BONUS_Y_POS+4};
+                double[] leaf2PointsY = {BONUS_Y_POS+1,BONUS_Y_POS+4,BONUS_Y_POS+4};
+                double[][] seedCoords = {{BONUS_X_POS+2,BONUS_Y_POS+5.5},{BONUS_X_POS+4,BONUS_Y_POS+5.5},{BONUS_X_POS+6,BONUS_Y_POS+5.5},{BONUS_X_POS+3,BONUS_Y_POS+7.5},{BONUS_X_POS+5,BONUS_Y_POS+7.5},{BONUS_X_POS+4,BONUS_Y_POS+9.5}};
                 //seeds: size = 1
                 GeneralPath strawb = buildTriangle(strawbPointsX,strawbPointsY);
                 GeneralPath leaf1 = buildTriangle(leaf1PointsX,leaf1PointsY);
@@ -110,39 +112,39 @@ class BonusSymbol {
                 break;
             case orange:
                 bonus.setColor(color);
-                bonus.fill(new Ellipse2D.Double(219,322,12,12));
+                bonus.fill(new Ellipse2D.Double(BONUS_X_POS-1,BONUS_Y_POS+2,12,12));
                 break;
             case apple:
                 bonus.setColor(color);
-                bonus.fill(new Ellipse2D.Double(218,322,12,12));
+                bonus.fill(new Ellipse2D.Double(BONUS_X_POS-2,BONUS_Y_POS+2,12,12));
                 bonus.setColor(Color.GREEN);
-                bonus.fill(new Rectangle.Double(223,321,2,2));
+                bonus.fill(new Rectangle.Double(BONUS_X_POS+3,BONUS_Y_POS+1,2,2));
                 break;
             case melon:
                 bonus.setColor(color);
-                bonus.fill(new Ellipse2D.Double(219,322,12,12));
+                bonus.fill(new Ellipse2D.Double(BONUS_X_POS-1,BONUS_Y_POS+2,12,12));
                 break;
             case tulip:
                 bonus.setColor(Color.GREEN);
-                bonus.fill(new Rectangle.Double(223,326,2,8));
+                bonus.fill(new Rectangle.Double(BONUS_X_POS+3,BONUS_Y_POS+6,2,8));
                 bonus.setColor(color);
-                bonus.fill(new Ellipse2D.Double(220,321,8,8));
+                bonus.fill(new Ellipse2D.Double(BONUS_X_POS,BONUS_Y_POS+1,8,8));
                 bonus.setColor(Color.BLACK);
-                bonus.fill(buildTriangle(new double[] {222,224,226}, new double[] {321,325,321}));
+                bonus.fill(buildTriangle(new double[] {BONUS_X_POS+2,BONUS_X_POS+4,BONUS_X_POS+6}, new double[] {BONUS_Y_POS+1,BONUS_Y_POS+5,BONUS_Y_POS+1}));
                 break;
             case bell:
                 bonus.setColor(color);
-                bonus.fill(new RoundRectangle2D.Double(219.5,321,9,10,10,10));
-                bonus.fill(buildTriangle(new double[] {219.5,217,223}, new double[] {326,332,332}));
-                bonus.fill(buildTriangle(new double[] {228.5,224,231}, new double[] {326,332,332}));
-                bonus.fill(new Rectangle.Double(223,330,2,4));
+                bonus.fill(new RoundRectangle2D.Double(BONUS_X_POS-0.5,BONUS_Y_POS+1,9,10,10,10));
+                bonus.fill(buildTriangle(new double[] {BONUS_X_POS-0.5,BONUS_X_POS-3,BONUS_X_POS+3}, new double[] {BONUS_Y_POS+6,BONUS_Y_POS+12,BONUS_Y_POS+12}));
+                bonus.fill(buildTriangle(new double[] {BONUS_X_POS+8.5,BONUS_X_POS+4,BONUS_X_POS+11}, new double[] {BONUS_Y_POS+6,BONUS_Y_POS+12,BONUS_Y_POS+12}));
+                bonus.fill(new Rectangle.Double(BONUS_X_POS+3,BONUS_Y_POS+10,2,4));
                 break;
             case key:
                 bonus.setColor(color);
-                bonus.fill(new Ellipse2D.Double(216,325,7,6));
-                bonus.fill(new Rectangle.Double(222,327,10,2.5));
-                bonus.fill(new Rectangle.Double(227,329,2,3));
-                bonus.fill(new Rectangle.Double(230,329,2,3));
+                bonus.fill(new Ellipse2D.Double(BONUS_X_POS-4,BONUS_Y_POS+5,7,6));
+                bonus.fill(new Rectangle.Double(BONUS_X_POS+2,BONUS_Y_POS+7,10,2.5));
+                bonus.fill(new Rectangle.Double(BONUS_X_POS+7,BONUS_Y_POS+9,2,3));
+                bonus.fill(new Rectangle.Double(BONUS_X_POS+10,BONUS_Y_POS+9,2,3));
                 break;
         }
     }
@@ -158,4 +160,7 @@ class BonusSymbol {
         return triangle;
     }
     
+    public int getPoints(){
+        return points;
+    }
 }

@@ -27,9 +27,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     Ghost clyde = new Ghost(Name.Clyde, maze);
     Characters characters = new Characters(pacman,blinky,pinky,inky,clyde);
     
-    Level level = new Level(characters, maze, 1);
     
-    TextDisplay text = new TextDisplay(pacman);
+    //start at specified level
+    Level level = new Level(characters, maze);
+    
+    TextDisplay text = new TextDisplay(pacman, level);
     ScoreDisplay score = new ScoreDisplay(level);
     
     public Game(/*int startLevel*/){
@@ -72,7 +74,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         inky.refresh(ae);
         clyde.refresh(ae);
         level.refresh(ae);
-
+        score.refresh(ae);
+        checkGameOver();
+        checkLevelChange();
         repaint();
     }
 
@@ -80,24 +84,18 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public int endGame(){
         if(t.isRunning()){
             t.stop();
-            if(score.totalScore==null){
-                return 0;
-            }
-            else{
-                int finalScore = Integer.parseInt(score.totalScore);
-                return finalScore;
-            }
+            int finalScore = score.getTotalScore();
+            return finalScore;
         }
         
         return 0;
 
     }
     
-    public void startGame(){
-        level.restartGame();
+    public void startGame(int level){
+        this.level.startGame(level);
         t.start();
     }
-    
     
     @Override
     public void keyTyped(KeyEvent ke) {
@@ -111,7 +109,19 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent ke) {
     }
+
+    private void checkGameOver() {
+        if(level.checkGameOver()){
+            score.newGame();
+            level.restartGame();
+        }
+    }
     
-    
+    private void checkLevelChange() {
+        if(level.checkLevelChange()){
+            score.newLevel();
+            level.changeLevel();
+        }
+    }
     
 }

@@ -19,8 +19,9 @@ class LevelSpecs {
     private double[] ghostSpeedRatios = {0.75,0.85,0.85,0.85,0.95};
     private double[] ghostFrightSpeedRatios = {0.5,0.55,0.55,0.55,0.6};
     private double[] ghostTunSpeedRatios = {0.4,0.45,0.45,0.45,0.5};
-    private double[][] chaseTimes = {{7,34,59,84},{7,34,59,(1092+1/60)},{5,30,55,(1092+1/60)}};
-    private double [][] scatTimes = {{27,54,79},{27,54,1092},{25,50,1092}};
+    private double[] reverseDirectionTimes = {0,1092};
+    private double[][] chaseTimes = {{7,34,59,84},{7,34,59,0},{5,30,55,0}};
+    private double [][] scatTimes = {{27,54,79},{27,54,0},{25,50,0}};
     private int[] frightTimes = {6,5,4,3,2,5,2,2,1,5,2,1,1,3,1,1,0,1,0,0,0};
     private int[] flashNumbers = {5,5,5,5,5,5,5,5,3,5,5,3,3,5,3,3,0,3,0,0,0};
     private double[] lastDotTimerLimits = {4,4,4,4,3};
@@ -90,6 +91,14 @@ class LevelSpecs {
             return ghostTunSpeedRatios[4];
         }
         return ghostTunSpeedRatios[level-1];
+    }
+    public double getReverseDirectionTime(int level){
+        if(level==1){
+            return reverseDirectionTimes[0];
+        }
+        else{
+            return reverseDirectionTimes[1];
+        }
     }
     public double[] getScatTimes(int level){
         if(level==1){

@@ -18,9 +18,11 @@ public class TextDisplay {
     Font font = new Font ("Monospaced", Font.BOLD, 20);
     private Color color = Color.WHITE;
     Pacman pacman;
+    Level level;
     
-    public TextDisplay(Pacman pacman){
+    public TextDisplay(Pacman pacman, Level level){
         this.pacman = pacman;
+        this.level = level;
     }
     
     public void drawText(Graphics g){
@@ -30,5 +32,6 @@ public class TextDisplay {
         text.drawString("Score: ", 10, 15);
         text.drawString("High Score", 165, 15);
         text.drawString("Lives: "+pacman.getLives(), 10, 565);
+        text.drawString("Level: "+level.getLevel(), 165, 565);
     }
 }

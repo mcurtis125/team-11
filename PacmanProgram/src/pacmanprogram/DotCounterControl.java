@@ -94,7 +94,7 @@ public class DotCounterControl {
                 }
                 else{
                     personalCounters.get(i).increaseCounter();
-                    System.out.println("Personal Counter "+i+" : "+personalCounters.get(i).getCount());
+//                    System.out.println("Personal Counter "+i+" : "+personalCounters.get(i).getCount());
                     break;
                 }
             }

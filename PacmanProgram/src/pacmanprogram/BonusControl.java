@@ -14,6 +14,8 @@ import pacmanprogram.TimerControl;
 public class BonusControl {
     
     private static final int[] APPEAR_TIME_DOTS_EATEN = {70,170}; 
+    private static final double APPEAR_DURATION = 9.5;
+    
     
     LevelSpecs levelSpecs;
     
@@ -29,6 +31,7 @@ public class BonusControl {
     private double bonusTimer;
     
     private Pacman pacman;
+    
     
     public BonusControl(Pacman pacman, LevelSpecs levelSpecs, int level){
         currentLevel = level;
@@ -53,20 +56,20 @@ public class BonusControl {
             showBonus2 = true;
             startBonusTimer();
         }
-        if(pacEatingBonus()){
+        if((showBonus1 || showBonus2) && pacEatingBonus()){
             eraseBonus();
             eatBonus();
         }
-        else if(TimerControl.timeCheck(getBonusTimer(), 9.5)){
+        else if(TimerControl.timeCheck(getBonusTimer(), APPEAR_DURATION)){
             eraseBonus();
         }
     }
      
     public void drawBonus(Graphics g) {
-        if(showBonus1==true){
+        if(showBonus1){
             bonus1.show(g);
         } 
-        else if(showBonus2==true){
+        else if(showBonus2){
             bonus2.show(g);
         }  
     }
@@ -87,7 +90,7 @@ public class BonusControl {
     }
     
     private boolean pacEatingBonus(){
-        return (TimerControl.positionCheck(pacman.getX(),220) && TimerControl.positionCheck(pacman.getY(), 320));
+        return (TimerControl.positionCheck(pacman.getX(),bonus1.BONUS_X_POS) && TimerControl.positionCheck(pacman.getY(), bonus1.BONUS_Y_POS));
     }
     
     
@@ -108,6 +111,7 @@ public class BonusControl {
         bonus1Gone = false;
         bonus2Gone = false;
         currentLevel++;
+        bonusEaten = 0;
     }
     
     public void newGame(){
@@ -116,6 +120,7 @@ public class BonusControl {
         bonus1Gone = false;
         bonus2Gone = false;
         currentLevel=1;
+        bonusEaten = 0;
     }
     
     public int getBonusesEaten(){

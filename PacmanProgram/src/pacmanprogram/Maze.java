@@ -203,4 +203,9 @@ public class Maze{
         tiles = newTiles;
     }
     
+    public double[][] getEnergizerCoords(){
+        double[][] eCoords = {{16,96},{416,96},{16,416},{416,416}};
+        return eCoords;
+    }
+    
 }

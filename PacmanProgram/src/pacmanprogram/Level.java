@@ -42,14 +42,13 @@ class Level {
     private int totalDotsEaten;
     private int prevDotsRemaining;
     private boolean wasDotEaten;
-    
-    //TEMPORARY
-    private int totdots=0;
-    
+
     private boolean wasLifeLost;
     
     private int ghostsEaten;
+    private int ghostScore;
     
+    private double reverseDirectionTime;
     
     //speeds
     private double pacSpeedRatio;
@@ -66,28 +65,26 @@ class Level {
     private double timer;
     
   
-    public Level(Characters characters, Maze maze, int level) {
-        currentLevel = level;
+    public Level(Characters characters, Maze maze) {
         this.maze = maze;
         this.characters = characters;
-        collision= new CollisionChecker(characters);
-        this.modeControl = new ModeControl(characters, maze, levelSpecs, currentLevel);
-        this.bonusControl = new BonusControl(characters.pacman, levelSpecs, currentLevel);
-        this.dotCounterControl = new DotCounterControl(characters, maze, modeControl, levelSpecs, currentLevel);
-        
-        //speeds and timers
+        collision= new CollisionChecker(characters);       
+    }
+    
+    public void startGame(int level){
+        currentLevel = level;
+        ghostScore = 0;
         updateSpecifications();
-        
         assignSpeeds();
         startTimer();
-        
         System.out.println("Game start");
-        
-        
     }
     
     private void updateSpecifications(){
-        
+        reverseDirectionTime = levelSpecs.getReverseDirectionTime(currentLevel);
+        this.modeControl = new ModeControl(characters, maze, levelSpecs, currentLevel);
+        this.bonusControl = new BonusControl(characters.pacman, levelSpecs, currentLevel);
+        this.dotCounterControl = new DotCounterControl(characters, maze, modeControl, levelSpecs, currentLevel);
         pacSpeedRatio = levelSpecs.getPacSpeedRatio(currentLevel);
         pacDotSpeedRatio = levelSpecs.getPacDotSpeedRatio(currentLevel);
         pacFrightSpeedRatio = levelSpecs.getPacFrightSpeedRatio(currentLevel);
@@ -112,11 +109,10 @@ class Level {
     }
 
     public void refresh(ActionEvent ae) {
-        modeControl.updateModes();
+        updateModes();
         checkCollision();
-        checkGameOver();
+        checkReverseDirection();
         updateDotCount();
-        checkLevelChange();
         updateDotCounters();
         bonusControl.updateBonusSymbols(totalDotsEaten);
     }
@@ -131,6 +127,7 @@ class Level {
     public void restartGame(){
         System.out.println("Restarting game");
         currentLevel = 1;
+        ghostScore = 0;
         characters.pacman.resetLives();
         maze.resetMaze();
         updateSpecifications();
@@ -147,7 +144,6 @@ class Level {
         if(collision.pacmanGhostCollisionCheck()!=null){
             try{ 
                 if(modeControl.getMode()==1||modeControl.getMode()==2){
-                    
                     Thread.sleep(1500);
                     System.out.println("LOSE LIFE");
                     resetLevel();
@@ -155,9 +151,10 @@ class Level {
                     wasLifeLost = true;
                 }
                 else if(modeControl.getMode()==3){
+                    ghostsEaten++;
+                    ghostScore += (int) Math.pow(2, ghostsEaten)*100;
                     System.out.println("Eaten");
                     Thread.sleep(500);
-//                    ghostsEaten++;  doesnt work right now because this is called many times: pacmanGhostCollisionCheck()
                     ghostControl=collision.pacmanGhostCollisionCheck();
                     ghostControl.setFrightenedAndCaughtTrue();
                     ghostControl.becomeNonExistent();
@@ -167,15 +164,16 @@ class Level {
         }
     }
     
-    private void checkGameOver(){
+    public boolean checkGameOver(){
         if(characters.pacman.getLives() == 0){
             try{
                 System.out.println("GAME OVER");
                 Thread.sleep(5000);
-                restartGame();
+                return true;
             }
             catch(Exception e){}
         }  
+        return false;
     }
     
     
@@ -204,27 +202,40 @@ class Level {
         
         if(prevDotsRemaining>totalDotsRemaining){
             wasDotEaten = true;
-            totdots++;
         }
         else{
             wasDotEaten = false;
         }
     } 
     
+    private void checkReverseDirection(){
+        if(TimerControl.timeCheck(getTimer(), reverseDirectionTime)){
+            modeControl.reverseDirection();
+        }
+    }
     
-    private void checkLevelChange(){
+    private void updateModes(){
+        modeControl.updateModes();
+        if(modeControl.getMode()==1||modeControl.getMode()==2){
+            ghostsEaten = 0;
+        }
+    }
+    
+    public boolean checkLevelChange(){
         if(totalDotsRemaining == 0){
             try{
                 Thread.sleep(1500);
             }
             catch(Exception e){}
-            changeLevel();
             System.out.println(""+currentLevel);
+            return true;
         }
+        return false;
     }
     
     public void changeLevel(){
         currentLevel++;
+        ghostScore = 0;
         wasLifeLost = false;
         maze.resetMaze();
         updateSpecifications();
@@ -246,8 +257,6 @@ class Level {
         return currentLevel;
     }
     
-    
-    
     private void startTimer() {
         timer = System.currentTimeMillis();
     }
@@ -259,15 +268,20 @@ class Level {
         return (System.currentTimeMillis()-timer)/1000;
     }
 
-
     public void drawBonus(Graphics g){
        bonusControl.drawBonus(g); 
     }
     
-    
-    public int getDots(){
-        return totdots;
+    public int getDotsEaten(){
+        return dotsEaten;
     }
     
+    public int getEnergizersEaten(){
+        return energizersEaten;
+    }
+    
+    public int getGhostScore(){
+        return ghostScore;
+    }
 
 }

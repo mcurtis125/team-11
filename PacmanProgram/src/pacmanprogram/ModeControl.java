@@ -96,6 +96,7 @@ public class ModeControl {
                 System.out.println(""+getScatChaseTimer());
                 System.out.println("CHANGING BACK");
                 setMode();
+                System.out.println(""+mode);
             }
         } 
     }
@@ -128,10 +129,11 @@ public class ModeControl {
     }
     
     private boolean pacEatingEnergizer(){
-        return ((TimerControl.positionCheck(characters.pacman.getX(),16) && TimerControl.positionCheck(characters.pacman.getY(),96))
-                ||(TimerControl.positionCheck(characters.pacman.getX(),416) && TimerControl.positionCheck(characters.pacman.getY(),96))
-                ||(TimerControl.positionCheck(characters.pacman.getX(),16) && TimerControl.positionCheck(characters.pacman.getY(),416))
-                ||(TimerControl.positionCheck(characters.pacman.getX(),416) && TimerControl.positionCheck(characters.pacman.getY(),416)));
+        double [][] eCoords = maze.getEnergizerCoords();
+        return ((TimerControl.positionCheck(characters.pacman.getX(),eCoords[0][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[0][1]))
+                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[1][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[1][1]))
+                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[2][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[2][1]))
+                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[3][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[3][1])));
     }
     
     private boolean isScatterTime(){
@@ -150,6 +152,7 @@ public class ModeControl {
     private void scatterMode(){
         System.out.println("SCATTER MODE");
         mode = 1;
+        reverseDirection();
         setMode();
         
     }
@@ -157,12 +160,14 @@ public class ModeControl {
     private void chaseMode(){
         System.out.println("CHASE MODE");
         mode = 2;
+        reverseDirection();
         setMode();
     }
     
     private void frightMode(){
         System.out.println("FRIGHTENED MODE");
         mode = 3;
+        reverseDirection();
         cruiseElroyOff();
         setMode();
     }
@@ -213,5 +218,11 @@ public class ModeControl {
         }
         return (System.currentTimeMillis()-frightTimer)/1000;
     }
-    
+
+    public void reverseDirection(){
+        characters.blinky.ghostControl.setReverseDirectionTrue();
+        characters.pinky.ghostControl.setReverseDirectionTrue();
+        characters.inky.ghostControl.setReverseDirectionTrue();
+        characters.clyde.ghostControl.setReverseDirectionTrue();
+    }
 }
