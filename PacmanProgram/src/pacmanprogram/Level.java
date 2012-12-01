@@ -201,6 +201,7 @@ class Level {
         totalDotsEaten = dotsEaten+energizersEaten;
         
         if(prevDotsRemaining>totalDotsRemaining){
+            System.out.println(dotsEaten);
             wasDotEaten = true;
         }
         else{
@@ -283,5 +284,6 @@ class Level {
     public int getGhostScore(){
         return ghostScore;
     }
+
 
 }

@@ -74,7 +74,7 @@ public class Ghost {
     }
     
    public void draw(Graphics g){
-        if(mode == 3){
+        if(mode == 3 && ghostControl.blue){
             Graphics2D ghost = (Graphics2D) g;
             ghost.setColor(Color.BLUE);
             ghost.fill(new RoundRectangle2D.Double(position[0],position[1],SIZE,SIZE,8,6));

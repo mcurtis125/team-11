@@ -4,6 +4,8 @@
  */
 package pacmanprogram;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author stavy92
@@ -16,12 +18,18 @@ public class Characters {
     Ghost inky;
     Ghost clyde;
     
+    ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
+    
     public Characters(Pacman pacman, Ghost blinky, Ghost pinky, Ghost inky, Ghost clyde){
         this.pacman = pacman;
         this.blinky = blinky;
         this.inky = inky;
         this.pinky = pinky;
         this.clyde = clyde;
+        ghosts.add(pinky);
+        ghosts.add(inky);
+        ghosts.add(clyde);
+        ghosts.add(blinky);
     }
     
     public void setMode(int elroyMode, int mode){

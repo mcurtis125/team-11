@@ -31,6 +31,7 @@ class GhostControl {
     boolean leavePen=false;
     boolean reverseDirection=false;
     boolean existent=true;
+    boolean blue = false;
     TargetTileFinder targetFinder = new TargetTileFinder();
     ShortestDistanceFinder nextDirection = new ShortestDistanceFinder();
     WallCollisionChecker walls = new WallCollisionChecker(1);
@@ -72,6 +73,7 @@ class GhostControl {
                 break;
         }
         frightenedAndCaught=false;
+        blue = false;
         leavePen=false;
         existent=true;
         reverseDirection=false;
@@ -181,6 +183,10 @@ class GhostControl {
             randomSelection=false;
             getDirectionAndTileCoordinates(randomSelection);   
 
+    }
+    
+    public void becomeBlue(){
+        blue = true;
     }
     
     public void setFrightenedAndCaughtTrue(){

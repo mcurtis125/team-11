@@ -5,6 +5,7 @@
 package pacmanprogram;
 
 import pacmanprogram.DotCounter.Status;
+import pacmanprogram.Ghost.Name;
 
 /**
  *
@@ -167,6 +168,10 @@ public class ModeControl {
     private void frightMode(){
         System.out.println("FRIGHTENED MODE");
         mode = 3;
+        int i;
+        for(i=0;i<characters.ghosts.size();i++){
+            characters.ghosts.get(i).ghostControl.becomeBlue();
+        }
         reverseDirection();
         cruiseElroyOff();
         setMode();
@@ -220,9 +225,9 @@ public class ModeControl {
     }
 
     public void reverseDirection(){
-        characters.blinky.ghostControl.setReverseDirectionTrue();
-        characters.pinky.ghostControl.setReverseDirectionTrue();
-        characters.inky.ghostControl.setReverseDirectionTrue();
-        characters.clyde.ghostControl.setReverseDirectionTrue();
+//        int i;
+//        for(i=0;i<characters.ghosts.size();i++){
+//            characters.ghosts.get(i).ghostControl.setReverseDirectionTrue();
+//        }
     }
 }

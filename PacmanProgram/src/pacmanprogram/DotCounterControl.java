@@ -11,12 +11,14 @@ import java.util.ArrayList;
  * @author stavy92
  */
 public class DotCounterControl {
+    private static final int GLOBAL_PINKY_LIMIT = 7;
+    private static final int GLOBAL_INKY_LIMIT = 17;
+    private static final int GLOBAL_CLYDE_LIMIT = 32;
     int currentLevel;
     Characters characters;
     Maze maze;
     ModeControl modeControl;
     LevelSpecs levelSpecs;
-    ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
     ArrayList<DotCounter> personalCounters= new ArrayList<DotCounter>();
     DotCounter globalDotCounter;
     DotCounter blinkyCounter;
@@ -33,10 +35,6 @@ public class DotCounterControl {
         this.maze = maze;
         this.modeControl = modeControl;
         this.levelSpecs = levelSpecs;
-        ghosts.add(0,characters.pinky);
-        ghosts.add(1,characters.inky);
-        ghosts.add(2,characters.clyde);
-        ghosts.add(3,characters.blinky);
         personalCounters.add(0,characters.pinky.dotCounter);
         personalCounters.add(1,characters.inky.dotCounter);
         personalCounters.add(2,characters.clyde.dotCounter);
@@ -78,19 +76,19 @@ public class DotCounterControl {
         int i;
         for(i=0;i<personalCounters.size();i++){
             if(personalCounters.get(i).getStatus() == DotCounter.Status.enabled || personalCounters.get(i).getStatus() == DotCounter.Status.deactivated){
-                if(ghosts.get(i).isInPen()){
+                if(characters.ghosts.get(i).isInPen()){
                     System.out.println("Activate Personal Counter "+i);
                     personalCounters.get(i).activateCounter();
                 }
             }
-            else if(personalCounters.get(i).getStatus() == DotCounter.Status.activated && ghosts.get(i).isInPen()==false){
+            else if(personalCounters.get(i).getStatus() == DotCounter.Status.activated && characters.ghosts.get(i).isInPen()==false){
                 personalCounters.get(i).deactivateCounter();
             }
             if(personalCounters.get(i).getStatus() == DotCounter.Status.activated){
                 
                 if(personalCounters.get(i).checkIfLimitReached()){
                     System.out.println("Ghost Limit Reached  "+i);
-                    ghosts.get(i).ghostControl.setLeavePenTrue();
+                    characters.ghosts.get(i).ghostControl.setLeavePenTrue();
                 }
                 else{
                     personalCounters.get(i).increaseCounter();
@@ -104,15 +102,15 @@ public class DotCounterControl {
     private void updateGlobalCounter(){
         if(globalDotCounter.getStatus() == DotCounter.Status.activated){
             globalDotCounter.increaseCounter();
-            if(globalDotCounter.getCount() == 7){
+            if(globalDotCounter.getCount() == GLOBAL_PINKY_LIMIT){
                 System.out.println("Pinky leaves");
-                ghosts.get(0).ghostControl.setLeavePenTrue();
+                characters.ghosts.get(0).ghostControl.setLeavePenTrue();
             }
-            else if(globalDotCounter.getCount() == 17){
+            else if(globalDotCounter.getCount() == GLOBAL_INKY_LIMIT){
                 System.out.println("Inky leaves");
-                ghosts.get(1).ghostControl.setLeavePenTrue();
+                characters.ghosts.get(1).ghostControl.setLeavePenTrue();
             }
-            else if(globalDotCounter.getCount() == 32 && characters.clyde.isInPen()){
+            else if(globalDotCounter.getCount() == GLOBAL_CLYDE_LIMIT && characters.clyde.isInPen()){
                 System.out.println("deactivate global, enable personal");
                 globalDotCounter.resetCounter();
                 globalDotCounter.deactivateCounter();
@@ -123,11 +121,11 @@ public class DotCounterControl {
     
     public void updateLastDotTimer(){
             int i;
-            for(i=0;i<personalCounters.size();i++){
-                if(ghosts.get(i).isInPen()){
+                for(i=0;i<characters.ghosts.size();i++){
+                if(characters.ghosts.get(i).isInPen()){
                     if(TimerControl.timeCheck(getLastDotTimer(),lastDotTimerLimit)){
                         System.out.println("LastDotTimer limit: Most preferred ghost leaves");
-                        ghosts.get(i).ghostControl.setLeavePenTrue();
+                        characters.ghosts.get(i).ghostControl.setLeavePenTrue();
                         startLastDotTimer();
                     }
                 }
@@ -184,6 +182,7 @@ public class DotCounterControl {
         disablePersonalCounters();
         globalDotCounter.resetCounter();
         globalDotCounter.activateCounter();
+        startLastDotTimer();
     }
     
     public void changeLevel() {
