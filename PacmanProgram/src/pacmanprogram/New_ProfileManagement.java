@@ -35,7 +35,7 @@ public class New_ProfileManagement {
 
 		if (done==0){
 
-			String filein = "&"+username+'^'+password+'^'+displayname+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+securityquestion+'^'+securityanswer+'^'+'0';
+			String filein = "&"+username+'^'+password+'^'+displayname+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+'0'+'^'+securityquestion+'^'+securityanswer+'^'+'1';
 			RandomAccessFile mm = null;
 			try {
 				mm = new RandomAccessFile(filename, "rw");
@@ -67,13 +67,13 @@ public class New_ProfileManagement {
 	/**
 	 *This class will remove a specific user
 	 */
-	public static void remove(String username, String password, String securityQuestion, String FilePath){
+	public static void remove(String username, String password, String securityAnswer, String FilePath){
 
 		ArrayList<New_GetLoginInfoClass> UserList=New_GetUserInfo.getuserinfo(FilePath);
 
 		//check if the user already exists
 		for (int i=0;i<UserList.size();i++){
-			if (UserList.get(i).GetUserName().equals(username)&&UserList.get(i).GetPassWord().equals(password)&&UserList.get(i).GetSecurityQuestion().equals(securityQuestion)) {
+			if (UserList.get(i).GetUserName().equals(username)&&UserList.get(i).GetPassWord().equals(password)&&UserList.get(i).GetSecurityAnswer().equals(securityAnswer)) {
 				UserList.remove(i);
 			}            
 		}
