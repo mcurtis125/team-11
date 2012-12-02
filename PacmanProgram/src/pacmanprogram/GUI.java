@@ -1014,6 +1014,7 @@ public class GUI extends javax.swing.JFrame {
     private void deleteProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProfileButtonActionPerformed
         makeAllPanelsNotVisible();
         deleteProfilePanel.setVisible(true);
+        clearAllTextFields();
         deleteProfileSecurityQuestionLabel.setText(currentUserInfo.GetSecurityQuestion());
         setButtonsVisibility();
 

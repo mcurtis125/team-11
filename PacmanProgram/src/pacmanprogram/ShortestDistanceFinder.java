@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacmanprogram;
 
 import java.util.ArrayList;
@@ -10,12 +6,11 @@ import java.util.Random;
 
 
 
-/**
+/**This class is used by ghosts to determine which tile to move into next. 
  *
  * @author Kevin
  */
 public class ShortestDistanceFinder {
-    
     public enum directionCheck{canMoveUp,canMoveLeft,canMoveDown,canMoveRight,isIntersection};
 
     WallCollisionChecker wallCollisionChecker = new WallCollisionChecker(1);
@@ -26,6 +21,15 @@ public class ShortestDistanceFinder {
     public ShortestDistanceFinder(){
     }
     
+    /**This method is used by ghosts that are in scatter or chase mode.
+     * @return The x and y coordinate of the next tile, and the direction that the ghost should move in.
+     * @param ghostXCoordinate is the position of the ghost in the x direction.
+     * @param ghostYCoordinate is the position of the ghost in the y direction.
+     * @param targetXCoordainte is the position of the target in the x direction.
+     * @param targetYCoordainte is the position of the target in the y direction.
+     * @param velx is the velocity of the ghost in the x direction.
+     * @param vely is the velocity of the ghost in the y direction.
+     */
     public double[] chooseNextTile(double ghostXCoordinate, double ghostYCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
         
 
@@ -58,7 +62,7 @@ public class ShortestDistanceFinder {
         return directionAndCoordinates;      
     }
     
-    public int chooseNextTileHelper(double xCoordinate, double yCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
+    private int chooseNextTileHelper(double xCoordinate, double yCoordinate, double targetXCoordinate, double targetYCoordinate, double velx, double vely){
         
         double nextTileX = xCoordinate;
         double nextTileY = yCoordinate;
@@ -140,29 +144,35 @@ public class ShortestDistanceFinder {
     }
     
     
-    public double getUpTile(double ghostYCoordinate){
+    private double getUpTile(double ghostYCoordinate){
         
         return ghostYCoordinate - sizeOfGhost;
 
     }
     
-    public double getDownTile(double ghostYCoordinate){
+    private double getDownTile(double ghostYCoordinate){
         
         return ghostYCoordinate + sizeOfGhost;
         
     }
     
-    public double getLeftTile(double ghostXCoordinate){
+    private double getLeftTile(double ghostXCoordinate){
         
         return ghostXCoordinate - sizeOfGhost;
     }
     
-    public double getRightTile(double ghostXCoordinate){
+    private double getRightTile(double ghostXCoordinate){
         
         return ghostXCoordinate + sizeOfGhost;
     }
     
-    
+    /**This method calculates the linear distance between two points.
+     * @return Linear distance between two points.
+     * @param tileX position of first point in x direction.
+     * @param tileY position of first point in y direction.
+     * @param targetX position of second point in x direction.
+     * @param targetY position of second point in y direction.
+     */
     public double calculateDistance(double tileX, double tileY, double targetX, double targetY){
         double xDistance = Math.abs(targetX - tileX);
         double yDistance = Math.abs(targetY - tileY);
@@ -176,7 +186,7 @@ public class ShortestDistanceFinder {
     }
     
     
-    public double findMinimumDistance(ArrayList<Double> distanceArray){
+    private double findMinimumDistance(ArrayList<Double> distanceArray){
         
         int loopCounter;
         double minimum=distanceArray.get(0);
@@ -192,7 +202,13 @@ public class ShortestDistanceFinder {
     
     
     
-    
+    /**This method is used by ghosts that are in frightened mode.
+     * @return The x and y coordinate of the next tile, and the direction that the ghost should move in.
+     * @param ghostXCoordinate is the position of the ghost in the x direction.
+     * @param ghostYCoordinate is the position of the ghost in the y direction.
+     * @param velx is the velocity of the ghost in the x direction.
+     * @param vely is the velocity of the ghost in the y direction.
+     */
     public double[] chooseNextRandomTile(double ghostXCoordinate, double ghostYCoordinate, double velx, double vely){
         
         int randomNum;
@@ -227,7 +243,7 @@ public class ShortestDistanceFinder {
    
     }
     
-    public double chooseNextRandomTileHelper(HashMap<directionCheck,Boolean> movementArray, int randomNum, double velx, double vely){
+    private double chooseNextRandomTileHelper(HashMap<directionCheck,Boolean> movementArray, int randomNum, double velx, double vely){
         int loopCounter;
         
         for(loopCounter=0;loopCounter<4;loopCounter++){
@@ -258,7 +274,7 @@ public class ShortestDistanceFinder {
         return 0;
     }
     
-    public HashMap<directionCheck,Boolean> isIntersection(double ghostXCoordinate, double ghostYCoordinate){
+    private HashMap<directionCheck,Boolean> isIntersection(double ghostXCoordinate, double ghostYCoordinate){
         boolean canMoveLeft=false;
         boolean canMoveRight=false;
         boolean canMoveUp=false;
@@ -300,7 +316,15 @@ public class ShortestDistanceFinder {
         
     }
     
-    
+    /**This method is used to make sure ghosts land on the edge of a tile when necessary.
+     * @return the required x and y velocity to land on the edge of a tile.
+     * @param ghostXCoordinate is the position of the ghost in the x direction.
+     * @param ghostYCoordinate is the position of the ghost in the y direction.
+     * @param xTile is the position of the tile in the x direction.
+     * @param yTile is the position of the tile in the y direction.
+     * @param velx is the velocity of the ghost in the x direction.
+     * @param vely is the velocity of the ghost in the y direction.
+     */
     public double[] landOnTileEdge(double ghostXCoordinate, double ghostYCoordinate, double xTile, double yTile, double velx, double vely){
         
         double xDistanceFromEdge, yDistanceFromEdge;
@@ -352,7 +376,7 @@ public class ShortestDistanceFinder {
     
     
     
-    public double[] nextTileInDirectionOfVelocity(double ghostXCoordinate, double ghostYCoordinate, double velx, double vely){
+    private double[] nextTileInDirectionOfVelocity(double ghostXCoordinate, double ghostYCoordinate, double velx, double vely){
         
         int intMultiplier;
         double xCurrentDirection = 0; 
