@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This class will read the UserData.txt file and convert all the users' information into an array list
+ * This class will read the UserData.txt file and 
+ * convert all the users' information into an array list
  * @author xchen82
  */
 
 public class New_GetUserInfo {
 
 	/**
-	 *This class will read the UserData.txt file and convert all the users' information into an array list
+	 * This class will read the UserData.txt file and 
+         * convert all the users' information into an array list.
 	 */
 	public static ArrayList<New_GetLoginInfoClass> getuserinfo(String FilePath)
 	{

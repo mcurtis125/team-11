@@ -9,6 +9,7 @@ import java.util.Arrays;
 /**
  * The GetLoginInfoClass (String username,String password,String displayname, int[] Scores ,String securityquestion, String securityanswer,int maxlevel)
  * @author xchen82
+ * @author ChanWoo
  */
 public class New_GetLoginInfoClass {
 
@@ -88,16 +89,32 @@ public class New_GetLoginInfoClass {
 	}
 
 
-	public String GetUserName(){return username;}
-	public String GetPassWord(){return password;}
-	public String GetDisplayName(){return displayname;}
+	public String GetUserName(){
+            return username;
+        }
+	public String GetPassWord(){
+            return password;
+        }
+	public String GetDisplayName(){
+            return displayname;
+        }
 
-	public String GetSecurityQuestion(){return securityquestion;}
-	public String GetSecurityAnswer(){return securityanswer;}
-	public int GetMaxLevel(){return maxlevel;}
+	public String GetSecurityQuestion(){
+            return securityquestion;
+        }
+	public String GetSecurityAnswer(){
+            return securityanswer;
+        }
+	public int GetMaxLevel(){
+            return maxlevel;
+        }
 
-	public int GetScore(int i){return score[i];}
-	public String GetScoreS(int i){return Integer.toString(score[i]);}
+	public int GetScore(int i){
+            return score[i];
+        }
+	public String GetScoreS(int i){
+            return Integer.toString(score[i]);
+        }
 
 
 }

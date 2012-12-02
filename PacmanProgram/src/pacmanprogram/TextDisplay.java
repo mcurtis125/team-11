@@ -12,6 +12,12 @@ import java.awt.Font;
 /**
  *
  * @author ChanWoo
+ * @author stavy92
+ * 
+ * TextDisplay class draws necessary strings on game play GUI panel
+ * It enables to write number of lives left, level, 
+ * and static strings like "Score", "Lives", etc
+ * 
  */
 public class TextDisplay {
     
@@ -20,11 +26,31 @@ public class TextDisplay {
     Pacman pacman;
     Level level;
     
+    /**
+     * 
+     * This public TextDisplay method is to get values of 
+     * current lives left from Pacman class, and to get value of current level
+     * from Level class.
+     * 
+     * @param level make level class as an object
+     * @param pacman make pacman class as an object
+     */
     public TextDisplay(Pacman pacman, Level level){
         this.pacman = pacman;
         this.level = level;
     }
     
+    /**
+     * 
+     * This public drawText method is for displaying texts (strings)
+     * It sets font type, and font color
+     * This enables to display static texts, like "Score:", "Lives", etc
+     * at specific coordinate on game play GUI
+     * This public method is called by Game class.
+     * 
+     * @param g It is for the 2D-graphic drawings
+     * 
+     */
     public void drawText(Graphics g){
         Graphics2D text = (Graphics2D) g;
         text.setFont(font);

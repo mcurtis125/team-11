@@ -8,13 +8,17 @@ import java.util.ArrayList;
 /**
  *
  * @author xchen82
+ * @author ChanWoo
  */
 
 public class New_FileManagement {
 	
 	/**
-	 *This method will initialize the UserFile. If UserData.txt does not exists, it will create a new UserData.txt with a sample player
-	 *If UserData.txt already exists, it won't do anything
+	 *This method will initialize the UserFile
+         *If UserData.txt does not exists, it will create a new UserData.txt with a sample player
+	 *If UserData.txt already exists, it won't do anything.
+         * 
+         * @param FilePath Name of the .txt file where profile information is saved
 	 **/
 	public static void Initialize(String FilePath) {
 
@@ -41,8 +45,12 @@ public class New_FileManagement {
 
 
 	/**
-	 *This method will rewrite the UserData.txt based on its input variables (an arraylist consists of all user information)
-	 *It is widely called in all other user management methods
+	 *This method will rewrite the UserData.txt based on its input variables 
+         *(an array list consists of all user information)
+	 *It is widely called in all other user management methods.
+         * 
+         * @param NewInfoClass Parameter of array list that collects all user informations
+         * @param FilePath Name of the .txt file where profile information is saved
 	 **/
 	public static void UpdateFile(ArrayList<New_GetLoginInfoClass> NewInfoClass,String FilePath)
 	{

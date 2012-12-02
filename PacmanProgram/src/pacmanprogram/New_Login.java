@@ -11,6 +11,7 @@ import java.util.*;
 
 /**
  * @author xchen82
+ * @author ChanWoo
  * please delete "UserData.txt" before starting a new test
  */
 public class New_Login {

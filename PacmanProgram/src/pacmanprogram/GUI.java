@@ -1178,7 +1178,10 @@ public class GUI extends javax.swing.JFrame {
     }
     
     
-   
+   /**
+    * This method sets all the panels invisible except the current panel that
+    * the user is using.
+    */
     public void makeAllPanelsNotVisible(){
         gamePanel.setVisible(false);
         mainMenuPanel.setVisible(false);
@@ -1193,6 +1196,10 @@ public class GUI extends javax.swing.JFrame {
         gameSettingsPanel.setVisible(false);
     }
     
+    /**
+     * This methods sets the visibility of "logOutButton"
+     * The "logOutButton" is visible only if a user is logged in.
+     */
     public void setButtonsVisibility(){
         if(gamePanel.isVisible()||gameSettingsPanel.isVisible()||currentUserInfo.GetUserName().equals("Guest")){
             logOutButton.setVisible(false);
@@ -1203,6 +1210,7 @@ public class GUI extends javax.swing.JFrame {
         }
         
     }
+    
     
     
     public void updateJLabels(){
@@ -1244,8 +1252,14 @@ public class GUI extends javax.swing.JFrame {
         
     }
     
-    public void clearAllTextFields(){
     
+    /**
+     * For all the data & profile handling panels, if user fills in the text fields with informations
+     * and click the button for submission, this method is called and clears the all text fields that
+     * are placed on current panel.
+     */
+    public void clearAllTextFields(){
+        
     createUsernameField.setText("");
     deletePasswordField.setText("");
     deleteSecurityQuestionField.setText("");

@@ -9,6 +9,8 @@ import java.util.Scanner;
 /**
  *
  * @author xchen82
+ * @author ChanWoo
+ * 
  */
 
 public class New_ProfileManagement {
