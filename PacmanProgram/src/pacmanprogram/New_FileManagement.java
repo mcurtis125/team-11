@@ -31,7 +31,7 @@ public class New_FileManagement {
 
 			try {
 				PrintWriter outputStream = new PrintWriter(fileName);
-				outputStream.write("&DefaultUser^DefaultPassword^DefaultDisplayName^100^90^80^70^60^50^40^30^20^10^DefaultSecurityQuestion^DefaultSecurityAnswer^1");
+				outputStream.write("&Guest^DefaultPassword^Guest^100^90^80^70^60^50^40^30^20^10^DefaultSecurityQuestion^DefaultSecurityAnswer^1");
 				outputStream.flush();
 				outputStream.close();
 

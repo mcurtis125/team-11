@@ -67,13 +67,13 @@ public class New_ProfileManagement {
 	/**
 	 *This class will remove a specific user
 	 */
-	public static void remove(String username,String FilePath){
+	public static void remove(String username, String password, String securityQuestion, String FilePath){
 
 		ArrayList<New_GetLoginInfoClass> UserList=New_GetUserInfo.getuserinfo(FilePath);
 
 		//check if the user already exists
 		for (int i=0;i<UserList.size();i++){
-			if (UserList.get(i).GetUserName().equals(username)) {
+			if (UserList.get(i).GetUserName().equals(username)&&UserList.get(i).GetPassWord().equals(password)&&UserList.get(i).GetSecurityQuestion().equals(securityQuestion)) {
 				UserList.remove(i);
 			}            
 		}
@@ -84,14 +84,14 @@ public class New_ProfileManagement {
 	/**
 	 *This class can change the password of a specific user
 	 */
-	public static void ChangePW(String username,String NewPW,String FilePath){
+	public static void ChangePW(String username,String password,String NewPW,String FilePath){
 
 		ArrayList<New_GetLoginInfoClass> UserList=New_GetUserInfo.getuserinfo(FilePath);
 
 		//check which user
 		for (int i=0;i<UserList.size();i++){
 
-			if (UserList.get(i).GetUserName().equals(username)) {
+			if (UserList.get(i).GetUserName().equals(username)&&UserList.get(i).GetPassWord().equals(password)) {
 				UserList.get(i).ChangePassWord(NewPW);
 			}
 
@@ -103,14 +103,14 @@ public class New_ProfileManagement {
 	/**
 	 *This class can change the display name of a specific user
 	 */
-	public static void ChangeDN(String username,String NewDN,String FilePath){
+	public static void ChangeDN(String username,String password,String NewDN,String FilePath){
 
 		ArrayList<New_GetLoginInfoClass> UserList=New_GetUserInfo.getuserinfo(FilePath);
 
 		//check which user
 		for (int i=0;i<UserList.size();i++){
 
-			if (UserList.get(i).GetUserName().equals(username)) {
+			if (UserList.get(i).GetUserName().equals(username)&&UserList.get(i).GetPassWord().equals(password)) {
 				UserList.get(i).ChangeDisplayName(NewDN);
 			}
 
