@@ -53,4 +53,13 @@ public class BonusCounterDisplay {
             bonusesEatenLevels[level.getLevel()-1] = true;
         }
     }
+
+    /**
+     * Resets all levels to bonusEaten = false.
+     */
+    public void newGame(){
+        for(int i=0;i<bonusesEatenLevels.length;i++){
+            bonusesEatenLevels[i] = false;
+        }
+    }
 }

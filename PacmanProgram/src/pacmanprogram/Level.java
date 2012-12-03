@@ -72,6 +72,7 @@ class Level {
     }
     
     public void startGame(int level){
+        System.out.println("Game start");
         currentLevel = level;
         ghostScore = 0;
         characters.pacman.resetLives();
@@ -83,7 +84,6 @@ class Level {
         dotCounterControl.newGame();
         bonusControl.newGame();
         startTimer();
-        System.out.println("Game start");
     }
     
     private void updateSpecifications(){
@@ -219,7 +219,6 @@ class Level {
                 Thread.sleep(1500);
             }
             catch(Exception e){}
-            System.out.println(""+currentLevel);
             return true;
         }
         return false;

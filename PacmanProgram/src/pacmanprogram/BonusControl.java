@@ -70,7 +70,7 @@ public class BonusControl {
             eraseBonus();
             eatBonus();
         }
-        else if(TimerControl.timeCheck(getBonusTimer(), APPEAR_DURATION)){
+        else if(getBonusTimer() >= APPEAR_DURATION){
             eraseBonus();
         }
     }

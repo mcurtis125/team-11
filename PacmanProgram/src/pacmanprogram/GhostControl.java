@@ -104,7 +104,6 @@ class GhostControl {
                 velx=0;
                 vely=0;
             }
-
             else if(mode==1){
                 scatter();
             }

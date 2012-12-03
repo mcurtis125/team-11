@@ -126,13 +126,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             }
             
             score.newGame();
+            bonusDisplay.newGame();
             level.startGame(1);
         }
     }
     
     private void checkLevelChange() {
         if(level.checkLevelChange()){
-            System.out.println("Next level"+level.getLevel());
+            System.out.println("Next level");
             score.newLevel();
             level.changeLevel();
         }

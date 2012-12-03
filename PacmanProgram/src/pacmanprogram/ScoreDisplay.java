@@ -66,6 +66,10 @@ public class ScoreDisplay {
         getScore();
         Graphics2D score = (Graphics2D) g;
         score.drawString(""+(this.score+totalScore), 10, 35);
+        
+        //TEMP for demo
+        score.drawString(""+(dotCount+energizerCount), 350, 35);
+        score.drawString(""+(244-dotCount-energizerCount), 400, 35);
     }
     
     public void refresh(ActionEvent ae){

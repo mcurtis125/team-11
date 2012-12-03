@@ -40,11 +40,7 @@ public class DotCounterControl {
         personalDotCounters.add(2,characters.clyde.dotCounter);
         globalDotCounter = new DotCounter(DotCounter.Type.global, maze);
         blinkyDotCounter = characters.blinky.dotCounter;
-        
-        
-        updateSpecifications();
-        setCounterLimits();
-        startLastDotTimer();
+       
     }
     
     private void updateSpecifications(){
@@ -67,7 +63,7 @@ public class DotCounterControl {
     public void updateElroyCounter(){
         if(blinkyDotCounter.getStatus() == DotCounter.Status.enabled){
             if(blinkyDotCounter.checkIfLimitReached()){
-//                System.out.println("Elroy Limit Reached: ELROY ON      " + (elroyMode+1));
+                System.out.println("Elroy Limit Reached: ELROY ON");
                 modeControl.cruiseElroyOn();
                 if(elroyMode<2){
                     elroyMode++;
@@ -220,7 +216,6 @@ public class DotCounterControl {
     }
     
     public void newGame(){
-        currentLevel = 1;
         updateSpecifications();
         setCounterLimits();
         resetCounters();
