@@ -979,7 +979,7 @@ public class GUI extends javax.swing.JFrame {
 
         if(currentUserInfo.GetUserName().equals(guestUsername)){
             makeAllPanelsNotVisible();
-            game.startGame(1);
+            game.startGame(1,currentUserInfo);
             gamePanel.setVisible(true);
             gamePanel.requestFocus();
             gamePanel.setEnabled(true);
@@ -1183,7 +1183,7 @@ public class GUI extends javax.swing.JFrame {
             
             else{
                 makeAllPanelsNotVisible();
-                game.startGame(levelSelectionAsInteger);
+                game.startGame(levelSelectionAsInteger,currentUserInfo);
                 gamePanel.setVisible(true);
                 gamePanel.requestFocus();
                 gamePanel.setEnabled(true);

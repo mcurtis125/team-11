@@ -26,6 +26,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     Ghost inky = new Ghost(Name.Inky, maze);
     Ghost clyde = new Ghost(Name.Clyde, maze);
     Characters characters = new Characters(pacman,blinky,pinky,inky,clyde);
+    New_GetLoginInfoClass currentUser;
+    New_DataManagement dataManage;
+    String fileName = "UserData.txt";
+    String guestUsername = "Guest";
     
     
     //start at specified level
@@ -93,7 +97,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     }
     
-    public void startGame(int level){
+    public void startGame(int level,New_GetLoginInfoClass currentUser){
+        this.currentUser=currentUser;
         this.level.startGame(level);
         t.start();
     }
@@ -113,6 +118,13 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     private void checkGameOver() {
         if(level.checkGameOver()){
+            if(currentUser.GetUserName().equals(guestUsername)){
+            }
+            else{
+                dataManage.AddNewScore(currentUser.GetUserName(), score.getTotalScore(),fileName);
+                dataManage.AddNewMaxLevel(currentUser.GetUserName(), level.getLevel(), fileName);
+            }
+            
             score.newGame();
             level.startGame(1);
         }
