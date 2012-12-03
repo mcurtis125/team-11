@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @author xchen82
  * @author ChanWoo
  */
-public class New_GetLoginInfoClass {
+public class New_GetLoginInfoClass{
 
 	String username;
 	String password;
@@ -115,6 +115,5 @@ public class New_GetLoginInfoClass {
 	public String GetScoreS(int i){
             return Integer.toString(score[i]);
         }
-
-
+  
 }

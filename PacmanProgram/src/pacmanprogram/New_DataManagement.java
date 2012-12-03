@@ -2,6 +2,7 @@ package pacmanprogram;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
 * This method can update player's score, max reached level
@@ -68,43 +69,17 @@ public class New_DataManagement {
     public static ArrayList<New_TopScores> GetTop10Score(String FilePath)
     {
     	ArrayList<New_GetLoginInfoClass> UserList=New_GetUserInfo.getuserinfo(FilePath);
-    	ArrayList<New_TopScores> Top10ScoreList= new ArrayList<New_TopScores>();
-    	
-    	int TotalScores=10*UserList.size();
-    	int[] AllScores= new int[TotalScores];
+    	ArrayList<New_TopScores> AllScores= new ArrayList<New_TopScores>();
     	
     	for (int i=0;i<UserList.size();i++){
     		for (int a=0;a<10;a++){
-    		AllScores[10*i+a]=UserList.get(i).GetScore(a);
+                    New_TopScores tempTopScore = new New_TopScores(UserList.get(i).GetDisplayName(),UserList.get(i).GetScore(a));
+                    AllScores.add(10*i+a,tempTopScore);
     		}
     	}
     	
-    	Arrays.sort(AllScores);
-    	int[] Top10Score =  new int[10];
+    	Collections.sort(AllScores);
     	
-    	for(int c=1;c<=10;c++){
-    		Top10Score[c-1]=AllScores[TotalScores-c];
-    	}
-    	//Top10Score[0] is the Global Highest Score 
-    	    	
-    	String[] Top10Player=new String[10];
-    	
-    	for (int b=0;b<10;b++){
-    		for (int i=0;i<UserList.size();i++){
-    			for (int a=0;a<10;a++){
-    					if (UserList.get(i).GetScore(a)==Top10Score[b]){
-    						Top10Player[b]=UserList.get(i).GetDisplayName();
-    					}
-    			}
-    		} 
-    	}
-    	
-    	
-    	for (int i=0;i<10;i++){
-    		New_TopScores topplayer=new New_TopScores(Top10Player[i], Top10Score[i]);
-    		Top10ScoreList.add(topplayer);
-    	}
-    	
-    	return Top10ScoreList;
+    	return AllScores;
     }
 }
