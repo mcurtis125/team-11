@@ -99,7 +99,7 @@ public class ScoreDisplay {
      * @return total score which is the sum of all different kinds of scores
      */
     public int getTotalScore(){
-        return totalScore;
+        return (totalScore+score);
     }
     
     /**

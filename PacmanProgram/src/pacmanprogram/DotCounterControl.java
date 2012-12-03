@@ -79,7 +79,7 @@ public class DotCounterControl {
                     characters.blinky.setElroySpeed(elroyMode-1);
                     blinkyDotCounter.setLimit(elroyLimits[elroyMode-1]);
                 }
-                System.out.println(elroyMode);
+//                System.out.println(elroyMode);
             }
         }
         else if(blinkyDotCounter.getStatus() == DotCounter.Status.disabled){
