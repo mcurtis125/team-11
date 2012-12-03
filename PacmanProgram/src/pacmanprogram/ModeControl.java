@@ -64,9 +64,9 @@ public class ModeControl {
         if(pacEatingEnergizer()){
             if(maze.getType(characters.pacman.getCurrentTileIndex())==3){
                 maze.changeType(characters.pacman.getCurrentTileIndex(), 3, 1);
-                System.out.println(getScatChaseTimer());
+//                System.out.println(getScatChaseTimer());
                 pauseScatChaseTimer(frightTime);
-                System.out.println(getScatChaseTimer());
+//                System.out.println(getScatChaseTimer());
                 prevMode = getMode();
                 prevElroyMode = getElroyMode();
                 frightMode();
@@ -77,12 +77,12 @@ public class ModeControl {
         if(!frightOn){
             //scatter mode at appropriate times
             if(isScatterTime()){
-                System.out.println(getScatChaseTimer());
+//                System.out.println(getScatChaseTimer());
                 scatterMode();
             }
             //chase mode at appropriate times
             else if(isChaseTime())  {
-                System.out.println(getScatChaseTimer());
+//                System.out.println(getScatChaseTimer());
                 chaseMode();
             }
         }
@@ -94,31 +94,30 @@ public class ModeControl {
                 if(prevElroyMode ==4){
                     cruiseElroyOn();
                 }
-                System.out.println(""+getScatChaseTimer());
-                System.out.println("CHANGING BACK");
+//                System.out.println(""+getScatChaseTimer());
+//                System.out.println("CHANGING BACK");
                 setMode();
-                System.out.println(""+mode);
+//                System.out.println(""+mode);
             }
         } 
     }
     
-    public void resetLevel(){
+    public void reset(){
         frightOn = false;
         elroyMode = 1;
         scatterMode();
         startScatChaseTimer();
     }
     
-    public void changeLevel(){
-        currentLevel++;
+    public void newLevel(){
         updateSpecifications();
-        resetLevel();
+        reset();
     }
     
-    public void restartGame(){
+    public void newGame(){
         currentLevel = 1;
         updateSpecifications();
-        resetLevel();
+        reset();
     }
     
     public int getMode(){
@@ -151,7 +150,7 @@ public class ModeControl {
     }
     
     private void scatterMode(){
-        System.out.println("SCATTER MODE");
+//        System.out.println("SCATTER MODE");
         mode = 1;
         reverseDirection();
         setMode();
@@ -159,14 +158,14 @@ public class ModeControl {
     }
     
     private void chaseMode(){
-        System.out.println("CHASE MODE");
+//        System.out.println("CHASE MODE");
         mode = 2;
         reverseDirection();
         setMode();
     }
     
     private void frightMode(){
-        System.out.println("FRIGHTENED MODE");
+//        System.out.println("FRIGHTENED MODE");
         mode = 3;
         int i;
         for(i=0;i<characters.ghosts.size();i++){
@@ -178,13 +177,13 @@ public class ModeControl {
     }
     
     public void cruiseElroyOn(){
-        System.out.println("Cruise Elroy ON");
+//        System.out.println("Cruise Elroy ON");
         elroyOn = true;
         elroyMode = 4;
     }
     
     public void cruiseElroyOff(){
-        System.out.println("Cruise Elroy OFF");
+//        System.out.println("Cruise Elroy OFF");
         elroyOn = false;
         elroyMode = mode;
     }

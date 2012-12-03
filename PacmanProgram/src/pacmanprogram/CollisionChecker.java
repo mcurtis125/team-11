@@ -7,7 +7,7 @@ package pacmanprogram;
 import java.awt.event.ActionEvent;
 
 /**
- *
+ * Checks collision between characters.
  * @author Kevin
  */
 public class CollisionChecker {
@@ -36,6 +36,10 @@ public class CollisionChecker {
         this.clydeControl=characters.clyde.ghostControl;
     }
     
+    /**
+     * Checks if Pacman is colliding with any of the ghosts.
+     * @return The controller of the ghost that Pacman is colliding with.
+     */
     public GhostControl pacmanGhostCollisionCheck(){
         updatePositions();
 
@@ -70,6 +74,9 @@ public class CollisionChecker {
         return null;
     }
      
+    /**
+     * Gets all the characters' positions.  
+     */
     private void updatePositions(){
         pacControl.getPosition(pacmanPos);
         pacControl.getVelocity(pacmanVel);
@@ -81,6 +88,14 @@ public class CollisionChecker {
         inkyControl.giveBlinkyPos(blinkyPos);
     }
     
+    /**
+     * Checks if Pacman is colliding with a ghost. 
+     * @param pacmanCenterX
+     * @param pacmanCenterY
+     * @param ghostX
+     * @param ghostY
+     * @return 
+     */
     private boolean characterCollisionCheck(double pacmanCenterX, double pacmanCenterY, double ghostX, double ghostY){
         
         if(pacmanCenterX>=(ghostX)&&pacmanCenterX<=(ghostX+sizeOfGhost)&&pacmanCenterY>(ghostY+6)&&pacmanCenterY<(ghostY+10)){

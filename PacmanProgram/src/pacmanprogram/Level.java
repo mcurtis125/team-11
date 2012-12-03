@@ -34,14 +34,14 @@ class Level {
     private int currentLevel;
     
     //dot counters
-    private int dotsRemaining;
-    private int energizersRemaining;
-    private int totalDotsRemaining;
-    private int dotsEaten;
-    private int energizersEaten;
-    private int totalDotsEaten;
-    private int prevDotsRemaining;
-    private boolean wasDotEaten;
+    private int dotsRemaining = 240;
+    private int energizersRemaining = 4;
+    private int totalDotsRemaining = 244;
+    private int dotsEaten = 0;
+    private int energizersEaten = 0;
+    private int totalDotsEaten = 0;
+    private int prevDotsRemaining = 244;
+    private boolean wasDotEaten = false;
 
     private boolean wasLifeLost;
     
@@ -74,8 +74,14 @@ class Level {
     public void startGame(int level){
         currentLevel = level;
         ghostScore = 0;
+        characters.pacman.resetLives();
+        characters.resetPosition();
+        maze.resetMaze();
         updateSpecifications();
         assignSpeeds();
+        modeControl.newGame();
+        dotCounterControl.newGame();
+        bonusControl.newGame();
         startTimer();
         System.out.println("Game start");
     }
@@ -102,7 +108,7 @@ class Level {
     private void assignSpeeds() {
         characters.pacman.assignSpeeds(pacSpeedRatio, pacDotSpeedRatio, pacFrightSpeedRatio, pacFrightDotSpeedRatio);
         characters.blinky.assignSpeeds(ghostSpeedRatio, elroy1SpeedRatio, elroy2SpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
-        characters.blinky.setElroySpeed(1);
+        characters.blinky.setElroySpeed(0);
         characters.pinky.assignSpeeds(ghostSpeedRatio, elroy1SpeedRatio, elroy2SpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
         characters.inky.assignSpeeds(ghostSpeedRatio, elroy1SpeedRatio, elroy2SpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
         characters.clyde.assignSpeeds(ghostSpeedRatio, elroy1SpeedRatio, elroy2SpeedRatio, ghostTunSpeedRatio, ghostFrightSpeedRatio);
@@ -120,23 +126,8 @@ class Level {
     private void resetLevel(){
         System.out.println("Resetting Level");
         characters.resetPosition();
-        modeControl.resetLevel();
+        modeControl.reset();
         dotCounterControl.resetLevel();
-    }
-    
-    public void restartGame(){
-        System.out.println("Restarting game");
-        currentLevel = 1;
-        ghostScore = 0;
-        characters.pacman.resetLives();
-        maze.resetMaze();
-        updateSpecifications();
-        assignSpeeds();
-        modeControl.restartGame();
-        dotCounterControl.restartGame();
-        bonusControl.newGame();
-        startTimer();
-        resetLevel();           
     }
     
     private void checkCollision(){
@@ -153,7 +144,7 @@ class Level {
                 else if(modeControl.getMode()==3){
                     ghostsEaten++;
                     ghostScore += (int) Math.pow(2, ghostsEaten)*100;
-                    System.out.println("Eaten");
+//                    System.out.println("Eaten");
                     Thread.sleep(500);
                     ghostControl=collision.pacmanGhostCollisionCheck();
                     ghostControl.setFrightenedAndCaughtTrue();
@@ -201,7 +192,7 @@ class Level {
         totalDotsEaten = dotsEaten+energizersEaten;
         
         if(prevDotsRemaining>totalDotsRemaining){
-            System.out.println(dotsEaten);
+//            System.out.println(totalDotsEaten);
             wasDotEaten = true;
         }
         else{
@@ -239,19 +230,21 @@ class Level {
         ghostScore = 0;
         wasLifeLost = false;
         maze.resetMaze();
+        characters.resetPosition();
         updateSpecifications();
+        modeControl.newLevel();
         dotCounterControl.changeLevel();
         bonusControl.changeLevel();
         assignSpeeds();
         startTimer();
-        resetLevel();
     }    
 
     private void updateDotCounters(){
-        dotCounterControl.updateLastDotTimer();
         if(wasDotEaten){
             dotCounterControl.updateDotCounters();
         }
+        dotCounterControl.updateLastDotTimer();
+        dotCounterControl.updateElroyCounter();
     }
     
     public int getLevel(){

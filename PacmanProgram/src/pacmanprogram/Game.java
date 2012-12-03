@@ -33,11 +33,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     
     TextDisplay text = new TextDisplay(pacman, level);
     ScoreDisplay score = new ScoreDisplay(level);
+    BonusCounterDisplay bonusDisplay = new BonusCounterDisplay(level);
     
-    public Game(/*int startLevel*/){
+    public Game(){
         t.setInitialDelay(1000);
         t.start();
-//        this.startLevel = startLevel;
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -63,11 +63,13 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             level.drawBonus(g);
             text.drawText(g);
             score.drawScore(g);
-
+            bonusDisplay.drawSymbols(g);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        checkLevelChange();
+        checkGameOver();
         pacman.refresh(ae);
         blinky.refresh(ae);
         pinky.refresh(ae);
@@ -75,8 +77,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         clyde.refresh(ae);
         level.refresh(ae);
         score.refresh(ae);
-        checkGameOver();
-        checkLevelChange();
+        bonusDisplay.refresh(ae);
         repaint();
     }
 
@@ -113,12 +114,13 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private void checkGameOver() {
         if(level.checkGameOver()){
             score.newGame();
-            level.restartGame();
+            level.startGame(1);
         }
     }
     
     private void checkLevelChange() {
         if(level.checkLevelChange()){
+            System.out.println("Next level"+level.getLevel());
             score.newLevel();
             level.changeLevel();
         }

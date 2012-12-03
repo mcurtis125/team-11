@@ -10,7 +10,7 @@ package pacmanprogram;
  */
 public class TimerControl {
     
-    private static final double TIME_TOLERANCE = 0.008142;
+    private static final double TIME_TOLERANCE = 0.008140;
     private static final double POSITION_TOLERANCE = 6;
     
     

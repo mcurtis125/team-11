@@ -7,7 +7,7 @@ package pacmanprogram;
 import java.util.ArrayList;
 
 /**
- *
+ * All the characters of the Pacman game: Pacman and the Ghosts Blinky, Pinky, Inky and Clyde.
  * @author stavy92
  */
 public class Characters {
@@ -32,6 +32,11 @@ public class Characters {
         ghosts.add(blinky);
     }
     
+    /**
+     * Sets the modes of all the characters.
+     * @param elroyMode Blinky's mode.
+     * @param mode Everyone else's mode.
+     */
     public void setMode(int elroyMode, int mode){
         blinky.setMode(elroyMode);
         inky.setMode(mode);
@@ -40,6 +45,9 @@ public class Characters {
         pacman.setMode(mode);
     }
     
+    /**
+     * Resets characters to their starting position.
+     */
     public void resetPosition(){
         pacman.resetPosition();
         blinky.resetPosition();

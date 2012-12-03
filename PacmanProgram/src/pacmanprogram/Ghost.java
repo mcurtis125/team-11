@@ -31,7 +31,7 @@ public class Ghost {
     private double speed;
     private double normSpeed;
     private double elroySpeed;
-    private double[] elroySpeeds = new double[2];
+    private double[] elroySpeeds = new double[3];
     private double tunnelSpeed;
     private double frightSpeed;
     private double frightenedAndCaughtSpeed;
@@ -103,6 +103,7 @@ public class Ghost {
        this.normSpeed = MAX_SPEED*norm;
        this.elroySpeeds[0] = MAX_SPEED*elroy1;
        this.elroySpeeds[1] = MAX_SPEED*elroy2;
+       this.elroySpeeds[2] = MAX_SPEED*elroy2;;
        this.elroySpeed = elroySpeeds[0];
        this.tunnelSpeed = MAX_SPEED*tunnel;
        this.frightSpeed = MAX_SPEED*fright;
@@ -118,6 +119,7 @@ public class Ghost {
    
    public void resetPosition(){
        ghostControl.resetPosition();
+       ghostControl.getPosition(position);
    }
    
    public Name getName(){
@@ -154,7 +156,7 @@ public class Ghost {
    }
    
    public void setElroySpeed(int i){
-       elroySpeed = elroySpeeds[i-1];
+       elroySpeed = elroySpeeds[i];
    }
    
    public void setElroyLimit(int limit){
@@ -176,7 +178,7 @@ public class Ghost {
        int i;
        for(i=0;i<penTileIndexes.length;i++){
           if( maze.getIndex(position[0], position[1]) == penTileIndexes[i] ){
-           return true;
+            return true;
           } 
        }
        

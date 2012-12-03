@@ -8,8 +8,9 @@ import java.awt.Graphics;
 import pacmanprogram.TimerControl;
 
 /**
- *
+ * This class controls when and for how long the bonus symbols appear. 
  * @author stavy92
+ * 
  */
 public class BonusControl {
     
@@ -41,18 +42,27 @@ public class BonusControl {
         bonus1Gone = false;
         bonus2Gone = false;
         bonusEaten = 0;
-        bonus1 = new BonusSymbol(levelSpecs.getBonusSymbol(currentLevel));
-        bonus2 = new BonusSymbol(levelSpecs.getBonusSymbol(currentLevel));
+        bonus1 = levelSpecs.getBonusSymbol(currentLevel);
+        bonus2 = levelSpecs.getBonusSymbol(currentLevel);
         
         this.pacman = pacman;
     }
     
+    /**
+     * 
+     * Checks if it's time to show or erase the bonus symbols.
+     * 
+     * @param dotCount number of dots eaten used to check if it's time to show the bonus symbols.
+     */
+    
     public void updateBonusSymbols(int dotCount){
         if(bonus1Gone==false && dotCount==APPEAR_TIME_DOTS_EATEN[0]){
+//            System.out.println("Show bonus 1");
             showBonus1 = true;
             startBonusTimer();
         }
         else if(bonus2Gone==false && dotCount==APPEAR_TIME_DOTS_EATEN[1]){
+//            System.out.println("Show bonus 2");
             showBonus2 = true;
             startBonusTimer();
         }
@@ -64,6 +74,12 @@ public class BonusControl {
             eraseBonus();
         }
     }
+    
+    /**
+     * Shows the bonus symbols.
+     * 
+     * @param g 
+     */
      
     public void drawBonus(Graphics g) {
         if(showBonus1){
@@ -73,6 +89,10 @@ public class BonusControl {
             bonus2.show(g);
         }  
     }
+    
+    /**
+     * Erases bonus symbols. 
+     */
     
     private void eraseBonus(){
         if(showBonus1==true){
@@ -85,19 +105,33 @@ public class BonusControl {
         }
     }
     
+    /**
+     * Increments number of bonus symbols eaten by Pacman.
+     */
     private void eatBonus(){
         bonusEaten++;
     }
     
+    /**
+     * Checks if Pacman is currently eating a bonus symbol.
+     * @return 
+     */
     private boolean pacEatingBonus(){
-        return (TimerControl.positionCheck(pacman.getX(),bonus1.BONUS_X_POS) && TimerControl.positionCheck(pacman.getY(), bonus1.BONUS_Y_POS));
+        return (TimerControl.positionCheck(pacman.getX(),bonus1.getXPos()) && TimerControl.positionCheck(pacman.getY(), bonus1.getYPos()));
     }
     
-    
+    /**
+     * Starts or resets the bonus timer.
+     */
     private void startBonusTimer() {
         bonusTimer = System.currentTimeMillis();
     }
     
+    /**
+     * Helper method for updateBonusSymbols(). 
+     * Timer used to check if it's time to erase bonus symbols.
+     * @return current time of the bonus timer.
+     */
     private double getBonusTimer() {
         if(bonusTimer == 0){
             return 0;
@@ -105,15 +139,20 @@ public class BonusControl {
         return ((System.currentTimeMillis()-bonusTimer)/1000);
     }
     
+    /**
+     * Resets class variables for a new level.
+     */
     public void changeLevel(){
         showBonus1 = false;
         showBonus2 = false;
         bonus1Gone = false;
         bonus2Gone = false;
-        currentLevel++;
         bonusEaten = 0;
     }
     
+    /**
+     * Resets class variables for a new game.
+     */
     public void newGame(){
         showBonus1 = false;
         showBonus2 = false;
@@ -123,8 +162,14 @@ public class BonusControl {
         bonusEaten = 0;
     }
     
+    /**
+     * 
+     * @return Number of bonuses eaten by Pacman in one level.
+     */
     public int getBonusesEaten(){
         return bonusEaten;
     }
+    
+    
     
 }

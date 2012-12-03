@@ -20,34 +20,33 @@ class LevelSpecs {
     private double[] ghostFrightSpeedRatios = {0.5,0.55,0.55,0.55,0.6};
     private double[] ghostTunSpeedRatios = {0.4,0.45,0.45,0.45,0.5};
     private double[] reverseDirectionTimes = {0,1092};
-    private double[][] chaseTimes = {{7,34,59,84},{7,34,59,0},{5,30,55,0}};
-    private double [][] scatTimes = {{27,54,79},{27,54,0},{25,50,0}};
+    private double[][] chaseTimes = {{7,34,59,84},{7,34,59,1033.167},{5,30,55,1037.167}};
+    private double [][] scatTimes = {{27,54,79},{27,54,1033},{25,50,1037}};
     private int[] frightTimes = {6,5,4,3,2,5,2,2,1,5,2,1,1,3,1,1,0,1,0,0,0};
     private int[] flashNumbers = {5,5,5,5,5,5,5,5,3,5,5,3,3,5,3,3,0,3,0,0,0};
     private double[] lastDotTimerLimits = {4,4,4,4,3};
-    private int[] elroy1DotsLeft = {20,30,40,40,40,50,50,50,60,60,60,80,80,80,100,100,100,100,120,120,120};
-    private int[] elroy2DotsLeft = {10,15,20,20,20,25,25,25,30,30,30,40,40,40,50,50,50,50,60,60,60};
+    private int[][] elroyDotsLeft = {{20,10,10},{30,15,15},{40,20,20},{40,20,20},{40,20,20},{50,25,25},{50,25,25},{50,25,25},{60,30,30},{60,30,30},{60,30,30},{80,40,40},{80,40,40},{80,40,40},{100,50,50},{100,50,50},{100,50,0},{100,50,50},{120,60,0},{120,60,60},{120,60,60}};
     private double[] elroy1SpeedRatios = {0.8,0.9,0.9,0.9,1};
     private double[] elroy2SpeedRatios = {0.85,0.95,0.95,0.95,1.05}; 
     private int[][] personalCounterLimits = {{0,30,60},{0,0,50},{0,0,0}};
-    ArrayList<Name> bonusSymbols = new ArrayList<Name>();
+    ArrayList<BonusSymbol> bonusSymbols = new ArrayList<BonusSymbol>();
     
     
     
     public LevelSpecs(){
-        bonusSymbols.add(Name.cherry);
-        bonusSymbols.add(Name.strawberry);
-        bonusSymbols.add(Name.orange);
-        bonusSymbols.add(Name.orange);
-        bonusSymbols.add(Name.apple);
-        bonusSymbols.add(Name.apple);
-        bonusSymbols.add(Name.melon);
-        bonusSymbols.add(Name.melon);
-        bonusSymbols.add(Name.tulip);
-        bonusSymbols.add(Name.tulip);
-        bonusSymbols.add(Name.bell);
-        bonusSymbols.add(Name.bell);
-        bonusSymbols.add(Name.key);
+        bonusSymbols.add(new BonusSymbol(Name.cherry));
+        bonusSymbols.add(new BonusSymbol(Name.strawberry));
+        bonusSymbols.add(new BonusSymbol(Name.orange));
+        bonusSymbols.add(new BonusSymbol(Name.orange));
+        bonusSymbols.add(new BonusSymbol(Name.apple));
+        bonusSymbols.add(new BonusSymbol(Name.apple));
+        bonusSymbols.add(new BonusSymbol(Name.melon));
+        bonusSymbols.add(new BonusSymbol(Name.melon));
+        bonusSymbols.add(new BonusSymbol(Name.tulip));
+        bonusSymbols.add(new BonusSymbol(Name.tulip));
+        bonusSymbols.add(new BonusSymbol(Name.bell));
+        bonusSymbols.add(new BonusSymbol(Name.bell));
+        bonusSymbols.add(new BonusSymbol(Name.key));
     }
 
     public double getPacSpeedRatio(int level){
@@ -140,17 +139,11 @@ class LevelSpecs {
         }
         return lastDotTimerLimits[level-1];
     }
-    public int getElroy1DotsLeft(int level){
+    public int[] getElroyDotsLeft(int level){
         if(level>21){
-            return elroy1DotsLeft[20];
+            return elroyDotsLeft[20];
         }
-        return elroy1DotsLeft[level-1];
-    }
-    public int getElroy2DotsLeft(int level){
-        if(level>21){
-            return elroy2DotsLeft[20];
-        }
-        return elroy2DotsLeft[level-1];
+        return elroyDotsLeft[level-1];
     }
     public double getElroy1SpeedRatio(int level){
         if(level>5){
@@ -170,7 +163,7 @@ class LevelSpecs {
         }
         return personalCounterLimits[level-1];
     }
-    public Name getBonusSymbol(int level){
+    public BonusSymbol getBonusSymbol(int level){
         if(level>13){
             return bonusSymbols.get(12);
         }

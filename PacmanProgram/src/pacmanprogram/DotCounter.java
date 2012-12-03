@@ -7,7 +7,8 @@ package pacmanprogram;
 import java.awt.event.ActionEvent;
 
 /**
- *
+ * Used to control when the ghosts can leave their pen. 
+ * 
  * @author stavy92
  */
 public class DotCounter {    
@@ -20,6 +21,11 @@ public class DotCounter {
     
     private Maze maze;
     
+    /**
+     * Elroy 
+     * @param type
+     * @param maze 
+     */
     public DotCounter(Type type, Maze maze){
         this.type = type;
         this.maze = maze;
@@ -30,7 +36,7 @@ public class DotCounter {
             this.status = Status.deactivated;
         }
         else{
-            this.status = Status.activated;
+            this.status = Status.enabled;
         }
         counter = 0;
     }
@@ -44,15 +50,11 @@ public class DotCounter {
             return (counter>=limit);
         }
         else if(type == Type.elroy){
-            if(getStatus() == DotCounter.Status.activated){
-                return ((244-counter)==limit);
-            }
+            return ((244-counter)<=limit);
         }
         return (counter==limit);
     }
-    
-    
-    
+        
     public void enableCounter(){
         status = Status.enabled;
     }
@@ -81,7 +83,7 @@ public class DotCounter {
             this.status = Status.deactivated;
         }
         else{
-            this.status = Status.activated;
+            this.status = Status.enabled;
         }
     }
     

@@ -57,7 +57,7 @@ public class TextDisplay {
         text.setColor(color);
         text.drawString("Score: ", 10, 15);
         text.drawString("High Score", 165, 15);
-        text.drawString("Lives: "+pacman.getLives(), 10, 565);
-        text.drawString("Level: "+level.getLevel(), 165, 565);
+        text.drawString("Lives: "+pacman.getLives(), 10, 560);
+        text.drawString("Level: "+level.getLevel(), 165, 560);
     }
 }
