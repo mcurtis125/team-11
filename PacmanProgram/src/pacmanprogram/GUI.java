@@ -1052,9 +1052,14 @@ public class GUI extends javax.swing.JFrame {
         }
         
         else{
-        
-            profileManage.create(newUsername, newPassword, newDisplayName, newSecurityQuestion, newSecurityAnswer, fileName);
-            profileCreateStatusLabel.setText("Profile is created");
+            if(!profileManage.create(newUsername, newPassword, newDisplayName, newSecurityQuestion, newSecurityAnswer, fileName)){
+                profileCreateStatusLabel.setText("Username already taken");
+            }
+
+            else{
+                profileManage.create(newUsername, newPassword, newDisplayName, newSecurityQuestion, newSecurityAnswer, fileName);
+                profileCreateStatusLabel.setText("Profile is created");
+            }
 
             clearAllTextFields();
         }
@@ -1137,6 +1142,7 @@ public class GUI extends javax.swing.JFrame {
         }
         else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
             profileManage.ChangePW(username, password, newPassword, fileName);
+            currentUserInfo=login.login(currentUserInfo.GetUserName(),newPassword,fileName);
             changePasswordStatusLabel.setText("Password is changed");
         }
         else {
