@@ -26,15 +26,6 @@ public class TextDisplay {
     Pacman pacman;
     Level level;
     
-    /**
-     * 
-     * This public TextDisplay method is to get values of 
-     * current lives left from Pacman class, and to get value of current level
-     * from Level class.
-     * 
-     * @param level make level class as an object
-     * @param pacman make pacman class as an object
-     */
     public TextDisplay(Pacman pacman, Level level){
         this.pacman = pacman;
         this.level = level;
@@ -42,13 +33,9 @@ public class TextDisplay {
     
     /**
      * 
-     * This public drawText method is for displaying texts (strings)
-     * It sets font type, and font color
-     * This enables to display static texts, like "Score:", "Lives", etc
-     * at specific coordinate on game play GUI
-     * This public method is called by Game class.
+     * Paints all in-game text except the score.
      * 
-     * @param g It is for the 2D-graphic drawings
+     * @param g 
      * 
      */
     public void drawText(Graphics g){

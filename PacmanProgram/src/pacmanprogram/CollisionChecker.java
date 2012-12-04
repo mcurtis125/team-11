@@ -88,14 +88,6 @@ public class CollisionChecker {
         inkyControl.giveBlinkyPos(blinkyPos);
     }
     
-    /**
-     * Checks if Pacman is colliding with a ghost. 
-     * @param pacmanCenterX
-     * @param pacmanCenterY
-     * @param ghostX
-     * @param ghostY
-     * @return 
-     */
     private boolean characterCollisionCheck(double pacmanCenterX, double pacmanCenterY, double ghostX, double ghostY){
         
         if(pacmanCenterX>=(ghostX)&&pacmanCenterX<=(ghostX+sizeOfGhost)&&pacmanCenterY>(ghostY+6)&&pacmanCenterY<(ghostY+10)){
@@ -107,11 +99,5 @@ public class CollisionChecker {
         }
         
         return false;
-    }
-    
-    
-    
-    
-    
-    
+    }   
 }

@@ -155,32 +155,7 @@ class BonusSymbol {
     }
     
     /**
-     * Builds a triangle using the coordinates of 3 points.
-     * @param pointsX X coordinates of the 3 triangle points.
-     * @param pointsY Y coordinates of the 3 triangle points.
-     * @return A triangle which can be painted on a graphics object.
-     */
-    private GeneralPath buildTriangle(double[] pointsX, double[] pointsY){
-        GeneralPath triangle = new GeneralPath(GeneralPath.WIND_EVEN_ODD,pointsX.length);
-        triangle.moveTo(pointsX[0], pointsY[0]);
-        int i;
-        for(i=1;i<pointsX.length;i++){
-            triangle.lineTo(pointsX[i], pointsY[i]);
-        }
-        triangle.closePath();
-        return triangle;
-    }
-    
-    /**
-     * 
-     * @return Number of points the symbol is worth.
-     */
-    public int getPoints(){
-        return points;
-    }
-    
-    /**
-     * 
+     * Returns the name of the bonus symbol.
      * @return Name of the bonus symbol. 
      */
     public Name getName(){
@@ -188,24 +163,24 @@ class BonusSymbol {
     }
     
     /**
-     * 
-     * @return Main color of the bonus symbol.
+     * Returns the number of points the symbol is worth.
+     * @return number of points
      */
-    public Color getColor(){
-        return color;
+    public int getPoints(){
+        return points;
     }
     
     /**
-     * 
-     * @return x position of bonus symbol
+     * Returns the x position of the bonus symbol.
+     * @return x coordinate
      */
     public double getXPos(){
         return xPos;
     }
     
     /**
-     * 
-     * @return y position of bonus symbol
+     * Returns the y position of the bonus symbol
+     * @return y coordinate
      */
     public double getYPos(){
         return yPos;
@@ -221,6 +196,14 @@ class BonusSymbol {
         yPos = y;
     }
     
-    
-    
+    private GeneralPath buildTriangle(double[] pointsX, double[] pointsY){
+        GeneralPath triangle = new GeneralPath(GeneralPath.WIND_EVEN_ODD,pointsX.length);
+        triangle.moveTo(pointsX[0], pointsY[0]);
+        int i;
+        for(i=1;i<pointsX.length;i++){
+            triangle.lineTo(pointsX[i], pointsY[i]);
+        }
+        triangle.closePath();
+        return triangle;
+    }
 }

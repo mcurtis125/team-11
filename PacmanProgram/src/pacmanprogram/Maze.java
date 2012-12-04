@@ -10,7 +10,16 @@ import java.awt.geom.*;
 import java.util.ArrayList;
 
 /**
- *
+ * This class displays and updates the maze.
+ * 
+ * The maze is an ArrayList<Tiles>.
+ * 
+ * The types of the tiles are in integer form:
+ * 0 wall
+ * 1 path
+ * 2 dot
+ * 3 energizer
+ * 
  * @author Kevin
  */
 public class Maze{
@@ -74,7 +83,10 @@ public class Maze{
     	};
     }
    
-    
+    /**
+     * Draws the maze.
+     * @param g 
+     */
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
         //g2.setColor(Color.BLUE);
@@ -106,37 +118,26 @@ public class Maze{
 
         }
     }
-    
+    /**
+     * Returns the indexes in the map array of the ghost pen.
+     * @return array of tile indexes
+     */
     public int[] getPenTileIndexes(){
         return penTileIndexes;
     }
     
+    /**
+     * Returns the indexes in the map array of the tunnel.
+     * @return array of tile indexes
+     */
     public int[] getTunnelTileIndexes(){
         return tunnelTileIndexes;
     }
     
-    public int getType(int index){
-        return maze[index];
-    }
-    
-    public int getIndex(double xCoord, double yCoord){
-        int col, row;
-        col = (int)(xCoord+8)/16;
-        row = (int)(yCoord+8)/16;
-        return col+28*row;
-    }
-    
-    public void changeType(int index, int originalType, int type){
-        if(maze[index]==originalType){
-            maze[index]=type;
-            tiles.get(index).setType(type);
-        }
-    } 
-    
-    public int[] getMap(){
-        return maze;
-    }
-     
+    /**
+     * Returns the tiles that are walls.
+     * @return wall tiles
+     */
     public ArrayList<Tiles> getWallCoords(){
         ArrayList<Tiles> walls = new ArrayList<Tiles>();;
         int i;
@@ -147,7 +148,63 @@ public class Maze{
         }
         return walls;
     }
+     
+    /**
+     * Returns the coordinates of the energizers.
+     * @return array of coordinates
+     */
+    public double[][] getEnergizerCoords(){
+        double[][] eCoords = {{16,96},{416,96},{16,416},{416,416}};
+        return eCoords;
+    } 
     
+    /**
+     * Returns the index of the tile at (xCoord, yCoord).
+     * @param xCoord
+     * @param yCoord
+     * @return index
+     */
+    public int getIndex(double xCoord, double yCoord){
+        int col, row;
+        col = (int)(xCoord+8)/16;
+        row = (int)(yCoord+8)/16;
+        return col+28*row;
+    }
+    
+    
+    /**
+     * Returns the type of the tile at index.
+     * @param index
+     * @return type as integer
+     */
+    public int getType(int index){
+        return maze[index];
+    }
+   
+    /**
+     * Changes the type of the tile at index from its current type to type.
+     * @param index index of the tile to be changed
+     * @param originalType current type
+     * @param type new type
+     */
+    public void changeType(int index, int originalType, int type){
+        if(maze[index]==originalType){
+            maze[index]=type;
+            tiles.get(index).setType(type);
+        }
+    } 
+    
+    /**
+     * Returns the whole map of the maze.
+     * @return 
+     */
+    public int[] getMap(){
+        return maze;
+    }
+    
+    /**
+     * Resets the maze.
+     */
     public void resetMaze(){
         ArrayList<Tiles> newTiles = new ArrayList<Tiles>();
         int[] newMaze = {
@@ -202,10 +259,4 @@ public class Maze{
         maze = newMaze;
         tiles = newTiles;
     }
-    
-    public double[][] getEnergizerCoords(){
-        double[][] eCoords = {{16,96},{416,96},{16,416},{416,416}};
-        return eCoords;
-    }
-    
 }

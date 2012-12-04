@@ -13,12 +13,11 @@ import javax.swing.*;
 import pacmanprogram.Ghost.Name;
 
 /**
- *
+ * Game JPanel. Initiates all game components: Maze, Characters, Bonus Symbols, Timers, Displays.
  * @author stavy92
  */
 public class Game extends JPanel implements ActionListener, KeyListener {
     Timer t = new Timer(10, this);
-    int startLevel;
     Maze maze = new Maze();
     Pacman pacman = new Pacman(maze);
     Ghost blinky = new Ghost(Name.Blinky, maze);
@@ -30,11 +29,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     New_DataManagement dataManage;
     String fileName = "UserData.txt";
     String guestUsername = "Guest";
-    
-    
-    //start at specified level
     Level level = new Level(characters, maze);
-    
     TextDisplay text = new TextDisplay(pacman, level);
     ScoreDisplay score = new ScoreDisplay(level);
     BonusCounterDisplay bonusDisplay = new BonusCounterDisplay(level);
@@ -47,6 +42,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         setFocusTraversalKeysEnabled(false);
     }
     
+    /**
+     * Paints the game.
+     * @param g 
+     */
     public void paintComponent(Graphics g){
        
             super.paintComponent(g);
@@ -85,7 +84,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         repaint();
     }
 
-    
+    /**
+     * Ends the current game and returns the final score.
+     * @return Final score for logged in users, 0 for guests
+     */
     public int endGame(){
         if(t.isRunning()){
             t.stop();
@@ -97,6 +99,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     }
     
+    /**
+     * Starts a game at any level for the current user.
+     * @param level
+     * @param currentUser 
+     */
     public void startGame(int level,New_GetLoginInfoClass currentUser){
         this.currentUser=currentUser;
         this.level.startGame(level);

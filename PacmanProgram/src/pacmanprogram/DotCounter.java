@@ -40,41 +40,42 @@ public class DotCounter {
         }
         counter = 0;
     }
+        
+    /**
+     * Returns the status of the counter.
+     * @return Status{activated, deactivated, enabled, disabled}
+     */
+    public Status getStatus(){
+        return status;
+    }
+      
+    /**
+     * Returns the current count.
+     * @return current dot count
+     */
+    public int getCount(){
+        return counter;
+    }
     
+    /**
+     * Increments the counter.
+     */
     public void increaseCounter() {
         counter++;
     }
-
-    public boolean checkIfLimitReached() {
-        if(type == Type.personal){
-            return (counter>=limit);
-        }
-        else if(type == Type.elroy){
-            return ((244-counter)<=limit);
-        }
-        return (counter==limit);
-    }
-        
-    public void enableCounter(){
-        status = Status.enabled;
-    }
     
-    public void disableCounter(){
-        status = Status.disabled;
-    }
-    
-    public void activateCounter(){
-        status = Status.activated;
-    }
-    
-    public void deactivateCounter(){
-        status = Status.deactivated;
-    }
-    
+    /**
+     * Sets the dot count to 0.
+     */
     public void resetCounter(){
         counter = 0;
     }
     
+    /**
+     * Resets to the status of the counter.
+     * -Ghost counters: enabled
+     * -Global counter: deactivated
+     */
     public void resetStatus(){
         if(type == Type.personal){
             this.status = Status.enabled;
@@ -87,17 +88,60 @@ public class DotCounter {
         }
     }
     
+    /**
+     * Sets the limit of the dot counter.
+     * @param limit number of dots
+     */
     public void setLimit(int limit){
         this.limit = limit;
     }
-    
-    public Status getStatus(){
-        return status;
+
+    /**
+     * Checks if the dot counter limit is reached. 
+     * -Personal: checks if dotsEaten is >= limit
+     * -Global: checks if dotsEaten is == limit
+     * -Elroy: checks if dotsRemaining <= limit
+     * @return true or false
+     */
+    public boolean checkIfLimitReached() {
+        if(type == Type.personal){
+            return (counter>=limit);
+        }
+        else if(type == Type.elroy){
+            return ((244-counter)<=limit);
+        }
+        return (counter==limit);
+    }
+       
+    /**
+     * Enables the counter.
+     */
+    public void enableCounter(){
+        status = Status.enabled;
     }
     
-    public int getCount(){
-        return counter;
+    /**
+     * Disables the counter.
+     */
+    public void disableCounter(){
+        status = Status.disabled;
     }
+    
+    /**
+     * Activates the counter.
+     */
+    public void activateCounter(){
+        status = Status.activated;
+    }
+    
+    /**
+     * Deactivates the counter.
+     */
+    public void deactivateCounter(){
+        status = Status.deactivated;
+    }
+    
+
 }
 
 

@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.awt.geom.*;
 
 /**
- *
+ * 
  * @author Kevin
  */
 
@@ -39,6 +39,10 @@ public class Pacman{
         prevDirection = 0;
     }
     
+    /**
+     * Paints pacman with the mouth in the right direction.
+     * @param g 
+     */
     public void draw(Graphics g){
         Graphics2D pac = (Graphics2D) g;
         pac.setColor(Color.YELLOW);
@@ -65,6 +69,10 @@ public class Pacman{
         }
     }
     
+    /**
+     * Updates Pacman's position, mode and speed, while changing dots/energizers to paths.
+     * @param e 
+     */
     public void refresh(ActionEvent e){ 
        pacControl.refresh(e);
        pacControl.getPosition(position);
@@ -74,30 +82,90 @@ public class Pacman{
        maze.changeType(currentTileIndex,2,1);
     }
     
+    /**
+     * Resets Pacman's position.
+     */
     public void resetPosition(){
         pacControl.resetPosition();
     }
     
+    /**
+     * Assigns all the speeds needed in one level.
+     * @param norm
+     * @param dot
+     * @param fright
+     * @param frightDot 
+     */
     public void assignSpeeds(double norm, double dot, double fright, double frightDot){
         normSpeed = MAX_SPEED*norm;
         dotSpeed = MAX_SPEED*dot;
         frightSpeed = MAX_SPEED*fright;
         frightDotSpeed = MAX_SPEED*frightDot;
     }
-    
 
+    /**
+     * Registers player's keystroke to control Pacman.
+     * @param ke 
+     */
     public void controlPacman(KeyEvent ke){
         pacControl.control(ke);
     }
     
+    /**
+     * Returns Pacman's current tile index.
+     * @return index in the maze array
+     */
     public int getCurrentTileIndex(){
         return currentTileIndex;
     }  
     
+    /**
+     * Sets Pacman's mode to mode.
+     * @param mode mode as integer
+     */
     public void setMode(int mode){
         this.mode = mode;
     }
+    
+    /**
+     * Returns the number of lives remaining.
+     * @return 
+     */
+    public int getLives() {
+        return lives;
+    }
+    
+    /**
+     * Returns Pacman's current x position.
+     * @return x coord
+     */
+    public double getX(){
+        return position[0];
+    }
+    
+    /**
+     * Returns Pacman's current y position.
+     * @return y coord
+     */
+    public double getY(){
+        return position[1];
+    }
 
+    /**
+     * Decrements number of lives remaining.
+     */
+    public void loseLife() {
+        lives--;
+    }
+
+    /**
+     * Resets lives to 3.
+     */
+    public void resetLives(){
+       lives = 3;
+    }
+    
+    //Sets Pacman's speed according to the mode
     private void setSpeed() {
         if(mode==1||mode==2){
             if(maze.getType(getCurrentTileIndex())==2 || maze.getType(getCurrentTileIndex())==3){
@@ -116,26 +184,6 @@ public class Pacman{
             }
         }
         pacControl.setPacmanSpeed(speed);
-    }
-    
-    
-    public int getLives() {
-        return lives;
-    }
-    
-    public double getX(){
-        return position[0];
-    }
-    public double getY(){
-        return position[1];
-    }
-
-    public void loseLife() {
-        lives--;
-    }
-
-    public void resetLives(){
-       lives = 3;
     }
     
     private GeneralPath buildTriangle(double[] pointsX, double[] pointsY){

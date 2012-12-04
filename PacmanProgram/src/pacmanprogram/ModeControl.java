@@ -8,6 +8,11 @@ import pacmanprogram.DotCounter.Status;
 import pacmanprogram.Ghost.Name;
 
 /**
+ * Modes:
+ * 1 scatter
+ * 2 chase
+ * 3 frightened
+ * 4 elroy (used only by Blinky)
  *
  * @author stavy92
  */
@@ -50,13 +55,11 @@ public class ModeControl {
         elroyOn = false;
     }
     
-    private void updateSpecifications(){
-        scatTimes = levelSpecs.getScatTimes(currentLevel);
-        chaseTimes = levelSpecs.getChaseTimes(currentLevel);
-        frightTime = levelSpecs.getFrightTime(currentLevel);
-        flashNumber = levelSpecs.getFlashNumber(currentLevel);
-    }
-    
+    /**
+     * Checks if timer limits have been reached to change to scatter or chase mode.
+     * Checks if pacman is eating an energizer to change to frightened mode.
+     * Checks if frightened mode timer has been reached to change back to previous mode.
+     */
     public void updateModes(){
         
         //start fright mode when pacman eats energizers
@@ -102,38 +105,74 @@ public class ModeControl {
         } 
     }
     
+    /**
+     * Resets modes when a life is lost.
+     */
     public void reset(){
         frightOn = false;
         scatterMode();
         startScatChaseTimer();
     }
     
+    /**
+     * Resets modes for a new level.
+     */
     public void newLevel(){
         updateSpecifications();
         reset();
     }
     
+    /**
+     * Resets modes for a new game.
+     */
     public void newGame(){
         updateSpecifications();
         reset();
     }
     
+    /**
+     * Returns the current mode.
+     * @return mode as integer
+     */
     public int getMode(){
         return mode;
     }
     
+    /**
+     * Returns current Elroy mode.
+     * @return 1 or 2
+     */
     public int getElroyMode(){
         return elroyMode;
     }
     
-    private boolean pacEatingEnergizer(){
-        double [][] eCoords = maze.getEnergizerCoords();
-        return ((TimerControl.positionCheck(characters.pacman.getX(),eCoords[0][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[0][1]))
-                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[1][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[1][1]))
-                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[2][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[2][1]))
-                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[3][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[3][1])));
+    /**
+     * Turns Elroy Mode on for Blinky.
+     */
+    public void cruiseElroyOn(){
+//        System.out.println("Cruise Elroy ON");
+        elroyOn = true;
+        elroyMode = 4;
     }
     
+    /**
+     * Turns Elroy Mode off for Blinky.
+     */
+    public void cruiseElroyOff(){
+//        System.out.println("Cruise Elroy OFF");
+        elroyOn = false;
+        elroyMode = mode;
+    }
+    
+    private void setMode(){
+        if(elroyOn){
+            characters.setMode(elroyMode, mode);
+        }
+        else{
+            characters.setMode(mode, mode);
+        }
+    }
+
     private boolean isScatterTime(){
         return (TimerControl.timeCheck(getScatChaseTimer(),scatTimes[0]) 
                 || TimerControl.timeCheck(getScatChaseTimer(),scatTimes[1]) 
@@ -148,51 +187,27 @@ public class ModeControl {
     }
     
     private void scatterMode(){
-        System.out.println("SCATTER MODE");
+//        System.out.println("SCATTER MODE");
         mode = 1;
-        reverseDirection();
         setMode();
         
     }
     
     private void chaseMode(){
-        System.out.println("CHASE MODE");
+//        System.out.println("CHASE MODE");
         mode = 2;
-        reverseDirection();
         setMode();
     }
     
     private void frightMode(){
-        System.out.println("FRIGHTENED MODE");
+//        System.out.println("FRIGHTENED MODE");
         mode = 3;
         int i;
         for(i=0;i<characters.ghosts.size();i++){
             characters.ghosts.get(i).ghostControl.becomeBlue();
         }
-        reverseDirection();
         cruiseElroyOff();
         setMode();
-    }
-    
-    public void cruiseElroyOn(){
-        System.out.println("Cruise Elroy ON");
-        elroyOn = true;
-        elroyMode = 4;
-    }
-    
-    public void cruiseElroyOff(){
-        System.out.println("Cruise Elroy OFF");
-        elroyOn = false;
-        elroyMode = mode;
-    }
-    
-    private void setMode(){
-        if(elroyOn){
-            characters.setMode(elroyMode, mode);
-        }
-        else{
-            characters.setMode(mode, mode);
-        }
     }
     
     private void startScatChaseTimer(){
@@ -220,11 +235,18 @@ public class ModeControl {
         }
         return (System.currentTimeMillis()-frightTimer)/1000;
     }
-
-    public void reverseDirection(){
-//        int i;
-//        for(i=0;i<characters.ghosts.size();i++){
-//            characters.ghosts.get(i).ghostControl.setReverseDirectionTrue();
-//        }
+           
+    private boolean pacEatingEnergizer(){
+        double [][] eCoords = maze.getEnergizerCoords();
+        return ((TimerControl.positionCheck(characters.pacman.getX(),eCoords[0][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[0][1]))
+                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[1][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[1][1]))
+                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[2][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[2][1]))
+                ||(TimerControl.positionCheck(characters.pacman.getX(),eCoords[3][0]) && TimerControl.positionCheck(characters.pacman.getY(),eCoords[3][1])));
+    }
+    
+    private void updateSpecifications(){
+        scatTimes = levelSpecs.getScatTimes(currentLevel);
+        chaseTimes = levelSpecs.getChaseTimes(currentLevel);
+        frightTime = levelSpecs.getFrightTime(currentLevel);
     }
 }

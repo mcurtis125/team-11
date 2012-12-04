@@ -15,7 +15,7 @@ import pacmanprogram.DotCounter.Type;
  */
 
 /**
- *
+ * 
  * @author stavy92
  */
 public class Ghost {
@@ -73,6 +73,10 @@ public class Ghost {
         }
     }
     
+   /**
+    * Paints the ghost either its original color or blue depending on the mode.
+    * @param g 
+    */
    public void draw(Graphics g){
         if(mode == 3 && ghostControl.blue){
             Graphics2D ghost = (Graphics2D) g;
@@ -99,6 +103,14 @@ public class Ghost {
         }
     }
    
+   /**
+    * Assigns all the ghost speeds needed for one level.
+    * @param norm 
+    * @param elroy1 
+    * @param elroy2
+    * @param tunnel
+    * @param fright 
+    */
    public void assignSpeeds(double norm, double elroy1, double elroy2, double tunnel, double fright){
        this.normSpeed = MAX_SPEED*norm;
        this.elroySpeeds[0] = MAX_SPEED*elroy1;
@@ -110,6 +122,10 @@ public class Ghost {
        this.frightenedAndCaughtSpeed = MAX_SPEED*3;
    }         
  
+   /**
+    * Updates ghost's mode, position and speed.
+    * @param e 
+    */
    public void refresh(ActionEvent e){
         ghostControl.setMode(mode);
         ghostControl.checkTunnel(e);
@@ -117,23 +133,33 @@ public class Ghost {
         setSpeed();
    }
    
+   /**
+    * Resets the ghost's position.
+    */
    public void resetPosition(){
        ghostControl.resetPosition();
        ghostControl.getPosition(position);
    }
    
+   /**
+    * Returns the name of the ghost.
+    * @return 
+    */
    public Name getName(){
        return name;
    }
    
+   /**
+    * Sets the mode of the ghost to mode.
+    * @param mode mode as integer
+    */
    public void setMode(int mode){
        this.mode = mode;
    }
-   
-   public void flash(){
-       
-   }
-   
+
+   /**
+    * Sets the speed of the ghost depending on the mode and position.
+    */
    public void setSpeed(){
        
        if(ghostControl.frightenedAndCaught){
@@ -155,14 +181,26 @@ public class Ghost {
        ghostControl.setGhostSpeed(speed);
    }
    
+   /**
+    * Sets the elroy's speed to elroyspeed1 or elroyspeed2
+    * @param i 0 for elroyspeed1, 1 for elroyspeed2
+    */
    public void setElroySpeed(int i){
        elroySpeed = elroySpeeds[i];
    }
    
+   /**
+    * Sets the elroy's limit to elroylimit1 or elroylimit2
+    * @param limit  0 for elroylimit1, 1 for elroylimit2
+    */
    public void setElroyLimit(int limit){
        dotCounter.setLimit(limit);
    }
    
+   /**
+    * Checks if the ghost is in the tunnel.
+    * @return true or false
+    */
    public boolean isInTunnel(){
        int i;
        for(i=0;i<tunnelTileIndexes.length;i++){
@@ -174,6 +212,10 @@ public class Ghost {
        return false;
    }
    
+   /**
+    * Checks if the ghost is in the pen.
+    * @return true or false
+    */
    public boolean isInPen(){
        int i;
        for(i=0;i<penTileIndexes.length;i++){
