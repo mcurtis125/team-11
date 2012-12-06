@@ -14,6 +14,41 @@ import java.util.ArrayList;
 public class FileManagement {
 	
 	/**
+	 *This method will delete the UserFile
+     *this is for testing purpose
+     * @param FilePath Name of the .txt file where profile information is saved
+	 **/
+	public static void deletefile(String FilePath) {
+		
+			    String fileName = "UserData.txt";
+			    // A File object to represent the filename
+			    File f = new File(fileName);
+
+			    // Make sure the file or directory exists and isn't write protected
+			    if (!f.exists())
+			      throw new IllegalArgumentException(
+			          "Delete: no such file or directory: " + fileName);
+
+			    if (!f.canWrite())
+			      throw new IllegalArgumentException("Delete: write protected: "
+			          + fileName);
+
+			    // If it is a directory, make sure it is empty
+			    if (f.isDirectory()) {
+			      String[] files = f.list();
+			      if (files.length > 0)
+			        throw new IllegalArgumentException(
+			            "Delete: directory not empty: " + fileName);
+			    }
+
+			    // Attempt to delete it
+			    boolean success = f.delete();
+
+			    if (!success)
+			      throw new IllegalArgumentException("Delete: deletion failed");
+			  }
+	
+	/**
 	 *This method will initialize the UserFile
          *If UserData.txt does not exists, it will create a new UserData.txt with a sample player
 	 *If UserData.txt already exists, it won't do anything.
