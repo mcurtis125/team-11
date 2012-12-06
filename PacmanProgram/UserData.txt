@@ -1,1 +1,1 @@
-&Guest^DefaultPassword^Guest^100^90^80^70^60^50^40^30^20^10^DefaultSecurityQuestion^DefaultSecurityAnswer^1&kevin^newpass^gui^780^70^0^0^0^0^0^0^0^0^where?^here^1&jeff^newpass^best^0^0^0^0^0^0^0^0^0^0^yourname^jeff^1&justin^123^good^0^0^0^0^0^0^0^0^0^0^how^how^1
+&Guest^DefaultPassword^Guest^100^90^80^70^60^50^40^30^20^10^DefaultSecurityQuestion^DefaultSecurityAnswer^1

@@ -41,20 +41,20 @@ public class Login {
 //
 //		String Path="UserData.txt";
 //
-//		New_FileManagement.Initialize(Path);
-//		New_ProfileManagement.create("hello","hi","Display","Security1","Answer1",Path);
-//		New_ProfileManagement.create("hello2","hi2","Display2","Security2","Answer2",Path);
-//		New_ProfileManagement.create("test3","hi3","Display3","Security3","Answer3",Path);
-////		New_ProfileManagement.remove("hello",Path);
-////		New_ProfileManagement.ChangePW("hello2","hinew2",Path);
-////		New_ProfileManagement.ChangeDN("test3","bye3",Path);
+//		FileManagement.Initialize(Path);
+//		ProfileManagement.create("hello","hi","Display","Security1","Answer1",Path);
+//		ProfileManagement.create("hello2","hi2","Display2","Security2","Answer2",Path);
+//		ProfileManagement.create("test3","hi3","Display3","Security3","Answer3",Path);
+////		ProfileManagement.remove("hello",Path);
+////		ProfileManagement.ChangePW("hello2","hinew2",Path);
+////		ProfileManagement.ChangeDN("test3","bye3",Path);
 //
-//		New_DataManagement.AddNewScore("hello2",15,Path);
-//		New_DataManagement.AddNewScore("test3",150,Path);
-//		New_DataManagement.AddNewScore("test3",200,Path);
-//		New_DataManagement.AddNewScore("test3",300,Path);
+//		DataManagement.AddNewScore("hello2",15,Path);
+//		DataManagement.AddNewScore("test3",150,Path);
+//		DataManagement.AddNewScore("test3",200,Path);
+//		DataManagement.AddNewScore("test3",300,Path);
 //
-//		ArrayList<New_GetLoginInfoClass> userinfolist=New_GetUserInfo.getuserinfo(Path);
+//		ArrayList<GetLoginInfoClass> userinfolist=GetUserInfo.getuserinfo(Path);
 //
 //
 //		//All User List Test
@@ -86,7 +86,7 @@ public class Login {
 //		System.out.println('\n');
 //		System.out.println("Here are top 10 scores:");
 //		for (int i=0;i<10;i++){
-//			System.out.println(New_DataManagement.GetTop10Score(Path).get(i).GetPlayer()+":"+New_DataManagement.GetTop10Score(Path).get(i).GetScore());
+//			System.out.println(DataManagement.GetTop10Score(Path).get(i).GetPlayer()+":"+DataManagement.GetTop10Score(Path).get(i).GetScore());
 //		}
 //	}
 }

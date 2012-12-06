@@ -13,7 +13,7 @@ import pacmangameplay.charactercontrol.Ghost.Name;
 import pacmangameplay.mazedisplay.Maze;
 
 /**
- *
+ * Controller for a Ghost's movement, mode and color.
  * @author stavy92
  */
 public class GhostControl {
@@ -47,10 +47,17 @@ public class GhostControl {
         resetPosition();
     }
 
+    /**
+     * Checks if the Ghost is in the tunnel and slows it down if it is.
+     * @param e 
+     */
     public void checkTunnel(ActionEvent e) {
         checkTunnel();
     }
     
+    /**
+     * Resets the Ghost's position.
+     */
     public void resetPosition(){
         switch (name){
             case Blinky:
@@ -87,17 +94,29 @@ public class GhostControl {
         
     }
     
+    /**
+     * Returns the Ghost's current position on the JPanel.
+     * @param pos 
+     */
     public void getPosition(double[] pos){
         pos[0] = x;
         pos[1] = y;
     }
     
+    /**
+     * Returns the Ghost's current x and  y velocities.
+     * @param vel 
+     */
     public void getVelocity(double[] vel){
         vel[0]=velx;
         vel[1]=vely;
     }
     
-    public void setMode(int mode) {
+    /**
+     * Sets the Ghost's next target tile depending on the mode.
+     * @param mode 
+     */
+    public void setTargetTile(int mode) {
         try{
             if(frightenedAndCaught){
                 goHome();
@@ -112,16 +131,16 @@ public class GhostControl {
                 vely=0;
             }
             else if(mode==1){
-                scatter();
+                setScatterTarget();
             }
             else if(mode==2){
-                chase();
+                setChaseTarget();
             }
             else if(mode==3){
                 frightened();
             }
             else if(mode==4 && name == Name.Blinky){
-                chase();
+                setChaseTarget();
             }
         }
         catch(Exception e){resetPosition();
@@ -129,17 +148,35 @@ public class GhostControl {
         }
     }
     
+    /**
+     * Sets the Ghost's speed.
+     * @param ghostSpeed 
+     */
     public void setGhostSpeed(double ghostSpeed){
         this.ghostSpeed=ghostSpeed;
     }
     
+    /**
+     * Tells the Ghost to move randomly when in frightened mode.
+     */
     public void frightened(){
         randomSelection=true;
         getDirectionAndTileCoordinates(randomSelection); 
     }
     
-    public void scatter(){
-        
+    /**
+     * Sets the Ghost's next target tile to the scatter mode target.
+     * All Ghosts' scatter targets are in a corner off the maze and they consequently each move around in a different corner of the maze during scatter mode.
+     * 
+     * Blinky: top right
+     * 
+     * Pinky: top left
+     * 
+     * Inky: bottom right
+     * 
+     * Clyde: bottom left
+     */
+    public void setScatterTarget(){
             switch(name){
                 case Blinky:
                     targetTile=targetFinder.getBlinkyScatterTarget();
@@ -159,7 +196,11 @@ public class GhostControl {
 
     }
     
-    public void chase(){
+    /**
+     * Sets the Ghost's next target tile to the chase mode target.
+     * Each Ghost has a different chase target tile.
+     */
+    public void setChaseTarget(){
         
             pacmanX=PacmanControl.x;
             pacmanY=PacmanControl.y;
@@ -185,47 +226,38 @@ public class GhostControl {
 
     }
     
-    public void becomeBlue(){
+    /**
+     * Turns the Ghost blue.
+     */
+    public void turnBlue(){
         blue = true;
     }
     
-    public void setFrightenedAndCaughtTrue(){
+    /**
+     * Tells the Ghost to go to the ghost pen.
+     */
+    public void returnToPen(){
         frightenedAndCaught = true;
     }
     
-    public void setLeavePenTrue(){
+    /**
+     * Tells the Ghost to leave the ghost pen.
+     */
+    public void leavePen(){
         leavePen = true;
         frightenedAndCaught = false;
     }
     
-    private void goHome(){
-        targetTile=targetFinder.getReturnToHomeTarget();
-        
-        if(x>=targetTile[0]-16&&x<=targetTile[0]+16&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
-            resetPosition();
-        }
-        else{
-            getDirectionAndTileCoordinates(false);
-        }
-    }
-    
-    private void leaveHome(){
-        targetTile=targetFinder.getLeaveHomeTarget();
-        
-        if(x>=targetTile[0]-16&&x<=targetTile[0]+16&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
-            leavePen=false;
-        }
-        else{
-            getDirectionAndTileCoordinates(false);
-        }
-    }
-    
-    public void becomeNonExistent(){
+    /**
+     * Tells the Ghost it has been eaten.
+     */
+    public void becomeEaten(){
         existent=false;
     }
 
-    
-    
+    /**
+     * Checks if the Ghost is passing through the tunnel and moves it to the other side.
+     */
     public void checkTunnel(){
         if(x<-12){
             vely=0;
@@ -242,9 +274,12 @@ public class GhostControl {
         } 
     }
     
-    
-    
-    
+    /**
+     * Tells the Ghost where to move next by changing its position.
+     * @param direction current direction
+     * @param xNextTile xCoord of the next tile
+     * @param yNextTile yCoord of the next tile
+     */
     public void move(double direction, double xNextTile, double yNextTile){
 
        if(direction==0){
@@ -278,6 +313,10 @@ public class GhostControl {
         y=y+vely;
     }
     
+    /**
+     * Gets the Ghost's direction and the coordinates of the next tile.
+     * @param isRandom if true, then random direction finder is used
+     */
     public void getDirectionAndTileCoordinates(boolean isRandom){
         
         if(isRandom){
@@ -310,14 +349,16 @@ public class GhostControl {
         }
     }
     
-    
-    
-    
+    /**
+     * Getter for Blinky's position.
+     * @param blinkyPos 
+     */
     public void giveBlinkyPos(double[] blinkyPos){
         blinkyX=blinkyPos[0];
         blinkyY=blinkyPos[1];
     }
     
+//use put in test
     public void movementAlgorithmTest(Graphics g){
         Graphics2D ghost = (Graphics2D) g;
         if(direction==0){
@@ -338,12 +379,34 @@ public class GhostControl {
 
         ghost.fill(new Rectangle.Double(xNextTile,yNextTile,16,16));
     }
-    
+ //put in test
     public void targetAlgorithmTest(Graphics g){
         Graphics2D ghost = (Graphics2D) g;
         ghost.setColor(Color.GREEN);
         ghost.fill(new Rectangle.Double(targetTile[0],targetTile[1],16,16));
     }
 
+    
+    private void goHome(){
+        targetTile=targetFinder.getReturnToHomeTarget();
+        
+        if(x>=targetTile[0]-16&&x<=targetTile[0]+16&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
+            resetPosition();
+        }
+        else{
+            getDirectionAndTileCoordinates(false);
+        }
+    }
+
+    private void leaveHome(){
+        targetTile=targetFinder.getLeaveHomeTarget();
+        
+        if(x>=targetTile[0]-16&&x<=targetTile[0]+16&&y>=targetTile[1]-0.5&&y<=targetTile[1]+0.5){
+            leavePen=false;
+        }
+        else{
+            getDirectionAndTileCoordinates(false);
+        }
+    }
     
 }

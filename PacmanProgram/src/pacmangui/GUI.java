@@ -24,10 +24,10 @@ import javax.swing.JTextField;
  * @author ChanWoo
  */
 public class GUI extends javax.swing.JFrame {
+
     /**
      * Creates new form GUI
      */
-    
     static Game game = new Game();
     static Login login = new Login();
     static FileManagement fileManage = new FileManagement();
@@ -39,17 +39,15 @@ public class GUI extends javax.swing.JFrame {
     static String fileName = "UserData.txt";
     static String guestUsername = "Guest";
     static String guestPassword = "DefaultPassword";
-    
+
 //    private String newUsername;
 //    private String newPassword;
 //    private String newDisplayName;    
 //    GetLoginInfoClass getinfo = new GetLoginInfoClass();
-    
     public GUI() {
         initComponents();
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,11 +143,15 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(400, 10, 448, 656));
         setMinimumSize(new java.awt.Dimension(448, 690));
+        setPreferredSize(new java.awt.Dimension(448, 690));
 
         makeAllPanelsNotVisible();
         setButtonsVisibility();
         mainMenuPanel.setVisible(true);
         mainMenuPanel.setBackground(new java.awt.Color(0, 0, 0));
+        mainMenuPanel.setAlignmentX(0.0F);
+        mainMenuPanel.setAlignmentY(0.0F);
+        mainMenuPanel.setPreferredSize(new java.awt.Dimension(448, 658));
 
         playGameButton.setText("Play Game");
         playGameButton.addActionListener(new java.awt.event.ActionListener() {
@@ -836,7 +838,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(mainMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -942,20 +944,19 @@ public class GUI extends javax.swing.JFrame {
 
     private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
 
-        if(currentUserInfo.GetUserName().equals(guestUsername)||!gamePanel.isVisible()){
+        if (currentUserInfo.GetUserName().equals(guestUsername) || !gamePanel.isVisible()) {
             game.endGame();
-        }
-        else{
+        } else {
             int scoreToAdd = game.endGame();
             int levelReached = game.level.getLevel();
-            dataManage.AddNewScore(currentUserInfo.GetUserName(),scoreToAdd,fileName);
+            dataManage.AddNewScore(currentUserInfo.GetUserName(), scoreToAdd, fileName);
             dataManage.AddNewMaxLevel(currentUserInfo.GetUserName(), levelReached, fileName);
         }
         makeAllPanelsNotVisible();
         mainMenuPanel.setVisible(true);
         setButtonsVisibility();
         updateJLabels();
-        
+
 
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 
@@ -963,36 +964,33 @@ public class GUI extends javax.swing.JFrame {
 
         String username = usernameField.getText();
         String password = passwordField.getText();
-        currentUserInfo=login.login(username,password,fileName);
+        currentUserInfo = login.login(username, password, fileName);
         updateJLabels();
-        if (nameDisplayLabel.getText().equals("Guest")){
+        if (nameDisplayLabel.getText().equals("Guest")) {
             loginStatusLabel.setText("Login Failed. Try again");
-        }
-        else {
+        } else {
             loginStatusLabel.setText("Login successful");
             makeAllPanelsNotVisible();
             mainMenuPanel.setVisible(true);
         }
-        
+
         clearAllTextFields();
         setButtonsVisibility();
-        
-        
-        
+
+
+
     }//GEN-LAST:event_loginSubmitButtonActionPerformed
 
     private void playGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playGameButtonActionPerformed
 
-        if(currentUserInfo.GetUserName().equals(guestUsername)){
+        if (currentUserInfo.GetUserName().equals(guestUsername)) {
             makeAllPanelsNotVisible();
-            game.startGame(1,currentUserInfo);
+            game.startGame(1, currentUserInfo);
             gamePanel.setVisible(true);
             gamePanel.requestFocus();
             gamePanel.setEnabled(true);
             setButtonsVisibility();
-        }
-        
-        else{
+        } else {
             makeAllPanelsNotVisible();
             gameSettingsPanel.setVisible(true);
             setButtonsVisibility();
@@ -1005,14 +1003,14 @@ public class GUI extends javax.swing.JFrame {
         makeAllPanelsNotVisible();
         loginPanel.setVisible(true);
         setButtonsVisibility();
-        
-      
+
+
     }//GEN-LAST:event_goToLoginButtonActionPerformed
 
     private void goToProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToProfileButtonActionPerformed
         game.endGame();
         makeAllPanelsNotVisible();
-        profileManagementPanel.setVisible(true);        
+        profileManagementPanel.setVisible(true);
         setButtonsVisibility();
 
     }//GEN-LAST:event_goToProfileButtonActionPerformed
@@ -1027,7 +1025,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteProfileButtonActionPerformed
 
     private void createProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProfileButtonActionPerformed
-        
+
         game.endGame();
         makeAllPanelsNotVisible();
         createProfilePanel.setVisible(true);
@@ -1040,7 +1038,7 @@ public class GUI extends javax.swing.JFrame {
         makeAllPanelsNotVisible();
         createProfilePanel.setVisible(true);
         setButtonsVisibility();
-        
+
     }//GEN-LAST:event_createProfileFromLoginButtonActionPerformed
 
     private void createProfileSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProfileSubmitButtonActionPerformed
@@ -1052,17 +1050,13 @@ public class GUI extends javax.swing.JFrame {
         String newSecurityAnswer = createSecurityAnswerField.getText();
         String newDisplayName = createDisplayNameField.getText();
 
-        
-        if(!newPassword.equals(passwordCheck)){
-            profileCreateStatusLabel.setText("The 're-enter' field does not match the password field");
-        }
-        
-        else{
-            if(!profileManage.create(newUsername, newPassword, newDisplayName, newSecurityQuestion, newSecurityAnswer, fileName)){
-                profileCreateStatusLabel.setText("Username already taken");
-            }
 
-            else{
+        if (!newPassword.equals(passwordCheck)) {
+            profileCreateStatusLabel.setText("The 're-enter' field does not match the password field");
+        } else {
+            if (!profileManage.create(newUsername, newPassword, newDisplayName, newSecurityQuestion, newSecurityAnswer, fileName)) {
+                profileCreateStatusLabel.setText("Username already taken");
+            } else {
                 profileManage.create(newUsername, newPassword, newDisplayName, newSecurityQuestion, newSecurityAnswer, fileName);
                 profileCreateStatusLabel.setText("Profile is created");
             }
@@ -1070,7 +1064,7 @@ public class GUI extends javax.swing.JFrame {
             clearAllTextFields();
         }
 
-        
+
     }//GEN-LAST:event_createProfileSubmitButtonActionPerformed
 
     private void profileDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileDeleteButtonActionPerformed
@@ -1078,27 +1072,23 @@ public class GUI extends javax.swing.JFrame {
         String username = deleteUsernameField.getText();
         String password = deletePasswordField.getText();
         String answer = deleteProfileSecurityAnswerField.getText();
-        
-        
-        if(nameDisplayLabel.getText().equals("Guest")){
+
+
+        if (nameDisplayLabel.getText().equals("Guest")) {
             profileDeleteStatusLabel.setText("Login Please");
-        }
-        else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())&&answer.equals(currentUserInfo.GetSecurityAnswer())){
-            profileManage.remove(username,password,answer,fileName);
+        } else if (username.equals(currentUserInfo.GetUserName()) && password.equals(currentUserInfo.GetPassWord()) && answer.equals(currentUserInfo.GetSecurityAnswer())) {
+            profileManage.remove(username, password, answer, fileName);
             profileDeleteStatusLabel.setText("Profile is deleted");
-            currentUserInfo=login.login("Guest","DefaultPassword","UserData.txt");
-        }
-        else if (!username.equals(currentUserInfo.GetUserName())) {
+            currentUserInfo = login.login("Guest", "DefaultPassword", fileName);
+        } else if (!username.equals(currentUserInfo.GetUserName())) {
             profileDeleteStatusLabel.setText("Warning: Delete your own profile");
-        }
-        else if (username.equals(currentUserInfo.GetUserName())&&!password.equals(currentUserInfo.GetPassWord())) {
+        } else if (username.equals(currentUserInfo.GetUserName()) && !password.equals(currentUserInfo.GetPassWord())) {
             profileDeleteStatusLabel.setText("Password is incorrect. Try again.");
-        }
-        else if (username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())&&!answer.equals(currentUserInfo.GetSecurityQuestion())) {
+        } else if (username.equals(currentUserInfo.GetUserName()) && password.equals(currentUserInfo.GetPassWord()) && !answer.equals(currentUserInfo.GetSecurityQuestion())) {
             profileDeleteStatusLabel.setText("Security answer is incorrect. Try again.");
         }
         clearAllTextFields();
-        
+
         updateJLabels();
         setButtonsVisibility();
     }//GEN-LAST:event_profileDeleteButtonActionPerformed
@@ -1108,16 +1098,16 @@ public class GUI extends javax.swing.JFrame {
         makeAllPanelsNotVisible();
         setButtonsVisibility();
         modificationPanel.setVisible(true);
-        
+
     }//GEN-LAST:event_modifyProfileButtonActionPerformed
 
     private void mainMenuViewStatisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuViewStatisticsButtonActionPerformed
         makeAllPanelsNotVisible();
         setButtonsVisibility();
         statisticsPanel.setVisible(true);
-        
+
         updateJLabels();
-        
+
     }//GEN-LAST:event_mainMenuViewStatisticsButtonActionPerformed
 
     private void changePasswordPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordPanelButtonActionPerformed
@@ -1143,19 +1133,17 @@ public class GUI extends javax.swing.JFrame {
         String username = passwordChangeUsernameField.getText();
         String password = passwordChangePasswordField.getText();
         String newPassword = passwordChangeNewPasswordField.getText();
-        if(nameDisplayLabel.getText().equals("Guest")){
+        if (nameDisplayLabel.getText().equals("Guest")) {
             changePasswordStatusLabel.setText("Login Please");
-        }
-        else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
+        } else if (username.equals(currentUserInfo.GetUserName()) && password.equals(currentUserInfo.GetPassWord())) {
             profileManage.ChangePW(username, password, newPassword, fileName);
-            currentUserInfo=login.login(currentUserInfo.GetUserName(),newPassword,fileName);
+            currentUserInfo = login.login(currentUserInfo.GetUserName(), newPassword, fileName);
             changePasswordStatusLabel.setText("Password is changed");
-        }
-        else {
+        } else {
             changePasswordStatusLabel.setText("Password Change is failed. Try again");
         }
-        
-        clearAllTextFields();       
+
+        clearAllTextFields();
     }//GEN-LAST:event_passwordChangeButtonActionPerformed
 
     private void displayNameChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayNameChangeButtonActionPerformed
@@ -1163,44 +1151,40 @@ public class GUI extends javax.swing.JFrame {
         String username = jTextField14.getText();
         String password = displayNameChangePasswordField.getText();
         String newDisplayName = jTextField15.getText();
-        if(nameDisplayLabel.getText().equals("Guest")){
+        if (nameDisplayLabel.getText().equals("Guest")) {
             changeDNStatusLabel.setText("Login Please");
-        }
-        else if(username.equals(currentUserInfo.GetUserName())&&password.equals(currentUserInfo.GetPassWord())){
+        } else if (username.equals(currentUserInfo.GetUserName()) && password.equals(currentUserInfo.GetPassWord())) {
             profileManage.ChangeDN(username, password, newDisplayName, fileName);
             changeDNStatusLabel.setText("Display Name is changed");
-        }
-        else {
+        } else {
             changeDNStatusLabel.setText("Display Name Change is failed. Try again");
         }
-        
+
         clearAllTextFields();
     }//GEN-LAST:event_displayNameChangeButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        currentUserInfo=login.login("Guest","DefaultPassword","UserData.txt");
+        currentUserInfo = login.login("Guest", "DefaultPassword", fileName);
         updateJLabels();
         setButtonsVisibility();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void startGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameButtonActionPerformed
 
-            //this is where the game should start at the level specified by the user
-            String levelSelection = levelSelectionField.getText();
-            int levelSelectionAsInteger = Integer.parseInt(levelSelection);
-            
-            if(levelSelectionAsInteger>currentUserInfo.GetMaxLevel()){
-                maxLevelReachedLabel.setText("You haven't unlocked level " + levelSelection);
-            }
-            
-            else{
-                makeAllPanelsNotVisible();
-                game.startGame(levelSelectionAsInteger,currentUserInfo);
-                gamePanel.setVisible(true);
-                gamePanel.requestFocus();
-                gamePanel.setEnabled(true);
-                setButtonsVisibility();
-            }
+        //this is where the game should start at the level specified by the user
+        String levelSelection = levelSelectionField.getText();
+        int levelSelectionAsInteger = Integer.parseInt(levelSelection);
+
+        if (levelSelectionAsInteger > currentUserInfo.GetMaxLevel()) {
+            maxLevelReachedLabel.setText("You haven't unlocked level " + levelSelection);
+        } else {
+            makeAllPanelsNotVisible();
+            game.startGame(levelSelectionAsInteger, currentUserInfo);
+            gamePanel.setVisible(true);
+            gamePanel.requestFocus();
+            gamePanel.setEnabled(true);
+            setButtonsVisibility();
+        }
     }//GEN-LAST:event_startGameButtonActionPerformed
 
     /**
@@ -1209,9 +1193,9 @@ public class GUI extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         fileManage.Initialize(fileName);
-        currentUserInfo=login.login(guestUsername,guestPassword,fileName);
-        
-        
+        currentUserInfo = login.login(guestUsername, guestPassword, fileName);
+
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -1240,17 +1224,16 @@ public class GUI extends javax.swing.JFrame {
                 new GUI().setVisible(true);
             }
         });
-           
 
-        
+
+
     }
-    
-    
-   /**
-    * This method sets all the panels invisible except the current panel that
-    * the user is using.
-    */
-    public void makeAllPanelsNotVisible(){
+
+    /**
+     * This method sets all the panels invisible except the current panel that
+     * the user is using.
+     */
+    public void makeAllPanelsNotVisible() {
         gamePanel.setVisible(false);
         mainMenuPanel.setVisible(false);
         loginPanel.setVisible(false);
@@ -1263,100 +1246,92 @@ public class GUI extends javax.swing.JFrame {
         displayNameChangePanel.setVisible(false);
         gameSettingsPanel.setVisible(false);
     }
-    
+
     /**
-     * This methods sets the visibility of "logOutButton"
-     * The "logOutButton" is visible only if a user is logged in.
+     * This methods sets the visibility of "logOutButton" The "logOutButton" is
+     * visible only if a user is logged in.
      */
-    public void setButtonsVisibility(){
-        if(gamePanel.isVisible()||gameSettingsPanel.isVisible()||currentUserInfo.GetUserName().equals("Guest")){
+    public void setButtonsVisibility() {
+        if (gamePanel.isVisible() || gameSettingsPanel.isVisible() || currentUserInfo.GetUserName().equals("Guest")) {
             logOutButton.setVisible(false);
-        }
-        
-        else{
+        } else {
             logOutButton.setVisible(true);
         }
-        
+
     }
-    
-    
-    
-    public void updateJLabels(){
-        
+
+    public void updateJLabels() {
+
         String personalStats = new String();
         String leaderboardStats = new String();
         ArrayList<TopScores> top10Leaderboard;
         top10Leaderboard = dataManage.GetTop10Score(fileName);
-        
-        currentUserInfo=login.login(currentUserInfo.GetUserName(), currentUserInfo.GetPassWord(), fileName);
-        
+
+        currentUserInfo = login.login(currentUserInfo.GetUserName(), currentUserInfo.GetPassWord(), fileName);
+
         nameDisplayLabel.setText(currentUserInfo.GetUserName());
-        
-        if(currentUserInfo.GetUserName().equals(guestUsername)){
-            personalStats="You are not logged in, so you cannot view personal stats";
-        }
-        
-        else{
+
+        if (currentUserInfo.GetUserName().equals(guestUsername)) {
+            personalStats = "You are not logged in, so you cannot view personal stats";
+        } else {
             int loopCounter;
-            for(loopCounter=0;loopCounter<10;loopCounter++){
-                personalStats+=currentUserInfo.GetScore(loopCounter)+"<br>";
+            for (loopCounter = 0; loopCounter < 10; loopCounter++) {
+                personalStats += currentUserInfo.GetScore(loopCounter) + "<br>";
                 System.out.println(currentUserInfo.GetScore(loopCounter));
             }
         }
-        
+
         personalStatsLabel.setText("<html>" + personalStats + "<html>");
-        
+
         int loopCounter;
-            for(loopCounter=0;loopCounter<10;loopCounter++){
-                if(!top10Leaderboard.get(loopCounter).GetPlayer().equals(guestUsername)){
-                    leaderboardStats+=top10Leaderboard.get(loopCounter).GetPlayer();
-                    leaderboardStats+=" ";
-                    leaderboardStats+=top10Leaderboard.get(loopCounter).GetScore()+"<br>";
-                }
+        for (loopCounter = 0; loopCounter < 10; loopCounter++) {
+            if (!top10Leaderboard.get(loopCounter).GetPlayer().equals(guestUsername)) {
+                leaderboardStats += top10Leaderboard.get(loopCounter).GetPlayer();
+                leaderboardStats += " ";
+                leaderboardStats += top10Leaderboard.get(loopCounter).GetScore() + "<br>";
             }
-            
+        }
+
         leaderboardLabel.setText("<html>" + leaderboardStats + "<html>");
-        
-        
-        
-        int maxLevelReached=currentUserInfo.GetMaxLevel();
-        
+
+
+
+        int maxLevelReached = currentUserInfo.GetMaxLevel();
+
         maxLevelReachedLabel.setText("You previously unlocked level " + maxLevelReached);
-        
-        
+
+
     }
-    
-    
+
     /**
-     * For all the data & profile handling panels, if user fills in the text fields with informations
-     * and click the button for submission, this method is called and clears the all text fields that
-     * are placed on current panel.
+     * For all the data & profile handling panels, if user fills in the text
+     * fields with informations and click the button for submission, this method
+     * is called and clears the all text fields that are placed on current
+     * panel.
      */
-    public void clearAllTextFields(){
-        
-    createUsernameField.setText("");
-    deletePasswordField.setText("");
-    deleteProfileSecurityAnswerField.setText("");
-    passwordChangeNewPasswordField.setText("");
-    displayNameChangePasswordField.setText("");
-    jTextField14.setText("");
-    jTextField15.setText("");
-    passwordChangeUsernameField.setText("");
-    createPasswordField.setText("");
-    createPasswordCheckField.setText("");
-    createSecurityQuestionField.setText("");
-    createSecurityAnswerField.setText("");
-    createDisplayNameField.setText("");
-    passwordChangePasswordField.setText("");
-    deleteUsernameField.setText("");
-    usernameField.setText("");
-    passwordField.setText("");
-    levelSelectionField.setText("");
-    
-    
+    public void clearAllTextFields() {
+
+        createUsernameField.setText("");
+        deletePasswordField.setText("");
+        deleteProfileSecurityAnswerField.setText("");
+        passwordChangeNewPasswordField.setText("");
+        displayNameChangePasswordField.setText("");
+        jTextField14.setText("");
+        jTextField15.setText("");
+        passwordChangeUsernameField.setText("");
+        createPasswordField.setText("");
+        createPasswordCheckField.setText("");
+        createSecurityQuestionField.setText("");
+        createSecurityAnswerField.setText("");
+        createDisplayNameField.setText("");
+        passwordChangePasswordField.setText("");
+        deleteUsernameField.setText("");
+        usernameField.setText("");
+        passwordField.setText("");
+        levelSelectionField.setText("");
+
+
     }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PacmanImageLabel;
     private javax.swing.JLabel changeDNStatusLabel;

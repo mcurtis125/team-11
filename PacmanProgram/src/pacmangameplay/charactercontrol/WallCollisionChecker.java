@@ -9,7 +9,7 @@ import pacmangameplay.mazedisplay.Maze;
 import pacmangameplay.mazedisplay.Tile;
 
 /**
- *
+ * Prevents any character from going through walls.
  * @author Kevin
  */
 public class WallCollisionChecker {
@@ -50,7 +50,12 @@ public class WallCollisionChecker {
     
     
     
-    
+    /**
+     * Checks if a character is moving left and has a wall on its left.
+     * @param xCoordinate 
+     * @param yCoordinate
+     * @return 
+     */
     public boolean isOccupiedByWallMovingLeft(double xCoordinate, double yCoordinate){
         
         for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
@@ -74,7 +79,12 @@ public class WallCollisionChecker {
     }
 
 
-
+    /**
+     * Checks if a character is moving right and has a wall on its right.
+     * @param xCoordinate 
+     * @param yCoordinate
+     * @return 
+     */
     public boolean isOccupiedByWallMovingRight(double xCoordinate, double yCoordinate){
         
         for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
@@ -98,7 +108,12 @@ public class WallCollisionChecker {
         return false;
     }
     
-    
+    /**
+     * Checks if a character is moving up and has a wall on its up.
+     * @param xCoordinate 
+     * @param yCoordinate
+     * @return 
+     */
     public boolean isOccupiedByWallMovingUp(double xCoordinate, double yCoordinate){
         
 
@@ -122,7 +137,12 @@ public class WallCollisionChecker {
     }
     
     
-    
+    /**
+     * Checks if a character is moving down and has a wall on its down.
+     * @param xCoordinate 
+     * @param yCoordinate
+     * @return 
+     */
     public boolean isOccupiedByWallMovingDown(double xCoordinate, double yCoordinate){
         
         for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
@@ -162,7 +182,13 @@ public class WallCollisionChecker {
         return false; 
     }
     
-    
+    /**
+     * Tells a character how many pixels to move in the next time frame without entering a wall while moving left.
+     * @param xCoordinate current x position
+     * @param yCoordinate current y position
+     * @param velx x velocity
+     * @return 
+     */
     public double leftCollisionInAdvance(double xCoordinate, double yCoordinate, double velx){
         
         for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
@@ -186,7 +212,13 @@ public class WallCollisionChecker {
     }
     
     
-    
+    /**
+     * Tells a character how many pixels to move in the next time frame without entering a wall while moving right.
+     * @param xCoordinate current x position
+     * @param yCoordinate current y position
+     * @param velx x velocity
+     * @return 
+     */
     public double rightCollisionInAdvance(double xCoordinate, double yCoordinate, double velx){
         
         for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
@@ -210,7 +242,13 @@ public class WallCollisionChecker {
     }
     
     
-    
+    /**
+     * Tells a character how many pixels to move in the next time frame without entering a wall while moving up.
+     * @param xCoordinate current x position
+     * @param yCoordinate current y position
+     * @param velx x velocity
+     * @return 
+     */
     public double upCollisionInAdvance(double xCoordinate, double yCoordinate, double vely){
         
         for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
@@ -234,11 +272,17 @@ public class WallCollisionChecker {
         
     }
     
-    
-     public double downCollisionInAdvance(double xCoordinate, double yCoordinate, double vely){
-         
+    /**
+     * Tells a character how many pixels to move in the next time frame without entering a wall while moving down.
+     * @param xCoordinate current x position
+     * @param yCoordinate current y position
+     * @param velx x velocity
+     * @return 
+     */
+    public double downCollisionInAdvance(double xCoordinate, double yCoordinate, double vely){
+
         for(loopCounter=0;loopCounter<wallCoordinatesArray.size();loopCounter++){
-            
+
             leftEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate();
             rightEdgeOfWall=wallCoordinatesArray.get(loopCounter).getXCoordinate()+sizeOfWalls;
             topEdgeOfWall=wallCoordinatesArray.get(loopCounter).getYCoordinate();
@@ -246,14 +290,14 @@ public class WallCollisionChecker {
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
             distanceFromWall=topEdgeOfWall-bottomEdgeOfCharacter;
-            
+
             if(distanceFromWall>=0&&distanceFromWall<vely){
                 if(rightEdgeOfCharacter>leftEdgeOfWall&&leftEdgeOfCharacter<rightEdgeOfWall){
                     return distanceFromWall;
                 }
             }
         }
-        
+
         for(loopCounter=0;loopCounter<ghostPenDoor.size();loopCounter++){
             leftEdgeOfWall=ghostPenDoor.get(loopCounter).getXCoordinate();
             rightEdgeOfWall=ghostPenDoor.get(loopCounter).getXCoordinate()+sizeOfWalls;
@@ -262,18 +306,17 @@ public class WallCollisionChecker {
             rightEdgeOfCharacter = xCoordinate+sizeOfCharacter;
             bottomEdgeOfCharacter=yCoordinate+sizeOfCharacter;
             distanceFromWall=topEdgeOfWall-bottomEdgeOfCharacter;
-            
+
             if(distanceFromWall>=0&&distanceFromWall<vely){
                 if(rightEdgeOfCharacter>leftEdgeOfWall&&leftEdgeOfCharacter<rightEdgeOfWall){
                     return distanceFromWall;
                 }
             } 
         }
-        
-        
+
+
         return vely;
-        
+
     }
-     
      
 }

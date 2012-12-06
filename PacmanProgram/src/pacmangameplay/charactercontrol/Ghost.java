@@ -17,7 +17,7 @@ import pacmangameplay.mazedisplay.Maze;
  */
 
 /**
- * 
+ * Character Ghost in the game. Can either be Blinky (the red one), Pinky (the pink one), Inky (the blue one) or Clyde (the orange one).
  * @author stavy92
  */
 public class Ghost {
@@ -127,7 +127,7 @@ public class Ghost {
     * @param e 
     */
    public void refresh(ActionEvent e){
-        ghostControl.setMode(mode);
+        ghostControl.setTargetTile(mode);
         ghostControl.checkTunnel(e);
         ghostControl.getPosition(position);
         setSpeed();
@@ -150,7 +150,7 @@ public class Ghost {
    }
    
    /**
-    * Sets the mode of the ghost to mode.
+    * Sets the mode of the ghost.
     * @param mode mode as integer
     */
    public void setMode(int mode){

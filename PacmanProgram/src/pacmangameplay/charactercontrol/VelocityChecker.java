@@ -11,7 +11,7 @@ import pacmangameplay.mazedisplay.Maze;
  * It will also "remember" key strokes so that Pacman will move in the specified direction
  * at the next available opportunity.
  *
- * @author Takeshi
+ * @author Kevin
  */
 public class VelocityChecker {
     

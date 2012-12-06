@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import pacmangameplay.mazedisplay.Maze;
 
 /**
- * All the characters of the Pacman game: Pacman and the Ghosts Blinky, Pinky, Inky and Clyde.
+ * Object of all the characters of the Pacman game: Pacman and the Ghosts Blinky, Pinky, Inky and Clyde.
  * @author stavy92
  */
 public class Characters {
@@ -35,6 +35,10 @@ public class Characters {
         ghosts.add(blinky);
     }
     
+    /**
+     * Draws the characters on the Game JPanel.
+     * @param g 
+     */
     public void draw(Graphics g){
         pacman.draw(g);
         blinky.draw(g);
@@ -57,8 +61,8 @@ public class Characters {
     
     /**
      * Sets the modes of all the characters.
-     * @param elroyMode Blinky's mode.
-     * @param mode Everyone else's mode.
+     * @param elroyMode Blinky's mode when "Cruise Elroy" is on.
+     * @param mode Pacman, Pinky, Inky and Clyde's mode.
      */
     public void setMode(int elroyMode, int mode){
         blinky.setMode(elroyMode);
@@ -69,7 +73,7 @@ public class Characters {
     }
     
     /**
-     * Resets characters to their starting position.
+     * Resets the characters to their starting position.
      */
     public void resetPosition(){
         pacman.resetPosition();

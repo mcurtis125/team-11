@@ -112,7 +112,7 @@ public class LevelLogic {
     public boolean checkGameOver(){
         if(characters.pacman.getLives() == 0){
             try{
-                System.out.println("GAME OVER");
+//                System.out.println("GAME OVER");
                 Thread.sleep(5000);
                 return true;
             }
@@ -203,7 +203,7 @@ public class LevelLogic {
             try{ 
                 if(modeControl.getMode()==1||modeControl.getMode()==2){
                     Thread.sleep(1500);
-                    System.out.println("LOSE LIFE");
+//                    System.out.println("LOSE LIFE");
                     resetLevel();
                     characters.pacman.loseLife();
                     wasLifeLost = true;
@@ -214,8 +214,8 @@ public class LevelLogic {
 //                    System.out.println("Eaten");
                     Thread.sleep(500);
                     ghostControl=collisionCheck.pacmanGhostCollisionCheck();
-                    ghostControl.setFrightenedAndCaughtTrue();
-                    ghostControl.becomeNonExistent();
+                    ghostControl.returnToPen();
+                    ghostControl.becomeEaten();
                 }
             }
             catch(Exception e){}
@@ -270,7 +270,7 @@ public class LevelLogic {
     }
     
     private void resetLevel(){
-        System.out.println("Resetting Level");
+//        System.out.println("Resetting Level");
         characters.resetPosition();
         modeControl.reset();
         dotCounterControl.resetLevel();

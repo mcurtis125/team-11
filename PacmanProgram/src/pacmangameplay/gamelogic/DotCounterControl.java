@@ -53,7 +53,7 @@ public class DotCounterControl {
     public void updateElroyCounter(){
         if(blinkyDotCounter.getStatus() == DotCounter.Status.enabled){
             if(blinkyDotCounter.checkIfLimitReached()){
-                System.out.println("Elroy Limit Reached: ELROY ON");
+//                System.out.println("Elroy Limit Reached: ELROY ON");
                 modeControl.cruiseElroyOn();
                 if(elroyMode<2){
                     elroyMode++;
@@ -89,7 +89,7 @@ public class DotCounterControl {
                 if(characters.ghosts.get(i).isInPen()){
                     if(ToleranceEquals.timeCheck(getLastDotTimer(),lastDotTimerLimit)){
 //                        System.out.println("LastDotTimer limit: Most preferred ghost leaves");
-                        characters.ghosts.get(i).ghostControl.setLeavePenTrue();
+                        characters.ghosts.get(i).ghostControl.leavePen();
                         startLastDotTimer();
                     }
                 }
@@ -196,11 +196,11 @@ public class DotCounterControl {
             globalDotCounter.increaseCounter();
             if(globalDotCounter.getCount() == GLOBAL_PINKY_LIMIT){
 //                System.out.println("Pinky leaves");
-                characters.ghosts.get(0).ghostControl.setLeavePenTrue();
+                characters.ghosts.get(0).ghostControl.leavePen();
             }
             else if(globalDotCounter.getCount() == GLOBAL_INKY_LIMIT){
 //                System.out.println("Inky leaves");
-                characters.ghosts.get(1).ghostControl.setLeavePenTrue();
+                characters.ghosts.get(1).ghostControl.leavePen();
             }
             else if(globalDotCounter.getCount() == GLOBAL_CLYDE_LIMIT && characters.clyde.isInPen()){
 //                System.out.println("deactivate global, enable personal");
@@ -234,7 +234,7 @@ public class DotCounterControl {
                 if(personalDotCounters.get(i).checkIfLimitReached()){
 //                    System.out.println("Ghost Limit Reached  "+i);
 //                    System.out.println(personalDotCounters.get(i).getCount());
-                    characters.ghosts.get(i).ghostControl.setLeavePenTrue();
+                    characters.ghosts.get(i).ghostControl.leavePen();
                 }
                 else{
                     personalDotCounters.get(i).increaseCounter();

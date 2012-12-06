@@ -7,7 +7,7 @@ package pacmangameplay.charactercontrol;
 import pacmangameplay.mazedisplay.Maze;
 
 /**
- *
+ * Finds the target coordinates of the Ghosts in all modes.
  * @author Kevin
  */
 public class TargetTileFinder {
@@ -19,8 +19,13 @@ public class TargetTileFinder {
         this.distance = new ShortestDistanceFinder(maze);
     }
     
-        
-    
+    /**
+     * Returns Blinky's Chase target coordinates.
+     * He targets Pacman's current tile.
+     * @param pacmanX Pacman's x coordinate
+     * @param pacmanY Pacman's y coordinate
+     * @return 
+     */
     public double[] getBlinkyChaseTarget(double pacmanX, double pacmanY){
         double[] position = new double[2];
         
@@ -31,7 +36,15 @@ public class TargetTileFinder {
         
     }
     
-    
+    /**
+     * Returns Pinky's Chase target coordinates.
+     * He targets Pacman's current tile + 4 tiles up + 4 tiles left.
+     * @param pacmanX Pacman's x coordinate
+     * @param pacmanY Pacman's y coordinate
+     * @param pacVelX Pacman's x velocity
+     * @param pacVelY Pacman's y velocity
+     * @return 
+     */
     public double[] getPinkyChaseTarget(double pacmanX, double pacmanY, double pacVelX, double pacVelY){
             double x=pacmanX+sizeOfTiles*4;
             double y=pacmanY+sizeOfTiles*4;
@@ -60,7 +73,20 @@ public class TargetTileFinder {
             return position;
         }
 
-
+    /**
+     * Returns Inky's Chase target coordinates.
+     * He needs Pac-Man's current tile/orientation and Blinky's current tile to calculate his final target. 
+     * To determine Inky's target, we must first establish an intermediate offset two tiles in front of Pac-Man in the direction he is moving. 
+     * Now imagine drawing a vector from the center of the red ghost's current tile to the center of the offset tile, then double the vector length by extending it out just as far again beyond the offset tile. 
+     * That new tile that the vector lands on is Inky's chase target tile.
+     * @param pacmanX Pacman's x coordinate
+     * @param pacmanY Pacman's y coordinate
+     * @param pacVelX Pacman's x velocity
+     * @param pacVelY Pacman's y velocity
+     * @param blinkyX Blinky's x coordinate
+     * @param blinkyY Blinky's y coordinate
+     * @return 
+     */
     public double[] getInkyChaseTarget(double pacmanX, double pacmanY, double pacVelX, double pacVelY, double blinkyX, double blinkyY){
         
         double offsetX;
@@ -121,8 +147,16 @@ public class TargetTileFinder {
         
     }
     
-    
-    
+    /**
+     * Returns Clyde's Chase target coordinates.
+     * If the distance between his current tile and Pacman's current tile is eight tiles or more, then he targets Pacman's current tile.
+     * Otherwise, he switches his target tile to the scatter target and heads back to his corner.
+     * @param pacmanX Pacman's x coordinate
+     * @param pacmanY Pacman's y coordinate
+     * @param clydeX Clyde's x coordinate
+     * @param clydeY Clyde's y coordinate
+     * @return 
+     */
     public double[] getClydeChaseTarget(double pacmanX, double pacmanY, double clydeX, double clydeY){
         
         double[] position = new double[2];
@@ -141,7 +175,10 @@ public class TargetTileFinder {
         
     }
     
-    
+    /**
+     * Returns Blinky's Scatter target coordinates. 
+     * @return top right corner of the maze 
+     */
     public double[] getBlinkyScatterTarget(){
         double[] position = new double[2];
         position[0]=400.0;
@@ -150,7 +187,10 @@ public class TargetTileFinder {
     }
     
     
-    
+    /**
+     * Returns Pinky's Scatter target coordinates.
+     * @return top left corner of the maze
+     */
     public double[] getPinkyScatterTarget(){
         double[] position = new double[2];
         position[0]=48.0;
@@ -158,7 +198,10 @@ public class TargetTileFinder {
         return position;
     }
     
-   
+    /**
+     * Returns Inky's Scatter target coordinates.
+     * @return bottom right corner of the maze
+     */
     public double[] getInkyScatterTarget(){
         double[] position = new double[2];
         position[0]=432.0;
@@ -166,6 +209,10 @@ public class TargetTileFinder {
         return position;
     }
     
+    /**
+     * Returns Clyde's Scatter target coordinates.
+     * @return bottom left corner of the maze
+     */
     public double[] getClydeScatterTarget(){
         double[] position = new double[2];
         position[0]=0.0;
@@ -173,6 +220,10 @@ public class TargetTileFinder {
         return position;
     }
     
+    /**
+     * Returns the target coordinates for returning to the ghost pen.
+     * @return point right outside the pen door
+     */
     public double[] getReturnToHomeTarget(){
         double[] position = new double[2];
         position[0]=208;
@@ -180,6 +231,10 @@ public class TargetTileFinder {
         return position;
     }
     
+    /**
+     * Returns the target coordinates for exiting the ghost pen.
+     * @return point right outside the pen door
+     */
     public double[] getLeaveHomeTarget(){
         double[] position = new double[2];
         position[0]=208;

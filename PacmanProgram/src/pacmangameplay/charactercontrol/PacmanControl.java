@@ -11,7 +11,7 @@ import pacmangameplay.mazedisplay.Maze;
 
 
 /**
- *
+ * Controller for a Pacman's movement.
  * @author stavy92
  */
 public class PacmanControl  {
@@ -33,6 +33,10 @@ public class PacmanControl  {
         resetPosition();
     }
     
+    /**
+     * Updates Pacman's position and velocities.
+     * @param e 
+     */
     public void refresh(ActionEvent e){
         validVelocityMap=velChecker.velocityCheck(x, y, velx, vely, preVelX, preVelY, keyStrokeRemember, code);
         
@@ -50,26 +54,42 @@ public class PacmanControl  {
         
     }
     
+    /**
+     * Moves Pacman up one pixel.
+     */
     public void up(){
         vely=-pacmanSpeed;
         velx=0;
     }
     
+    /**
+     * Moves Pacman down one pixel.
+     */
     public void down(){
         vely=pacmanSpeed;
         velx=0;
     }
     
+    /**
+     * Moves Pacman left one pixel.
+     */
     public void left(){
         vely=0;
         velx=-pacmanSpeed;
     }
     
+    /**
+     * Moves Pacman right one pixel.
+     */
     public void right(){
         vely=0;
         velx=pacmanSpeed;
     }
 
+    /**
+     * Gets arrow key strokes to control Pacman's movement.
+     * @param ke 
+     */
     public void control(KeyEvent ke) {
        code = ke.getKeyCode();
         
@@ -149,25 +169,18 @@ public class PacmanControl  {
         }
     }
     
+    /**
+     * Returns Pacman's position.
+     * @param pos 
+     */
     public void getPosition(double[] pos){
         pos[0] = x;
         pos[1] = y;
     }
     
-    public void getVelocity(double[] vel){
-        vel[0]=velx;
-        vel[1]=vely;
-    }
-    
-    public double getPacmanSpeed(){
-        return pacmanSpeed;
-    }
-    
-    public void setPacmanSpeed(double pacmanSpeed){
-        this.pacmanSpeed=pacmanSpeed;
-    }
-    
-    
+    /**
+     * Resets Pacman's position.
+     */
     public void resetPosition(){
         x=217;
         y=417;
@@ -179,6 +192,19 @@ public class PacmanControl  {
         keyStrokeRemember=0;   
     }
     
+    /**
+     * Returns Pacman's x and y velocities.
+     * @param vel 
+     */
+    public void getVelocity(double[] vel){
+        vel[0]=velx;
+        vel[1]=vely;
+    }
+    
+    /**
+     * Returns Pacman's direction.
+     * @return direction as integer
+     */
     public int getDirection(){
         
         if(vely>0&&!walls.isOccupiedByWallMovingUp(x,y)&&!walls.isOccupiedByWallMovingUp(x,y-1)){
@@ -199,5 +225,21 @@ public class PacmanControl  {
         
         return direction;
          
+    }
+    
+    /**
+     * Returns Pacman's speed.
+     * @return 
+     */
+    public double getPacmanSpeed(){
+        return pacmanSpeed;
+    }
+    
+    /**
+     * Sets Pacman's speed.
+     * @param pacmanSpeed 
+     */
+    public void setPacmanSpeed(double pacmanSpeed){
+        this.pacmanSpeed=pacmanSpeed;
     }
 }

@@ -9,7 +9,7 @@ import java.awt.geom.*;
 import pacmangameplay.mazedisplay.Maze;
 
 /**
- * 
+ * Pacman character.
  * @author Kevin
  */
 
@@ -42,7 +42,7 @@ public class Pacman{
     }
     
     /**
-     * Paints pacman with the mouth in the right direction.
+     * Paints Pacman on the JPanel with the mouth in the right direction.
      * @param g 
      */
     public void draw(Graphics g){

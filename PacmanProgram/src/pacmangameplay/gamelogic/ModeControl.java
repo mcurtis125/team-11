@@ -79,12 +79,12 @@ public class ModeControl {
         if(!frightOn){
             //scatter mode at appropriate times
             if(isScatterTime()){
-                System.out.println(getScatChaseTimer());
+//                System.out.println(getScatChaseTimer());
                 scatterMode();
             }
             //chase mode at appropriate times
             else if(isChaseTime())  {
-                System.out.println(getScatChaseTimer());
+//                System.out.println(getScatChaseTimer());
                 chaseMode();
             }
 
@@ -97,7 +97,7 @@ public class ModeControl {
                 if(prevElroyMode ==4){
                     cruiseElroyOn();
                 }
-                System.out.println(""+getScatChaseTimer());
+//                System.out.println(""+getScatChaseTimer());
 //                System.out.println("CHANGING BACK");
                 setMode();
 //                System.out.println(""+mode);
@@ -204,7 +204,7 @@ public class ModeControl {
         mode = 3;
         int i;
         for(i=0;i<characters.ghosts.size();i++){
-            characters.ghosts.get(i).ghostControl.becomeBlue();
+            characters.ghosts.get(i).ghostControl.turnBlue();
         }
         cruiseElroyOff();
         setMode();
