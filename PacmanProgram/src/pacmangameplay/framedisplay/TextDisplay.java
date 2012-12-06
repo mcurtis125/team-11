@@ -10,14 +10,13 @@ import java.awt.Graphics2D;
 import java.awt.Font;
 import pacmangameplay.gamelogic.LevelLogic;
 
-/**
- *
- * @author ChanWoo
- * @author stavy92
- * 
+/** 
  * TextDisplay class draws necessary strings on game play GUI panel
  * It enables to write number of lives left, level, 
  * and static strings like "Score", "Lives", etc
+ *
+ * @author ChanWoo
+ * @author stavy92
  * 
  */
 public class TextDisplay {
@@ -32,7 +31,7 @@ public class TextDisplay {
     
     /**
      * 
-     * Paints all in-game text except the score.
+     * Paints all frame text except the score.
      * 
      * @param g 
      * 

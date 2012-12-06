@@ -7,7 +7,7 @@ package pacmanlogin;
 import java.util.Arrays;
 
 /**
- * The GetLoginInfoClass (String username,String password,String displayname, int[] Scores ,String securityquestion, String securityanswer,int maxlevel)
+ * All the information of one user.
  * @author xchen82
  * @author ChanWoo
  */
@@ -50,6 +50,10 @@ public class GetLoginInfo{
 		this.score[9]=UserScore[0];
 	}
 
+        /**
+         * Adds a new score in a user's personal top 10 if it's high enough.
+         * @param NewScore 
+         */
 	public void AddNewScore(int NewScore){
 		int[] CurrentScore={this.score[0],this.score[1],this.score[2],this.score[3],this.score[4],this.score[5],this.score[6],this.score[7],this.score[8],this.score[9]};
 		for (int i=0;i<10;i++){
@@ -76,42 +80,86 @@ public class GetLoginInfo{
 		}
 	}
 
+        /**
+         * Changes the user's max level reached.
+         * @param NewMaxLevel 
+         */
 	public void AddNewMaxLevel(int NewMaxLevel){
 		this.maxlevel=NewMaxLevel;
 	}
 
+        /**
+         * Changes the user's password.
+         * @param NewPassWord 
+         */
 	public void ChangePassWord(String NewPassWord){
 		this.password=NewPassWord;
 	}
 
+        /**
+         * Changes the user's display name.
+         * @param NewDisplayName 
+         */
 	public void ChangeDisplayName(String NewDisplayName){
 		this.displayname=NewDisplayName;
 	}
 
 
+        /**
+         * Returns the user's username.
+         * @return 
+         */
 	public String GetUserName(){
             return username;
         }
+        /**
+         * Returns the user's password.
+         * @return 
+         */
 	public String GetPassWord(){
             return password;
         }
+        /**
+         * Returns the user's display name.
+         * @return 
+         */
 	public String GetDisplayName(){
             return displayname;
         }
 
+        /**
+         * Returns the user's security question.
+         * @return 
+         */
 	public String GetSecurityQuestion(){
             return securityquestion;
         }
+        /**
+         * Returns the user's security answer.
+         * @return 
+         */
 	public String GetSecurityAnswer(){
             return securityanswer;
         }
+        /**
+         * Returns the user's max level reached.
+         * @return 
+         */
 	public int GetMaxLevel(){
             return maxlevel;
         }
 
+        /**
+         * Returns the user's trop score.
+         * @return 
+         */
 	public int GetScore(int i){
             return score[i];
         }
+        /**
+         * Returns the user's top score as a string.
+         * @return 
+         */
 	public String GetScoreS(int i){
             return Integer.toString(score[i]);
         }

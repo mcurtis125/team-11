@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * Creates, edits and deletes users.
  * @author xchen82
  * @author ChanWoo
  * 
@@ -15,10 +15,16 @@ import java.util.Scanner;
 
 public class ProfileManagement {
 
-	/**
-	 *This class will create a user, its default maxlevel is 0
-	 *this is a boolean, it will return false if the creation failed,true if the created succeed
-	 */
+    /**
+     * Creates a user with default max level 1.
+     * @param username
+     * @param password
+     * @param displayname
+     * @param securityquestion
+     * @param securityanswer
+     * @param filename
+     * @return false if creation failed, true if creation succeeded
+     */
 	public static boolean create(String username, String password, String displayname, String securityquestion,String securityanswer,String filename){
 
 		ArrayList<GetLoginInfo> UserList=GetUserInfo.getuserinfo(filename);
@@ -65,7 +71,7 @@ public class ProfileManagement {
 	}
 
 	/**
-	 *This class will remove a specific user
+	 *Removes a specific user
 	 */
 	public static void remove(String username, String password, String securityAnswer, String FilePath){
 
@@ -82,8 +88,12 @@ public class ProfileManagement {
 	}
 
 	/**
-	 *This class can change the password of a specific user
-	 */
+         * Changes the password of a specific user
+         * @param username
+         * @param password
+         * @param NewPW
+         * @param FilePath 
+         */
 	public static void ChangePW(String username,String password,String NewPW,String FilePath){
 
 		ArrayList<GetLoginInfo> UserList=GetUserInfo.getuserinfo(FilePath);
@@ -101,8 +111,12 @@ public class ProfileManagement {
 	}
 
 	/**
-	 *This class can change the display name of a specific user
-	 */
+         * This class can change the display name of a specific user
+         * @param username
+         * @param password
+         * @param NewDN
+         * @param FilePath 
+         */
 	public static void ChangeDN(String username,String password,String NewDN,String FilePath){
 
 		ArrayList<GetLoginInfo> UserList=GetUserInfo.getuserinfo(FilePath);

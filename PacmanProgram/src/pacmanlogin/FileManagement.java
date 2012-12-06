@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- *
+ * Creates, reads from and writes to the file that stores all user info.
  * @author xchen82
  * @author ChanWoo
  */
