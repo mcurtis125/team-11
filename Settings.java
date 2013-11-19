@@ -1,6 +1,6 @@
 public class Settings {
         public void setSpeed() {
-                
+         //sets speed        
         }
         public void loadMap() {
                 
