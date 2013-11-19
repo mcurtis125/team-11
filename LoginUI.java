@@ -1,16 +1,4 @@
 import javax.swing.JPanel;
-import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JPasswordField;
-import java.awt.*;
  
  
 public class LoginUI extends JPanel implements ActionListener{
@@ -28,6 +16,12 @@ public class LoginUI extends JPanel implements ActionListener{
     boolean u2Verified = false;
  
     private CSV csv;
+    private JLabel lblPass1U1;
+    private JLabel lblPass2U1;
+    private JLabel lblPass1U2;
+    private JLabel lblPass2U2;
+    private JLabel lblUserFail1;
+    private JLabel lblUserFail2;
      
     public LoginUI(Control control, CSV csv) {
         this.csv = csv;
@@ -71,7 +65,7 @@ public class LoginUI extends JPanel implements ActionListener{
         add(btnCreateU2);
          
         this.btnBegin = new JButton("BEGIN");
-        btnBegin.setBounds(240, 515, 117, 29);
+        btnBegin.setBounds(246, 652, 117, 29);
         this.btnBegin.addActionListener(this);
         this.btnBegin.setEnabled(false);
         this.add(btnBegin);
@@ -135,10 +129,41 @@ public class LoginUI extends JPanel implements ActionListener{
         lblExistsU2.setBounds(408, 468, 155, 16);
         lblExistsU2.setVisible(false);
         add(lblExistsU2);
+        
+        lblPass1U1 = new JLabel("Password Must Contain Upper case,");
+        lblPass1U1.setBounds(55, 494, 238, 16);
+        lblPass1U1.setVisible(false);
+        add(lblPass1U1);
+        
+        lblPass2U1 = new JLabel("Lower Case, Number, and Symbol");
+        lblPass2U1.setBounds(55, 508, 230, 16);
+        lblPass2U1.setVisible(false);
+        add(lblPass2U1);
+        
+        lblPass1U2 = new JLabel("Password Must Contain Upper case,");
+        lblPass1U2.setBounds(340, 496, 238, 16);
+        lblPass1U2.setVisible(false);
+        add(lblPass1U2);
+        
+        lblPass2U2 = new JLabel("Lower Case, Number, and Symbol");
+        lblPass2U2.setBounds(353, 508, 230, 16);
+        lblPass2U2.setVisible(false);
+        add(lblPass2U2);
+        
+        lblUserFail1 = new JLabel("Username Is Only Alphanumerics");
+        lblUserFail1.setBounds(55, 533, 216, 16);
+        lblUserFail1.setVisible(false);
+        add(lblUserFail1);
+        
+        lblUserFail2 = new JLabel("Username Is Only Alphanumerics");
+        lblUserFail2.setBounds(350, 533, 216, 16);
+        lblUserFail2.setVisible(false);
+        add(lblUserFail2);
     }
      
     @Override
     public void actionPerformed( ActionEvent e ) {
+    	int result;
         Object src = e.getSource();
           if( src == btnBegin ) {
              control.change("SETTINGS");
@@ -165,20 +190,61 @@ public class LoginUI extends JPanel implements ActionListener{
                   lblExistsU2.setVisible(false);
               }
           } else if (src == btnCreateU1) {
-              if (csv.addAccount(textField.getText(), passwordFieldU1.getText())) {
+        	  result = csv.addAccount(textField.getText(), passwordFieldU1.getText());
+              if ( result == 3) {
             	  u1Verified = true;
             	  lblSuccess1.setVisible(true);
             	  lblExistsU1.setVisible(false);
-              } else {
+            	  lblUserFail1.setVisible(false);
+            	  lblPass1U1.setVisible(false);
+                  lblPass2U1.setVisible(false);
+              } else if (result == 2) {
+            	  lblPass1U1.setVisible(true);
+            	  lblPass2U1.setVisible(true);
+            	  lblSuccess1.setVisible(false);
+            	  lblExistsU1.setVisible(false);
+            	  lblUserFail1.setVisible(false);
+              } else if (result == 1) {
             	  lblExistsU1.setVisible(true);
+            	  lblPass1U1.setVisible(false);
+            	  lblPass2U1.setVisible(false);
+            	  lblSuccess1.setVisible(false);
+            	  lblUserFail1.setVisible(false);
+              } else {
+            	  lblUserFail1.setVisible(true);
+            	  lblExistsU1.setVisible(false);
+            	  lblPass1U1.setVisible(false);
+            	  lblPass2U1.setVisible(false);
+            	  lblSuccess1.setVisible(false);
               }
+             
           } else if (src == btnCreateU2) {
-        	  if (csv.addAccount(textField.getText(), passwordFieldU2.getText())) {
+        	  result = csv.addAccount(textField.getText(), passwordFieldU2.getText());
+        	  if ( result == 3) {
             	  u2Verified = true;
             	  lblSuccess2.setVisible(true);
             	  lblExistsU2.setVisible(false);
-              } else {
+            	  lblUserFail2.setVisible(false);
+            	  lblPass1U2.setVisible(false);
+                  lblPass2U2.setVisible(false);
+              } else if (result == 2) {
+            	  lblPass1U2.setVisible(true);
+            	  lblPass2U2.setVisible(true);
+            	  lblSuccess2.setVisible(false);
+            	  lblExistsU2.setVisible(false);
+            	  lblUserFail2.setVisible(false);
+              } else if (result == 1) {
             	  lblExistsU2.setVisible(true);
+            	  lblPass1U2.setVisible(false);
+            	  lblPass2U2.setVisible(false);
+            	  lblSuccess2.setVisible(false);
+            	  lblUserFail2.setVisible(false);
+              } else {
+            	  lblUserFail2.setVisible(true);
+            	  lblExistsU2.setVisible(false);
+            	  lblPass1U2.setVisible(false);
+            	  lblPass2U2.setVisible(false);
+            	  lblSuccess2.setVisible(false);
               }
           } 
            
@@ -202,6 +268,12 @@ public class LoginUI extends JPanel implements ActionListener{
         lblFail2.setVisible(false);
         lblExistsU1.setVisible(false);
         lblExistsU2.setVisible(false);
+        lblUserFail1.setVisible(false);
+        lblUserFail2.setVisible(false);
+        lblPass1U1.setVisible(false);
+        lblPass1U2.setVisible(false);
+        lblPass2U1.setVisible(false);
+        lblPass2U2.setVisible(false);
          
     }
 }
