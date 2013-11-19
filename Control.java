@@ -1,28 +1,34 @@
 import javax.swing.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class Control {
  
     private JPanel cards;
     private CardLayout layout;
-    private GameplayUI gamePlay;
+    private GamePlayUI gamePlay;
     private LoginUI card1;
+    private Stats statistics;
+    private CSV csv;
 
     public void addComponentToPane(Container pane) {
        //this.gamePlay = new GameplayUI();
        //gamePlay.init();
        //gamePlay.start();
-    	CSV csv = new CSV();
+    	this.csv = new CSV();
  
     	this.card1 = new LoginUI(this, csv);
  
         //SettingsUI card2 = new SettingsUI(this, gamePlay);
-        StatisticsUI card3 = new StatisticsUI(this);
+    	this.statistics = new Stats(csv);
+        StatisticsUI card3 = new StatisticsUI(this, statistics);
+        
  
  
         cards=new JPanel(new CardLayout());
         cards.add(card1, "LOGIN");
-        //cards.add(card2, "SETTINGS");
+//        cards.add(card2, "SETTINGS");
         cards.add(card3, "STATISTICS");
  
         pane.add(cards, BorderLayout.CENTER);
@@ -54,6 +60,13 @@ public class Control {
     		cards.add(card2, "SETTINGS");
     	} else if (newPage.equals("LOGIN")) {
     		card1.resetLogins();
+    	} else if (newPage.equals("STATISTICS")) {
+    		csv = new CSV();
+    		statistics = new Stats(csv);
+    		StatisticsUI card3 = new StatisticsUI(this, statistics);
+    		cards.add(card3, "STATISTICS");
+    		
+    		System.out.println("test");
     	}
         layout.show(cards, newPage);
         cards.revalidate();
