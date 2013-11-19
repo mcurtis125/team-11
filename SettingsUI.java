@@ -1,27 +1,39 @@
 import javax.swing.JPanel;
+
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
+import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
+
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 
 public class SettingsUI extends JPanel implements ActionListener {
 	private JTable table;
 	private JTable table_1;
-	private StringFrame stringFrame;
+	private Control control;
 	private JButton btnLogout;
 	private JButton btnPlay;
-	private GameplayUI gamePlay;
+	private GamePlayUI gamePlay;
 	private User user1;
 	private User user2;
 	
-	public SettingsUI(StringFrame frame, GameplayUI gamePlay) {
+    private BufferedImage bi; 
+    private Graphics2D mapStroke;
+	
+	public SettingsUI(Control cont, GamePlayUI gamePlay) {
 		this.gamePlay = gamePlay;
-		this.stringFrame = frame;
+		this.control = cont;
 		setBackground(Color.CYAN);
 		setLayout(null);
 		
@@ -35,13 +47,14 @@ public class SettingsUI extends JPanel implements ActionListener {
 		label.setBounds(54, 119, 61, 16);
 		add(label);
 		
-		JLabel lblPlayer = new JLabel(stringFrame.getUser1());
+		/*JLabel lblPlayer = new JLabel(control.getUser1());
 		lblPlayer.setBounds(54, 147, 61, 16);
 		add(lblPlayer);
 		
-		JLabel lblPlayer_1 = new JLabel(stringFrame.getUser2());
+		JLabel lblPlayer_1 = new JLabel(control.getUser2());
 		lblPlayer_1.setBounds(504, 147, 61, 16);
 		add(lblPlayer_1);
+		*/
 		
 		table = new JTable();
 		table.setBounds(419, 250, 141, 170);
@@ -63,13 +76,19 @@ public class SettingsUI extends JPanel implements ActionListener {
 		rdbtnSlow.setBounds(254, 367, 141, 23);
 		add(rdbtnSlow);
 		
+		JRadioButton rdbtnMedium = new JRadioButton("Medium");
+		rdbtnMedium.setBounds(254, 397, 141, 23);
+		add(rdbtnMedium);
+		
 		JRadioButton rdbtnFast = new JRadioButton("Fast");
 		rdbtnFast.setBounds(254, 429, 141, 23);
 		add(rdbtnFast);
 		
-		JRadioButton rdbtnMedium = new JRadioButton("Medium");
-		rdbtnMedium.setBounds(254, 397, 141, 23);
-		add(rdbtnMedium);
+		//so you can only choose 1 speed button at a time
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnSlow);
+		group.add(rdbtnMedium);
+		group.add(rdbtnFast);
 		
 		JRadioButton rdbtnMap = new JRadioButton("Map 1");
 		rdbtnMap.setBounds(255, 236, 141, 23);
@@ -82,6 +101,12 @@ public class SettingsUI extends JPanel implements ActionListener {
 		JRadioButton rdbtnMap_2 = new JRadioButton("Map 3");
 		rdbtnMap_2.setBounds(254, 306, 141, 23);
 		add(rdbtnMap_2);
+		
+		//so you can only choose 1 maps button at a time
+		ButtonGroup mapGroup = new ButtonGroup();
+		mapGroup.add(rdbtnMap);
+		mapGroup.add(rdbtnMap_1);
+		mapGroup.add(rdbtnMap_2);
 		
 		this.btnLogout = new JButton("Logout");
 		btnLogout.setBounds(6, 6, 117, 29);
@@ -97,13 +122,21 @@ public class SettingsUI extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed( ActionEvent e ) {
 		Object src = e.getSource();
-	      if( src == btnLogout ) {
-	         stringFrame.change("LOGIN");
+	      if ( src == btnLogout ) {
+	         control.change("LOGIN");
 	      } else if (src == btnPlay) {
-	    	  //gamePlay.init();
-	    	  //gamePlay.start();
-	    	  //this.setVisible(false);
-	    	  //System.exit(0);
+	    	  GamePlayUI gameApplet = new GamePlayUI(); 
+	    	  JPanel container = new JPanel();
+	    	  container.setLayout(new GridLayout(1,0));
+	    	  container.add(gameApplet); //Display Applet
+	    	  
+	    	  add(container);
+
+	    	  gameApplet.init();
+	    	  gameApplet.start();
+	    	  gameApplet.requestFocus();		//necessary to set focus
+	    	  gameApplet.setFocusable(true);
+
 	      }
 	}
 }
