@@ -25,6 +25,9 @@ public class CSV {
 
 		try {
 		    File file = new File(filePath);
+		    if (!file.exists()) {
+		    	file.createNewFile();
+		    }
 		    reader = new BufferedReader(new FileReader(file));
 
 		    String line;
@@ -43,10 +46,9 @@ public class CSV {
 		        e.printStackTrace();
 		    }
 		}
-		System.out.println("false");
+		//System.out.println("false");
 		return false;
 	}
-	
 	/*
 	 * username: ASCII alphanumeric characters only
 	 * password: Minimum 8 characters, one lowercase, one uppercase, 
@@ -65,7 +67,7 @@ public class CSV {
 			return 1;
 		}
 		
-		if (password.length() < 8 || passwordRequirements(password)) {
+		if (password.length() < 8 || !passwordRequirements(password)) {
 			return 2;
 		}
 
@@ -119,7 +121,11 @@ public class CSV {
 				hasSymbol = true;
 			}
 		}
-		
+		System.out.println(hasNum);
+		System.out.println(hasUpper);
+		System.out.println(hasLower);
+		System.out.println(hasSymbol);
+		System.out.println(hasNum && hasUpper && hasLower && hasSymbol);
 		return (hasNum && hasUpper && hasLower && hasSymbol);
 	}
 	
@@ -128,6 +134,9 @@ public class CSV {
 		BufferedReader reader = null;
 		try {
 		    File file = new File(filePath);
+		    if (!file.exists()) {
+		    	file.createNewFile();
+		    }
 		    reader = new BufferedReader(new FileReader(file));
 
 		    String line;
@@ -164,4 +173,3 @@ public class CSV {
 		return tmp;
 	}
 }
-
