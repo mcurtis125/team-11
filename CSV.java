@@ -47,13 +47,26 @@ public class CSV {
 		return false;
 	}
 	
-	public boolean addAccount(String username, String password) {
+	/*
+	 * username: ASCII alphanumeric characters only
+	 * password: Minimum 8 characters, one lowercase, one uppercase, 
+	 * one digit, and one nonalphanumeric character
+	 * 
+	 * returns 0 for bad username, 1 if username already exists,
+	 * 2 for bad password, 3 for success
+	 */
+	public int addAccount(String username, String password) {
+		
+		if (!isAlphaNumeric(username)) {
+			return 0;
+		}
 		
 		if (verifyAccount(username, "")) {
-			return false;
+			return 1;
 		}
-		if (password.length() < 8) {
-			return false;
+		
+		if (password.length() < 8 || passwordRequirements(password)) {
+			return 2;
 		}
 
 		try{
@@ -77,7 +90,37 @@ public class CSV {
     	}catch(IOException e){
     		e.printStackTrace();
     	}
-		return true;
+		return 3;
+	}
+	
+	private boolean isAlphaNumeric(String s){
+	    String pattern= "^[a-zA-Z0-9]*$";
+	        if(s.matches(pattern)){
+	            return true;
+	        }
+	        return false;   
+	}
+	
+	private boolean passwordRequirements(String pass) {
+		int current;
+		boolean hasNum = false;
+		boolean hasUpper = false;
+		boolean hasLower = false;
+		boolean hasSymbol = false;
+		for (int i = 0; i < pass.length(); i++) {
+			current = pass.charAt(i);
+			if (current < 58 && current > 47) {
+				hasNum = true;
+			} else if (current > 64 && current < 91)  {
+				hasUpper = true;
+			} else if (current > 96 && current < 123) {
+				hasLower = true;
+			} else if (current > 32 && current < 127) {
+				hasSymbol = true;
+			}
+		}
+		
+		return (hasNum && hasUpper && hasLower && hasSymbol);
 	}
 	
 	//method to return stats from Database.csv
