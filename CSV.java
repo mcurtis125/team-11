@@ -148,6 +148,11 @@ public class CSV {
 				statsList.add(line.split(seperator));
 				numLines++;
 		    }
+			//return that no data is present if numLines = 0
+			if(numLines == 0) {
+				String[][] tmp = {{" "," "," "}};
+				return tmp;
+			}
 			//create and fill 2d array, length - 1 to exclude password information
 			String[][] statsArray = new String[numLines][statsList.get(0).length - 1];
 			//fill each row
@@ -169,7 +174,7 @@ public class CSV {
 		    }
 		}
 		//tmp output
-		String[][] tmp = {{"file"}, {"could"},{"not be", "read"}};
+		String[][] tmp = {{" "," "," "}};
 		return tmp;
 	}
 }
